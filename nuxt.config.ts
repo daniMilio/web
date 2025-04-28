@@ -2,12 +2,12 @@
 
 const sw = process.env.SW === "true";
 
-const title = "5Stack | Counter-Strike Management System";
+const title = "CSBHack | CS2";
 const description =
-  "A Comprehensive Panel for Managing Servers, Matches, and Tournaments";
+  "CS2 Portal for CSBHack Summer 2025";
 
 // TODO - i tired to get SSO to work but it wont
-const url = `https://5stack.gg`;
+const url = `https://cs2.se`;
 
 export default defineNuxtConfig({
   ssr: false,
@@ -21,13 +21,13 @@ export default defineNuxtConfig({
         { name: "robots", content: "index, follow" },
         { name: "title", content: title },
         { name: "description", content: description },
-        { name: "site_name", content: "5Stack" },
+        { name: "site_name", content: "CS2" },
 
         { property: "og:locale", content: "en" },
         { property: "og:type", content: "website" },
 
         { property: "og:title", content: title },
-        { property: "og:site_name", content: "5Stack" },
+        { property: "og:site_name", content: "CS2" },
 
         { property: "og:url", content: url },
         { property: "og:image", content: `${url}/_ipx/_/favicon/512.png` },
@@ -132,8 +132,8 @@ export default defineNuxtConfig({
       enabled: true,
     },
     manifest: {
-      name: "5stack",
-      short_name: "5stack",
+      name: "cs2",
+      short_name: "cs2",
       icons: [
         {
           src: "/favicon/64.png",

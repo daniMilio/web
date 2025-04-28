@@ -431,7 +431,7 @@ const handleLocaleChange = (newLocale: string) => {
                             :key="loc.code"
                             :value="loc.code"
                           >
-                            {{ loc.flag }} {{ loc.name }} ({{ loc.code }})
+                            {{ loc.flag }} {{ loc.name }}
                           </SelectItem>
                         </SelectGroup>
                       </SelectContent>
