@@ -378,42 +378,7 @@ const handleLocaleChange = (newLocale: string) => {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
-          <SidebarMenuItem
-            v-if="me?.role === e_player_roles_enum.administrator"
-          >
-            <SidebarMenuButton
-              as-child
-              :tooltip="$t('layouts.app_nav.tooltips.report_issue')"
-            >
-              <a
-                href="https://github.com/5stackgg/5stack-panel/issues"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-muted-foreground transition-colors hover:text-foreground"
-              >
-                <GithubLogoIcon class="w-5 h-5" />
-                {{ $t("layouts.app_nav.footer.report_issue") }}
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              as-child
-              :tooltip="$t('layouts.app_nav.tooltips.join_discord')"
-            >
-              <a
-                :href="inviteLink"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-muted-foreground transition-colors hover:text-foreground"
-              >
-                <DiscordLogoIcon class="w-5 h-5" />
-                {{ $t("layouts.app_nav.footer.join_discord") }}
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
+          
           <InstallPWA />
 
           <SidebarMenuItem>
@@ -434,7 +399,6 @@ const handleLocaleChange = (newLocale: string) => {
                   </Avatar>
                   <div class="grid flex-1 text-left text-sm leading-tight">
                     <span class="truncate font-semibold">{{ me.name }}</span>
-                    <span class="truncate text-xs">{{ me.steam_id }}</span>
                   </div>
 
                   <ChevronsUpDownIcon class="ml-auto size-4" />
