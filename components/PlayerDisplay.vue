@@ -158,7 +158,7 @@ export default {
     },
     showSteamId: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     linkable: {
       type: Boolean,

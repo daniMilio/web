@@ -114,7 +114,6 @@ const handleLocaleChange = (newLocale: string) => {
                 >
                   <TournamentBracket />
                   {{ $t("layouts.app_nav.navigation.tournaments") }}
-                  <Badge variant="destructive" class="ml-2">alpha</Badge>
                 </NuxtLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -378,7 +377,7 @@ const handleLocaleChange = (newLocale: string) => {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
-          
+
           <InstallPWA />
 
           <SidebarMenuItem>
