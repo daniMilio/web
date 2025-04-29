@@ -132,8 +132,8 @@ export default defineNuxtConfig({
       enabled: true,
     },
     manifest: {
-      name: "cs2",
-      short_name: "cs2",
+      name: "CSBHack CS2 Portal",
+      short_name: "CSBHack CS2",
       icons: [
         {
           src: "/favicon/64.png",
