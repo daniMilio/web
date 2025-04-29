@@ -82,6 +82,16 @@
         "players": {
           "force_name_registration": "Force Player Name Registration",
           "force_name_registration_description": "If forced to have player registration, the player will be required to submit a name that will be used on the platform."
+        },
+        "s3": {
+          "update": "Update",
+          "title": "Demo Settings",
+          "min_retention": "Minimum Retention",
+          "max_storage": "Maximum Storage",
+          "cloudflare_worker_url": "Cloudflare Worker URL",
+          "max_storage_description": "The maximum storage size for the demo files in GB.",
+          "cloudflare_worker_url_description": "The URL of the Cloudflare worker that will be used to store and retrieve the demo files.",
+          "min_retention_description": "The minimum retention days for the demo files."
         }
       }
     },
