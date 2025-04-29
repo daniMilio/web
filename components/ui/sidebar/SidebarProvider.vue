@@ -18,7 +18,7 @@ const emits = defineEmits<{
   'update:open': [open: boolean]
 }>()
 
-const isMedium = useMediaQuery("(max-width: 1775px)");
+const isMedium = useMediaQuery("(max-width: 1400px)");
 const isMobile = useMediaQuery('(max-width: 768px)')
 const openMobile = ref(false)
 
