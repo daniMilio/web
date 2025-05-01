@@ -57,6 +57,12 @@
         "dark": "Dark"
       },
       "application": {
+        "telemetry": {
+          "title": "Telemetry",
+          "telemetry": "Telemetry",
+          "telemetry_description": "Help improve 5stack by sharing anonymous usage data.",
+          "update": "Telemetry settings updated"
+        },
         "matchmaking": {
           "title": "Matchmaking",
           "description": "Matchmaking allows players to join a queue and be matched with other players."
@@ -82,6 +88,14 @@
         "players": {
           "force_name_registration": "Force Player Name Registration",
           "force_name_registration_description": "If forced to have player registration, the player will be required to submit a name that will be used on the platform."
+        },
+        "servers": {
+          "title": "Server Settings",
+          "enable_cpu_pinning": "Enable CPU Pinning",
+          "enable_cpu_pinning_description": "Enable CPU pinning for better performance",
+          "number_of_cpus_per_server": "Number of CPUs per Server",
+          "number_of_cpus_per_server_description": "Number of CPUs to allocate per server",
+          "update": "Update"
         },
         "s3": {
           "update": "Update",
@@ -942,7 +956,8 @@
       "invite_to_lobby": "Invite to Lobby",
       "remove": "Remove Friend",
       "join_lobby": "Join Lobby",
-      "offline": "Offline"
+      "offline": "Offline",
+      "view_profile": "View Profile"
     },
     "leave": "Leave",
     "position": "Current Position",

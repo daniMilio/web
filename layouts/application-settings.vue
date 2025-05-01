@@ -68,6 +68,16 @@ export default {
           key: "s3",
           to: "/settings/application/s3",
         },
+        {
+          title: this.$t("pages.settings.application.servers.title"),
+          key: "servers",
+          to: "/settings/application/servers",
+        },
+        {
+          title: this.$t("pages.settings.application.telemetry.title"),
+          key: "telemetry",
+          to: "/settings/application/telemetry",
+        },
       ],
     };
   },
