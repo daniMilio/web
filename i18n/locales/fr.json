@@ -17,7 +17,6 @@
         "coming_soon": "Bientôt disponible !",
         "tournaments": {
             "title": "Tournois à venir",
-            "admin_disabled": "La création de tournois a été désactivée par l'administrateur",
             "create": "Créer un tournoi",
             "tabs": {
                 "tournaments": "Tournois",
@@ -106,7 +105,8 @@
                     "telemetry": "Télémétrie",
                     "telemetry_description": "Aidez à améliorer 5stack en partageant des données d'utilisation anonymes.",
                     "update": "Paramètres de télémétrie mis à jour"
-                }
+                },
+                "matchmaking_min_role": "Rôle minimum autorisé à s'associer à la prise de correspondance"
             }
         },
         "regions": {
@@ -146,7 +146,6 @@
         "play": {
             "title": "Jouer",
             "description": "Démarrer un match",
-            "admin_disabled": "La création de matchs a été désactivée par l'administrateur",
             "create_match": "Créer",
             "open_matches": {
                 "title": "Matchs ouverts",
@@ -159,7 +158,6 @@
         "matches": {
             "title": "Matchs",
             "description": "Gestion des matchs",
-            "admin_disabled": "La création de matchs a été désactivée par l'administrateur",
             "create": "Créer",
             "last_ten_wins": "Derniers 10 matchs gagnés",
             "last_ten_losses": "Derniers 10 matchs perdus",
@@ -570,11 +568,8 @@
             "switch_teams": "Changer d'équipe",
             "remove_from_lineup": "Retirer de la composition",
             "leave_lineup": "Quitter la composition",
-            "kills": "Kills",
             "kills_full": "Kills",
-            "assists": "Assists",
             "assists_full": "Assists",
-            "deaths": "Morts",
             "deaths_full": "Morts",
             "kd": "K/D",
             "hs": "Headshots",

@@ -17,7 +17,6 @@
         "coming_soon": "Kommer snart!",
         "tournaments": {
             "title": "Kommande turneringar",
-            "admin_disabled": "Administratören har inaktiverat skapande av turneringar",
             "create": "Skapa turnering",
             "tabs": {
                 "tournaments": "Turneringar",
@@ -106,7 +105,8 @@
                     "telemetry": "Telemetri",
                     "telemetry_description": "Hjälp till att förbättra 5stack genom att dela anonym användningsdata.",
                     "update": "Telemetriinställningar uppdaterade"
-                }
+                },
+                "matchmaking_min_role": "Minsta roll tillåten att gå med Matchmaking"
             }
         },
         "regions": {
@@ -146,7 +146,6 @@
         "play": {
             "title": "Kommande matcher",
             "description": "Dina kommande matcher som du antingen hanterar eller är med i uppställningen.",
-            "admin_disabled": "Administratören har inaktiverat skapande av matcher",
             "create_match": "Skapa match",
             "open_matches": {
                 "title": "Öppna matcher",
@@ -159,7 +158,6 @@
         "matches": {
             "title": "Mina senaste matcher",
             "description": "Dina senaste avslutade matcher",
-            "admin_disabled": "Administratören har inaktiverat skapande av matcher",
             "create": "Skapa match",
             "last_ten_wins": "Sista 10 vinster",
             "last_ten_losses": "Sista 10 förluster",
@@ -829,11 +827,8 @@
             "switch_teams": "Byt lag",
             "remove_from_lineup": "Ta bort från uppställning",
             "leave_lineup": "Lämna uppställning",
-            "kills": "D",
             "kills_full": "Dödade",
-            "assists": "A",
             "assists_full": "Assists",
-            "deaths": "D",
             "deaths_full": "Dödsfall",
             "kd": "K/D",
             "hs": "HS%",

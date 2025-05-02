@@ -17,7 +17,6 @@
         "coming_soon": "Kommer snart!",
         "tournaments": {
             "title": "Kommende turneringer",
-            "admin_disabled": "Oprettelse af turneringer er blevet deaktiveret af administratoren",
             "create": "Opret turnering",
             "tabs": {
                 "tournaments": "Turneringer",
@@ -106,7 +105,8 @@
                     "telemetry": "Telemetri",
                     "telemetry_description": "Hjælp med at forbedre 5stack ved at dele anonyme brugsdata.",
                     "update": "Indstillinger for telemetri"
-                }
+                },
+                "matchmaking_min_role": "Minimum rolle tilladt at deltage i matchmaking"
             }
         },
         "regions": {
@@ -146,7 +146,6 @@
         "play": {
             "title": "Spil",
             "description": "Start en kamp",
-            "admin_disabled": "Oprettelse af kampe er blevet deaktiveret af administratoren",
             "create_match": "Opret",
             "open_matches": {
                 "title": "Åbne kampe",
@@ -159,7 +158,6 @@
         "matches": {
             "title": "Kampe",
             "description": "Kampadministration",
-            "admin_disabled": "Oprettelse af kampe er blevet deaktiveret af administratoren",
             "create": "Opret",
             "last_ten_wins": "Sidste 10 sejre",
             "last_ten_losses": "Sidste 10 nederlag",
@@ -570,11 +568,8 @@
             "switch_teams": "Skift hold",
             "remove_from_lineup": "Fjern fra opstilling",
             "leave_lineup": "Forlad opstilling",
-            "kills": "Kills",
             "kills_full": "Kills",
-            "assists": "Assists",
             "assists_full": "Assists",
-            "deaths": "Dødsfald",
             "deaths_full": "Dødsfald",
             "kd": "K/D",
             "hs": "Headshot",

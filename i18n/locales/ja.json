@@ -17,7 +17,6 @@
         "coming_soon": "近日公開！",
         "tournaments": {
             "title": "予定されているトーナメント",
-            "admin_disabled": "管理者がトーナメントの作成を無効にしました",
             "create": "トーナメントを作成",
             "tabs": {
                 "tournaments": "トーナメント",
@@ -106,7 +105,8 @@
                     "telemetry": "テレメトリー",
                     "telemetry_description": "匿名利用データを共有することで、5スタックの改善を支援します.",
                     "update": "テレメトリー設定更新"
-                }
+                },
+                "matchmaking_min_role": "マッチメイキングに参加できる最小限のロール"
             }
         },
         "regions": {
@@ -146,7 +146,6 @@
         "play": {
             "title": "プレイ",
             "description": "マッチを開始",
-            "admin_disabled": "管理者がマッチ作成を無効にしました",
             "create_match": "作成",
             "open_matches": {
                 "title": "オープンマッチ",
@@ -159,7 +158,6 @@
         "matches": {
             "title": "マッチ",
             "description": "マッチの管理",
-            "admin_disabled": "管理者がマッチ作成を無効にしました",
             "create": "作成",
             "last_ten_wins": "直近10試合の勝利",
             "last_ten_losses": "直近10試合の敗北",
@@ -676,11 +674,8 @@
             "switch_teams": "チームを切り替え",
             "remove_from_lineup": "ラインナップから削除",
             "leave_lineup": "ラインナップを退出",
-            "kills": "キル",
             "kills_full": "キル数",
-            "assists": "アシスト",
             "assists_full": "アシスト数",
-            "deaths": "デス",
             "deaths_full": "デス数",
             "kd": "K/D",
             "hs": "ヘッドショット",

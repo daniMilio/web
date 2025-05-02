@@ -17,7 +17,6 @@
         "coming_soon": "Demnächst verfügbar!",
         "tournaments": {
             "title": "Anstehende Turniere",
-            "admin_disabled": "Turniererstellung wurde vom Administrator deaktiviert",
             "create": "Turnier erstellen",
             "tabs": {
                 "tournaments": "Turniere",
@@ -106,7 +105,8 @@
                     "telemetry": "Telemetrie",
                     "telemetry_description": "Helfen Sie 5stack zu verbessern, indem Sie anonyme Nutzungsdaten teilen.",
                     "update": "Telemetrie-Einstellungen aktualisiert"
-                }
+                },
+                "matchmaking_min_role": "Mindeste Rolle erlaubt Matchmaking"
             }
         },
         "regions": {
@@ -146,7 +146,6 @@
         "play": {
             "title": "Spielen",
             "description": "Spiel starten",
-            "admin_disabled": "Spielerstellung wurde vom Administrator deaktiviert",
             "create_match": "Erstellen",
             "open_matches": {
                 "title": "Offene Spiele",
@@ -159,7 +158,6 @@
         "matches": {
             "title": "Spiele",
             "description": "Spielverwaltung",
-            "admin_disabled": "Spielerstellung wurde vom Administrator deaktiviert",
             "create": "Erstellen",
             "last_ten_wins": "Letzte 10 Spiele gewonnen",
             "last_ten_losses": "Letzte 10 Spiele verloren",
@@ -570,11 +568,8 @@
             "switch_teams": "Teams wechseln",
             "remove_from_lineup": "Aus Aufstellung entfernen",
             "leave_lineup": "Aufstellung verlassen",
-            "kills": "Kills",
             "kills_full": "Kills",
-            "assists": "Assists",
             "assists_full": "Assists",
-            "deaths": "Tode",
             "deaths_full": "Tode",
             "kd": "K/D",
             "hs": "Kopfschüsse",
