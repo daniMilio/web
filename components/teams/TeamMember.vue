@@ -204,6 +204,9 @@ export default {
     },
   },
   methods: {
+    viewPlayer(steam_id: string) {
+      this.$router.push(`/players/${steam_id}`);
+    },
     async removeMember() {
       this.removeMemberDialog = false;
       await this.$apollo.mutate({
