@@ -45,9 +45,7 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
       </div>
     </div>
     <div
-      :class="{
-        'flex items-center': !player.steam_id || (!showSteamId && !showRole),
-      }"
+      :class="{ 'flex items-center': !player.steam_id || (!showSteamId && !showRole) }"
       v-if="showFlag || showName || showSteamId || showRole"
     >
       <slot>
@@ -188,7 +186,7 @@ export default {
     },
     showRole: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     showSteamId: {
       type: Boolean,
