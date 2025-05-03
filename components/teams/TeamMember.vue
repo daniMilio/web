@@ -28,7 +28,10 @@ import Separator from "../ui/separator/Separator.vue";
 </script>
 
 <template>
-  <div class="flex items-center space-x-4">
+  <div
+    class="flex items-center space-x-4 cursor-pointer"
+    @click="viewPlayer(member.player.steam_id)"
+  >
     <PlayerDisplay :player="member.player">
       <template v-slot:avatar-sub>
         <badge v-if="memberRole">{{ memberRole }}</badge>
