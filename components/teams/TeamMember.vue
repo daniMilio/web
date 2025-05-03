@@ -25,7 +25,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import PlayerDisplay from "~/components/PlayerDisplay.vue";
 import Separator from "../ui/separator/Separator.vue";
-import PlayerElo from "~/components/PlayerElo.vue";
 </script>
 
 <template>
@@ -35,7 +34,6 @@ import PlayerElo from "~/components/PlayerElo.vue";
         <badge v-if="memberRole">{{ memberRole }}</badge>
       </template>
     </PlayerDisplay>
-    <PlayerElo :elo="member.player.elo" />
   </div>
   <Popover
     v-if="

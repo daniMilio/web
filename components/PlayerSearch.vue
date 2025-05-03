@@ -34,7 +34,7 @@ import debounce from "~/utilities/debounce";
             <Switch
               class="text-sm text-muted-foreground cursor-pointer flex items-center gap-2"
               :model-value="onlineOnly"
-              @click="onlineOnly = !onlineOnly"
+              @click="toggleOnlineOnly"
             />
             {{ $t("player.search.online_only") }}
           </div>
@@ -60,7 +60,7 @@ import debounce from "~/utilities/debounce";
                 class="px-3 py-2 hover:bg-accent cursor-pointer"
                 @click="select(player)"
               >
-                <PlayerDisplay :player="player" />
+                <PlayerDisplay :player="player" :show-steam-id="true" />
               </div>
             </div>
           </div>
@@ -73,6 +73,7 @@ import debounce from "~/utilities/debounce";
 <script lang="ts">
 interface Player {
   steam_id: string;
+  role?: string;
   name: string;
   avatar_url?: string;
   country?: string;
@@ -136,6 +137,10 @@ export default {
     },
   },
   methods: {
+    toggleOnlineOnly() {
+      this.onlineOnly = !this.onlineOnly;
+      this.searchPlayers();
+    },
     select(player: Player) {
       if (!player) {
         return;
@@ -166,6 +171,7 @@ export default {
 
       this.players = (response as SearchResponse).hits.map(({ document }) => {
         return {
+          role: document.role,
           steam_id: document.steam_id,
           name: document.name,
           avatar_url: document.avatar_url,
