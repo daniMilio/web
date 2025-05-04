@@ -50,14 +50,14 @@ import Default from "~/layouts/default.vue";
               @click.stop.prevent="showUnlinkDiscordDialog = true"
             >
               <Unlink class="mr-2 h-4 w-4" />
-              {{ $t("pages.settings.discord.unlink") }}
+              {{ $t("layouts.profile_settings.discord.unlink") }}
             </Button>
           </template>
 
           <nuxt-link @click.native="linkDiscord" v-else-if="supportsDiscordBot">
             <Button variant="ghost" class="w-full text-left justify-start">
               <Link class="mr-2 h-4 w-4" />
-              {{ $t("pages.settings.discord.link") }}
+              {{ $t("layouts.profile_settings.discord.link") }}
             </Button>
           </nuxt-link>
 
