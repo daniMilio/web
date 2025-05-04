@@ -114,7 +114,7 @@ const handleLocaleChange = (newLocale: string) => {
                 >
                   <TournamentBracket />
                   {{ $t("layouts.app_nav.navigation.tournaments") }}
-                  <Badge variant="destructive" class="ml-2">alpha</Badge>
+                  <!-- <Badge variant="destructive" class="ml-2">alpha</Badge> -->
                 </NuxtLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -131,7 +131,7 @@ const handleLocaleChange = (newLocale: string) => {
                   }"
                 >
                   <Users />
-                  {{ $t("layouts.app_nav.navigation.players") }}
+                  {{ $t("layouts.app_nav.navigation.players") }}<span class="text-green-500">({{ playersOnline.length }} online)</span>
                 </NuxtLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -393,7 +393,7 @@ const handleLocaleChange = (newLocale: string) => {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
-          <SidebarMenuItem
+          <!-- <SidebarMenuItem
             v-if="me?.role === e_player_roles_enum.administrator"
           >
             <SidebarMenuButton
@@ -427,30 +427,42 @@ const handleLocaleChange = (newLocale: string) => {
                 {{ $t("layouts.app_nav.footer.join_discord") }}
               </a>
             </SidebarMenuButton>
-          </SidebarMenuItem>
+          </SidebarMenuItem> -->
 
           <InstallPWA />
 
           <SidebarMenuItem>
-            <DropdownMenu v-model:open="profileOpened">
+            <DropdownMenu v-model:open="languageOpened">
               <DropdownMenuTrigger as-child>
                 <SidebarMenuButton
-                  size="lg"
                   :class="{
                     'bg-sidebar-accent text-sidebar-accent-foreground':
-                      profileOpened,
+                      languageOpened,
                   }"
                 >
-                  <PlayerDisplay
-                    :player="me"
-                    :show-online="false"
-                    :show-role="isMobile || open"
-                    :show-flag="false"
-                    :show-name="false"
-                    size="xs"
-                  />
-
-                  <ChevronsUpDownIcon class="ml-auto size-4" />
+                <Languages class="w-5 h-5" />
+                <Select
+                      v-model="locale"
+                      @update:modelValue="handleLocaleChange"
+                    >
+                      <SelectTrigger class="flex gap-2 cursor-pointer border-none [&>svg]:rotate-180">
+                        <SelectValue
+                          >{{ currentLocale?.flag }}
+                          {{ currentLocale?.name }}</SelectValue
+                        >
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup class="w-full p-0">
+                          <SelectItem
+                            v-for="loc in availableLocales"
+                            :key="loc.code"
+                            :value="loc.code"
+                          >
+                            {{ loc.flag }} {{ loc.name }}
+                          </SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent
@@ -465,8 +477,7 @@ const handleLocaleChange = (newLocale: string) => {
                       v-model="locale"
                       @update:modelValue="handleLocaleChange"
                     >
-                      <SelectTrigger>
-                        <Languages class="size-4" />
+                      <SelectTrigger class="flex gap-2 cursor-pointer border-none [&>svg]:rotate-180">
                         <SelectValue
                           >{{ currentLocale?.flag }}
                           {{ currentLocale?.name }}</SelectValue
@@ -487,9 +498,105 @@ const handleLocaleChange = (newLocale: string) => {
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
 
-                <DropdownMenuSeparator v-if="!isMobile && !open" />
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
+      <SidebarRail />
+    </Sidebar>
 
-                <DropdownMenuGroup v-if="!isMobile && !open">
+    <SidebarInset class="bg-muted/40 overflow-hidden">
+      <header
+        class="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 px-4"
+      >
+        <div class="flex items-center justify-between w-full">
+          <div class="flex items-center gap-2">
+            <SidebarTrigger />
+            <Separator orientation="vertical" class="h-4" />
+            <bread-crumbs></bread-crumbs>
+          </div>
+
+          <div class="flex gap-4">
+            <MatchLobbies></MatchLobbies>
+
+            <SystemUpdate v-if="isAdmin"></SystemUpdate>
+
+            <Popover v-if="me?.role === e_player_roles_enum.administrator">
+              <PopoverTrigger>
+                <div
+                  class="flex items-center gap-2 text-sm text-muted-foreground"
+                >
+                  <div class="relative inline-flex">
+                    <span
+                      class="absolute inline-flex h-2 w-2 rounded-full animate-ping"
+                      :class="{
+                        'bg-red-500': overalRegionStatus === 'Offline',
+                        'bg-yellow-500': overalRegionStatus === 'Degraded',
+                      }"
+                      v-if="overalRegionStatus !== 'Online'"
+                    ></span>
+                    <span
+                      class="relative inline-flex h-2 w-2 rounded-full"
+                      :class="{
+                        'bg-green-500': overalRegionStatus === 'Online',
+                        'bg-red-500': overalRegionStatus === 'Offline',
+                        'bg-yellow-500': overalRegionStatus === 'Degraded',
+                      }"
+                      :title="overalRegionStatus"
+                    ></span>
+                  </div>
+                </div>
+              </PopoverTrigger>
+              <PopoverContent>
+                <RegionStatuses></RegionStatuses>
+              </PopoverContent>
+            </Popover>
+
+            <!-- <Popover v-model:open="showPlayersOnline">
+              <PopoverTrigger>
+                <div
+                  class="flex items-center gap-4 text-sm text-muted-foreground"
+                >
+                  <Users class="h-4 w-4" />
+                  <span>{{ playersOnline.length }}</span>
+                </div>
+              </PopoverTrigger>
+              <PopoverContent>
+                <ScrollArea class="max-h-[20vh] overflow-auto">
+                  <template
+                    :key="player.steam_id"
+                    v-for="player of playersOnline"
+                  >
+                    <PlayerDisplay
+                      @click="showPlayersOnline = false"
+                      :player="player"
+                      class="my-2"
+                      :linkable="true"
+                    ></PlayerDisplay>
+                  </template>
+                </ScrollArea>
+              </PopoverContent>
+            </Popover> -->
+
+            <AppNotifications></AppNotifications>
+
+            <DropdownMenu v-model:open="profileOpened">
+              <DropdownMenuTrigger as-child>
+                  <PlayerDisplay
+                    :player="me"
+                    :show-online="false"
+                    :show-role="false"
+                    :show-flag="false"
+                    :show-name="false"
+                    size="xs"
+                  />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                class="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+                :side-offset="4"
+              >
+                <DropdownMenuGroup>
                   <DropdownMenuLabel class="font-normal">
                     <PlayerDisplay :player="me" :show-online="false" />
                   </DropdownMenuLabel>
@@ -522,86 +629,6 @@ const handleLocaleChange = (newLocale: string) => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
-      <SidebarRail />
-    </Sidebar>
-
-    <SidebarInset class="bg-muted/40 overflow-hidden">
-      <header
-        class="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 px-4"
-      >
-        <div class="flex items-center justify-between w-full">
-          <div class="flex items-center gap-2">
-            <SidebarTrigger />
-            <Separator orientation="vertical" class="h-4" />
-            <bread-crumbs></bread-crumbs>
-          </div>
-
-          <div class="flex gap-4">
-            <MatchLobbies></MatchLobbies>
-
-            <SystemUpdate v-if="isAdmin"></SystemUpdate>
-
-            <Popover>
-              <PopoverTrigger>
-                <div
-                  class="flex items-center gap-2 text-sm text-muted-foreground"
-                >
-                  <div class="relative inline-flex">
-                    <span
-                      class="absolute inline-flex h-2 w-2 rounded-full animate-ping"
-                      :class="{
-                        'bg-red-500': overalRegionStatus === 'Offline',
-                        'bg-yellow-500': overalRegionStatus === 'Degraded',
-                      }"
-                      v-if="overalRegionStatus !== 'Online'"
-                    ></span>
-                    <span
-                      class="relative inline-flex h-2 w-2 rounded-full"
-                      :class="{
-                        'bg-green-500': overalRegionStatus === 'Online',
-                        'bg-red-500': overalRegionStatus === 'Offline',
-                        'bg-yellow-500': overalRegionStatus === 'Degraded',
-                      }"
-                      :title="overalRegionStatus"
-                    ></span>
-                  </div>
-                </div>
-              </PopoverTrigger>
-              <PopoverContent>
-                <RegionStatuses></RegionStatuses>
-              </PopoverContent>
-            </Popover>
-
-            <Popover v-model:open="showPlayersOnline">
-              <PopoverTrigger>
-                <div
-                  class="flex items-center gap-4 text-sm text-muted-foreground"
-                >
-                  <Users class="h-4 w-4" />
-                  <span>{{ playersOnline.length }}</span>
-                </div>
-              </PopoverTrigger>
-              <PopoverContent>
-                <ScrollArea class="max-h-[20vh] overflow-auto">
-                  <template
-                    :key="player.steam_id"
-                    v-for="player of playersOnline"
-                  >
-                    <PlayerDisplay
-                      @click="showPlayersOnline = false"
-                      :player="player"
-                      class="my-2"
-                      :linkable="true"
-                    ></PlayerDisplay>
-                  </template>
-                </ScrollArea>
-              </PopoverContent>
-            </Popover>
-
-            <AppNotifications></AppNotifications>
 
             <div
               id="right-sidebar-trigger"
@@ -727,6 +754,7 @@ export default {
     return {
       serversOpened: false,
       profileOpened: false,
+      languageOpened: false,
       showLogoutModal: false,
       showPlayersOnline: false,
       rightSidebarOpen: false,
