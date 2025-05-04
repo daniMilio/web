@@ -131,7 +131,7 @@ const handleLocaleChange = (newLocale: string) => {
                   }"
                 >
                   <Users />
-                  {{ $t("layouts.app_nav.navigation.players") }}<span class="text-green-500">({{ playersOnline.length }} online)</span>
+                  {{ $t("layouts.app_nav.navigation.players") }}<span class="text-green-500">({{ playersOnline.length }} {{ $t("player.search.online_only") }})</span>
                 </NuxtLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
