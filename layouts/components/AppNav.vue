@@ -33,19 +33,6 @@ import MatchmakingLobby from "~/components/matchmaking-lobby/MatchmakingLobby.vu
 import FriendsList from "~/components/matchmaking-lobby/FriendsList.vue";
 import ChatLobby from "~/components/chat/ChatLobby.vue";
 
-const { locale, locales, setLocale } = useI18n();
-
-const availableLocales = computed(() => {
-  return locales.value.filter((i) => i.code !== locale.value);
-});
-
-const currentLocale = computed(() => {
-  return locales.value.find((i) => i.code === locale.value);
-});
-
-const handleLocaleChange = (newLocale: string) => {
-  setLocale(newLocale as "en" | "sv");
-};
 </script>
 
 <template>
@@ -430,77 +417,6 @@ const handleLocaleChange = (newLocale: string) => {
           </SidebarMenuItem> -->
 
           <InstallPWA />
-
-          <SidebarMenuItem>
-            <DropdownMenu v-model:open="languageOpened">
-              <DropdownMenuTrigger as-child>
-                <SidebarMenuButton
-                  :class="{
-                    'bg-sidebar-accent text-sidebar-accent-foreground':
-                      languageOpened,
-                  }"
-                >
-                <Languages class="w-5 h-5" />
-                <Select
-                      v-model="locale"
-                      @update:modelValue="handleLocaleChange"
-                    >
-                      <SelectTrigger class="flex gap-2 cursor-pointer border-none [&>svg]:rotate-180">
-                        <SelectValue
-                          >{{ currentLocale?.flag }}
-                          {{ currentLocale?.name }}</SelectValue
-                        >
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup class="w-full p-0">
-                          <SelectItem
-                            v-for="loc in availableLocales"
-                            :key="loc.code"
-                            :value="loc.code"
-                          >
-                            {{ loc.flag }} {{ loc.name }}
-                          </SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                class="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-                :side="isMobile ? 'top' : 'right'"
-                align="end"
-                :side-offset="4"
-              >
-                <DropdownMenuGroup>
-                  <DropdownMenuItem class="flex gap-2 cursor-pointer" as-child>
-                    <Select
-                      v-model="locale"
-                      @update:modelValue="handleLocaleChange"
-                    >
-                      <SelectTrigger class="flex gap-2 cursor-pointer border-none [&>svg]:rotate-180">
-                        <SelectValue
-                          >{{ currentLocale?.flag }}
-                          {{ currentLocale?.name }}</SelectValue
-                        >
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          <SelectItem
-                            v-for="loc in availableLocales"
-                            :key="loc.code"
-                            :value="loc.code"
-                          >
-                            {{ loc.flag }} {{ loc.name }}
-                          </SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
       <SidebarRail />

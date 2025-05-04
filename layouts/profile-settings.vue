@@ -32,13 +32,14 @@ import Default from "~/layouts/default.vue";
     <div class="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
       <aside>
         <nav class="flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1">
-          <nuxt-link
-            :to="item.to"
-            v-for="item in sidebarNavItems"
-            :key="item.title"
-          >
+          <nuxt-link to="/settings">
             <Button variant="ghost" class="w-full text-left justify-start">
-              {{ item.title }}
+              {{ $t("pages.settings.profile.title") }}
+            </Button>
+          </nuxt-link>
+          <nuxt-link to="/settings/appearance">
+            <Button variant="ghost" class="w-full text-left justify-start">
+              {{ $t("pages.settings.appearance.title") }}
             </Button>
           </nuxt-link>
 
@@ -49,14 +50,20 @@ import Default from "~/layouts/default.vue";
               @click.stop.prevent="showUnlinkDiscordDialog = true"
             >
               <Unlink class="mr-2 h-4 w-4" />
-              {{ $t("layouts.profile_settings.discord.unlink") }}
+              {{ $t("pages.settings.discord.unlink") }}
             </Button>
           </template>
 
           <nuxt-link @click.native="linkDiscord" v-else-if="supportsDiscordBot">
             <Button variant="ghost" class="w-full text-left justify-start">
               <Link class="mr-2 h-4 w-4" />
-              {{ $t("layouts.profile_settings.discord.link") }}
+              {{ $t("pages.settings.discord.link") }}
+            </Button>
+          </nuxt-link>
+
+          <nuxt-link to="/settings/language">
+            <Button variant="ghost" class="w-full text-left justify-start">
+              {{ $t("pages.settings.language.title") }}
             </Button>
           </nuxt-link>
         </nav>
@@ -100,18 +107,6 @@ export default {
     return {
       showUnlinkDiscordDialog: false,
       showRequestNameChangeDialog: false,
-      sidebarNavItems: [
-        {
-          title: "Profile",
-          key: "profile",
-          to: "/settings",
-        },
-        {
-          title: "Appearance",
-          key: "appearance",
-          to: "/settings/appearance",
-        },
-      ],
     };
   },
   methods: {

@@ -47,6 +47,12 @@
                 "no_country_found": "Aucun pays trouvé",
                 "update": "Mettre à jour le profil"
             },
+            "language": {
+                "title": "",
+                "description": "",
+                "select": "",
+                "help": ""
+            },
             "appearance": {
                 "title": "Apparence",
                 "description": "Personnaliser l'apparence de l'application",
@@ -730,6 +736,9 @@
                     "confirm": "Délier"
                 },
                 "unlinked": "Discord a été délié"
+            },
+            "language": {
+                "title": ""
             }
         },
         "application_settings": {
