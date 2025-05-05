@@ -11,33 +11,6 @@ import OpenMatches from "~/components/match/OpenMatches.vue";
 <template>
   <div class="flex flex-col lg:flex-row gap-4">
     <div class="lg:w-3/4 flex flex-col gap-4 overflow-hidden">
-      <PageHeading>
-        <template #title>{{ $t("pages.play.title") }}</template>
-
-        <template #description>
-          {{ $t("pages.play.description") }}
-        </template>
-
-        <template #actions>
-          <div class="flex gap-4 items-center">
-            <Button
-              size="lg"
-              v-if="canCreateMatch"
-              @click="canCreateMatch && navigateTo('/matches/create')"
-            >
-              <PlusCircle class="w-4 h-4" />
-              <span class="hidden md:inline ml-2">{{
-                $t("pages.play.create_match")
-              }}</span>
-            </Button>
-          </div>
-        </template>
-      </PageHeading>
-
-      <MyUpcomingMatches></MyUpcomingMatches>
-
-      <Separator class="my-4" />
-
       <Card class="p-4">
         <CardHeader>
           <CardTitle>{{ $t("pages.play.open_matches.title") }}</CardTitle>
