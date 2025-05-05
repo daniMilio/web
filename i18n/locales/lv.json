@@ -50,6 +50,12 @@
                 "appearance": "Izskats",
                 "matchmaking": "Spēļu meklēšana"
             },
+            "language": {
+                "title": "",
+                "description": "",
+                "select": "",
+                "help": ""
+            },
             "appearance": {
                 "title": "Izskats",
                 "description": "Lietotnes izskata iestatīšana",
@@ -741,6 +747,9 @@
                     "confirm": "Atvienot"
                 },
                 "unlinked": "Discord atvienots"
+            },
+            "language": {
+                "title": ""
             }
         },
         "application_settings": {
@@ -767,7 +776,7 @@
             "dismiss_all": "Noņemt visus paziņojumus"
         },
         "app_nav": {
-            "brand": "5stack",
+            "brand": "CS2",
             "navigation": {
                 "play": "Spēlēt",
                 "matches": "Mači",

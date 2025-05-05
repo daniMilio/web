@@ -50,6 +50,12 @@
                 "appearance": "Aparência",
                 "matchmaking": "Matchmaking"
             },
+            "language": {
+                "title": "",
+                "description": "",
+                "select": "",
+                "help": ""
+            },
             "appearance": {
                 "title": "Aparência",
                 "description": "Configuração da aparência do aplicativo",
@@ -741,6 +747,9 @@
                     "confirm": "Desvincular"
                 },
                 "unlinked": "Discord desvinculado"
+            },
+            "language": {
+                "title": ""
             }
         },
         "application_settings": {
@@ -767,7 +776,7 @@
             "dismiss_all": "Descartar todas as notificações"
         },
         "app_nav": {
-            "brand": "5stack",
+            "brand": "CS2",
             "navigation": {
                 "play": "Jogar",
                 "matches": "Partidas",

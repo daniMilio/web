@@ -30,17 +30,16 @@ import Default from "~/layouts/default.vue";
     </div>
     <Separator class="my-6" />
     <div class="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-      <aside class="w-full lg:w-auto">
-        <nav
-          class="flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1 overflow-y-auto max-h-[300px] lg:max-h-none"
-        >
-          <nuxt-link
-            :to="item.to"
-            v-for="item in sidebarNavItems"
-            :key="item.title"
-          >
+      <aside>
+        <nav class="flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1">
+          <nuxt-link to="/settings">
             <Button variant="ghost" class="w-full text-left justify-start">
-              {{ item.title }}
+              {{ $t("pages.settings.profile.title") }}
+            </Button>
+          </nuxt-link>
+          <nuxt-link to="/settings/appearance">
+            <Button variant="ghost" class="w-full text-left justify-start">
+              {{ $t("pages.settings.appearance.title") }}
             </Button>
           </nuxt-link>
 
@@ -59,6 +58,12 @@ import Default from "~/layouts/default.vue";
             <Button variant="ghost" class="w-full text-left justify-start">
               <Link class="mr-2 h-4 w-4" />
               {{ $t("layouts.profile_settings.discord.link") }}
+            </Button>
+          </nuxt-link>
+
+          <nuxt-link to="/settings/language">
+            <Button variant="ghost" class="w-full text-left justify-start">
+              {{ $t("pages.settings.language.title") }}
             </Button>
           </nuxt-link>
         </nav>
@@ -102,28 +107,6 @@ export default {
     return {
       showUnlinkDiscordDialog: false,
       showRequestNameChangeDialog: false,
-      sidebarNavItems: [
-        {
-          title: this.$t("pages.settings.profile.my_account"),
-          key: "profile",
-          to: "/settings",
-        },
-        {
-          title: this.$t("pages.settings.profile.language"),
-          key: "language",
-          to: "/settings/language",
-        },
-        {
-          title: this.$t("pages.settings.profile.appearance"),
-          key: "appearance",
-          to: "/settings/appearance",
-        },
-        {
-          title: this.$t("pages.settings.profile.matchmaking"),
-          key: "matchmaking",
-          to: "/settings/matchmaking",
-        },
-      ],
     };
   },
   methods: {

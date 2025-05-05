@@ -2,12 +2,12 @@
 
 const sw = process.env.SW === "true";
 
-const title = "5Stack | Counter-Strike Management System";
+const title = "CSBHack | CS2";
 const description =
-  "A Comprehensive Panel for Managing Servers, Matches, and Tournaments";
+  "CS2 Portal for CSBHack Summer 2025";
 
 // TODO - i tired to get SSO to work but it wont
-const url = `https://5stack.gg`;
+const url = `https://cs2.se`;
 
 export default defineNuxtConfig({
   ssr: false,
@@ -21,13 +21,13 @@ export default defineNuxtConfig({
         { name: "robots", content: "index, follow" },
         { name: "title", content: title },
         { name: "description", content: description },
-        { name: "site_name", content: "5Stack" },
+        { name: "site_name", content: "CS2" },
 
         { property: "og:locale", content: "en" },
         { property: "og:type", content: "website" },
 
         { property: "og:title", content: title },
-        { property: "og:site_name", content: "5Stack" },
+        { property: "og:site_name", content: "CS2" },
 
         { property: "og:url", content: url },
         { property: "og:image", content: `${url}/_ipx/_/favicon/512.png` },
@@ -87,24 +87,6 @@ export default defineNuxtConfig({
     locales: [
       { code: "en", name: "English", file: "en.json", flag: "🇬🇧" },
       { code: "sv", name: "Svenska", file: "sv.json", flag: "🇸🇪" }, // Swedish
-      { code: "ua", name: "Українська", file: "ua.json", flag: "🇺🇦" }, // Ukrainian
-      { code: "ko", name: "한국어", file: "ko.json", flag: "🇰🇷" }, // Korean
-      { code: "ja", name: "日本語", file: "ja.json", flag: "🇯🇵" }, // Japanese
-      { code: "de", name: "Deutsch", file: "de.json", flag: "🇩🇪" }, // German
-      { code: "fr", name: "Français", file: "fr.json", flag: "🇫🇷" }, // French
-      { code: "it", name: "Italiano", file: "it.json", flag: "🇮🇹" }, // Italian
-      { code: "es", name: "Español", file: "es.json", flag: "🇪🇸" }, // Spanish
-      { code: "da", name: "Dansk", file: "da.json", flag: "🇩🇰" }, // Danish
-      { code: "pl", name: "Polski", file: "pl.json", flag: "🇵🇱" }, // Polish
-      { code: "ru", name: "Русский", file: "ru.json", flag: "🇷🇺" }, // Russian
-      { code: "lv", name: "Latviešu", file: "lv.json", flag: "🇱🇻" }, // Latvian
-      {
-        code: "pt-BR",
-        name: "Português Brasileiro",
-        file: "pt-BR.json",
-        flag: "🇧🇷",
-      },
-      { code: "zh", name: "中文", file: "zh.json", flag: "🇨🇳" },
     ],
     lazy: true,
     defaultLocale: "en",
@@ -150,8 +132,8 @@ export default defineNuxtConfig({
       enabled: true,
     },
     manifest: {
-      name: "5stack",
-      short_name: "5stack",
+      name: "CSBHack CS2 Portal",
+      short_name: "CSBHack CS2",
       icons: [
         {
           src: "/favicon/64.png",

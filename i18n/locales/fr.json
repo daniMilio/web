@@ -50,6 +50,12 @@
                 "appearance": "Apparence",
                 "matchmaking": "Matchmaking"
             },
+            "language": {
+                "title": "",
+                "description": "",
+                "select": "",
+                "help": ""
+            },
             "appearance": {
                 "title": "Apparence",
                 "description": "Personnaliser l'apparence de l'application",
@@ -741,6 +747,9 @@
                     "confirm": "Délier"
                 },
                 "unlinked": "Discord a été délié"
+            },
+            "language": {
+                "title": ""
             }
         },
         "application_settings": {
@@ -767,7 +776,7 @@
             "dismiss_all": "Rejeter toutes les notifications"
         },
         "app_nav": {
-            "brand": "5stack",
+            "brand": "CS2",
             "navigation": {
                 "play": "Jouer",
                 "matches": "Matchs",

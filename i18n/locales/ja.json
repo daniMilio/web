@@ -50,6 +50,12 @@
                 "appearance": "外観設定",
                 "matchmaking": "マッチメイキング"
             },
+            "language": {
+                "title": "",
+                "description": "",
+                "select": "",
+                "help": ""
+            },
             "appearance": {
                 "title": "外観設定",
                 "description": "アプリケーションの外観をカスタマイズ",
@@ -323,6 +329,9 @@
                     "confirm": "連携を解除"
                 },
                 "unlinked": "Discordの連携が解除されました"
+            },
+            "language": {
+                "title": ""
             }
         },
         "application_settings": {
@@ -349,7 +358,7 @@
             "dismiss_all": "すべての通知を却下"
         },
         "app_nav": {
-            "brand": "5stack",
+            "brand": "CS2",
             "navigation": {
                 "play": "プレイ",
                 "matches": "マッチ",
