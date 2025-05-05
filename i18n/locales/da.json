@@ -38,14 +38,17 @@
             "profile": {
                 "title": "Profilindstillinger",
                 "description": "Administrer dine kontoindstillinger",
-                "steam_id": "Steam ID",
                 "name": "Navn",
                 "avatar_url": "Avatar URL",
                 "country": "Land",
                 "select_country": "Vælg land",
                 "search_country": "Søg efter land...",
                 "no_country_found": "Ingen lande fundet",
-                "update": "Opdater profil"
+                "update": "Opdater profil",
+                "language": "Sprog",
+                "my_account": "Min konto",
+                "appearance": "Udseende",
+                "matchmaking": "Matchmaking"
             },
             "language": {
                 "title": "",
@@ -113,6 +116,21 @@
                     "update": "Indstillinger for telemetri"
                 },
                 "matchmaking_min_role": "Minimum rolle tilladt at deltage i matchmaking"
+            },
+            "language": {
+                "select": "Vælg sprog",
+                "search": "Søg i sprog...",
+                "title": "Sprog",
+                "description": "Vælg dit foretrukne sprog for programgrænsefladen."
+            },
+            "matchmaking": {
+                "region": "Region",
+                "title": "Indstillinger for matchning",
+                "description": "Indstil dine matchmaking præferencer og se region latesser.",
+                "average_latency": "Gennemsnitlig latency",
+                "preferred": "Foretrukket",
+                "max_acceptable_ping": "Maksimalt acceptabelt Ping",
+                "max_ping_description": "Hvis ingen regioner foretrækkes, vil matchmaking kun anvende regioner med ping under denne værdi."
             }
         },
         "regions": {
@@ -150,15 +168,9 @@
             }
         },
         "play": {
-            "title": "Spil",
-            "description": "Start en kamp",
-            "create_match": "Opret",
             "open_matches": {
                 "title": "Åbne kampe",
                 "description": "Tilgængelige kampe"
-            },
-            "matchmaking": {
-                "title": "Matchmaking"
             }
         },
         "matches": {
@@ -323,17 +335,16 @@
             "offline": "Offline",
             "view_profile": "Vis profil"
         },
-        "leave": "Forlad",
-        "position": "Position",
-        "join": "Deltag",
         "confirm": {
-            "title": "Bekræft",
             "ready": "Klar",
             "players": "Spillere"
         },
         "banned": "Bannet",
         "go_to_match": "Gå til kamp",
-        "temp_banned": "Midlertidigt bannet"
+        "temp_banned": "Midlertidigt bannet",
+        "settings_section": {
+            "toggle": "Justér indstillinger"
+        }
     },
     "match": {
         "lobby": {
@@ -839,7 +850,8 @@
             "delete": "Slet"
         },
         "close": "Luk",
-        "confirm": "Bekræft"
+        "confirm": "Bekræft",
+        "refresh": "Genopfrisk"
     },
     "tournament": {
         "overview": "Oversigt",

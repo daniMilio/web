@@ -38,14 +38,17 @@
             "profile": {
                 "title": "Настройки профиля",
                 "description": "Управление настройками аккаунта",
-                "steam_id": "Steam ID",
                 "name": "Название",
                 "avatar_url": "URL аватара",
                 "country": "Страна",
                 "select_country": "Выберите страну",
                 "search_country": "Поиск страны...",
                 "no_country_found": "Страны не найдены",
-                "update": "Обновить профиль"
+                "update": "Обновить профиль",
+                "language": "Язык языка",
+                "appearance": "Внешний вид",
+                "my_account": "Мой счет",
+                "matchmaking": "Матчмейкинг"
             },
             "language": {
                 "title": "",
@@ -113,6 +116,21 @@
                     "update": "Обновленные настройки Telemetry"
                 },
                 "matchmaking_min_role": "Минимальная роль, разрешенная для участия в игре"
+            },
+            "language": {
+                "title": "Язык языка",
+                "description": "Выберите предпочтительный язык для интерфейса приложения.",
+                "select": "Выберите язык",
+                "search": "Язык поиска..."
+            },
+            "matchmaking": {
+                "region": "Регион",
+                "title": "Настройки для игр",
+                "description": "Настройте свои предпочтения и просмотрите задержки в регионе.",
+                "average_latency": "Средняя задержка",
+                "preferred": "Предпочтительный",
+                "max_acceptable_ping": "Максимально приемлемый Пинг",
+                "max_ping_description": "Если регионы не являются предпочтительными, сватовство будет использовать только регионы с пингом ниже этого значения."
             }
         },
         "regions": {
@@ -150,15 +168,9 @@
             }
         },
         "play": {
-            "title": "Играть",
-            "description": "Начать матч",
-            "create_match": "Создать",
             "open_matches": {
                 "title": "Открытые матчи",
                 "description": "Доступные матчи"
-            },
-            "matchmaking": {
-                "title": "Матчмейкинг"
             }
         },
         "matches": {
@@ -323,17 +335,16 @@
             "join_lobby": "Присоединиться к Лобби",
             "view_profile": "Просмотр профиля"
         },
-        "leave": "Выйти",
-        "position": "Позиция",
-        "join": "Присоединиться",
         "confirm": {
-            "title": "Подтвердить",
             "ready": "Готов",
             "players": "Игроки"
         },
         "banned": "Забанен",
         "go_to_match": "Перейти к матчу",
-        "temp_banned": "Временно забанен"
+        "temp_banned": "Временно забанен",
+        "settings_section": {
+            "toggle": "Адаптация настроек"
+        }
     },
     "match": {
         "lobby": {
@@ -839,7 +850,8 @@
             "delete": "Удалить"
         },
         "close": "Закрыть",
-        "confirm": "Подтвердить"
+        "confirm": "Подтвердить",
+        "refresh": "Освежить"
     },
     "tournament": {
         "overview": "Обзор",

@@ -38,14 +38,17 @@
             "profile": {
                 "title": "프로필 설정",
                 "description": "계정 설정 관리",
-                "steam_id": "Steam ID",
                 "name": "이름",
                 "avatar_url": "아바타 URL",
                 "country": "국가",
                 "select_country": "국가 선택",
                 "search_country": "국가 검색...",
                 "no_country_found": "국가를 찾을 수 없습니다",
-                "update": "프로필 업데이트"
+                "update": "프로필 업데이트",
+                "language": "* 이름",
+                "my_account": "내 계정",
+                "appearance": "외관 설정",
+                "matchmaking": "매치메이킹"
             },
             "appearance": {
                 "title": "외관 설정",
@@ -107,6 +110,21 @@
                     "update": "Telemetry 설정 업데이트"
                 },
                 "matchmaking_min_role": "최소 역할은 Matchmaking에 참여하도록 허용"
+            },
+            "language": {
+                "title": "* 이름",
+                "description": "응용 프로그램 인터페이스에 대한 선호된 언어를 선택하십시오.",
+                "select": "언어 선택",
+                "search": "언어 선택."
+            },
+            "matchmaking": {
+                "region": "리전",
+                "title": "Matchmaking 설정",
+                "description": "당신의 matchmaking 선호도 및 보기 영역 latencies 구성.",
+                "average_latency": "평균 대기시간",
+                "preferred": "이름 *",
+                "max_acceptable_ping": "최대 수락가능한 핑거",
+                "max_ping_description": "지역이 선호되지 않는 경우, matchmaking는 이 값의 밑에 ping를 가진 단지 사용 지구일 것입니다."
             }
         },
         "regions": {
@@ -144,15 +162,9 @@
             }
         },
         "play": {
-            "title": "플레이",
-            "description": "매치 시작",
-            "create_match": "생성",
             "open_matches": {
                 "title": "오픈 매치",
                 "description": "참가 가능한 매치"
-            },
-            "matchmaking": {
-                "title": "매치메이킹"
             }
         },
         "matches": {
@@ -317,17 +329,16 @@
             "offline": "오프라인",
             "view_profile": "공지사항"
         },
-        "leave": "나가기",
-        "position": "위치",
-        "join": "참가",
         "confirm": {
-            "title": "확인",
             "ready": "준비",
             "players": "플레이어"
         },
         "banned": "차단됨",
         "go_to_match": "매치로 이동",
-        "temp_banned": "임시 차단"
+        "temp_banned": "임시 차단",
+        "settings_section": {
+            "toggle": "설정 조정"
+        }
     },
     "match": {
         "lobby": {
@@ -830,7 +841,8 @@
             "delete": "삭제"
         },
         "close": "닫기",
-        "confirm": "확인"
+        "confirm": "확인",
+        "refresh": "지원하다"
     },
     "tournament": {
         "overview": "개요",

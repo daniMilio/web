@@ -1,6 +1,20 @@
 <script setup lang="ts">
-import { Check, ChevronsUpDown } from "lucide-vue-next";
+import { Check, ChevronsUpDown, Languages } from "lucide-vue-next";
 import PlayerChangeName from "~/components/PlayerChangeName.vue";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
 definePageMeta({
   layout: "profile-settings",
 });
@@ -18,25 +32,18 @@ definePageMeta({
   <Separator />
 
   <form @submit.prevent="updateMe" class="grid gap-4">
-    <FormField v-slot="{ componentField }" name="steam_id">
-      <FormItem>
-        <FormLabel>{{ $t("pages.settings.profile.steam_id") }}</FormLabel>
-        <FormControl>
-          <Input v-bind="componentField" readonly disabled />
-        </FormControl>
-      </FormItem>
-    </FormField>
-
     <FormField v-slot="{ componentField }" name="name">
       <FormItem>
         <FormLabel class="flex items-center gap-2">
           {{ $t("pages.settings.profile.name") }}
-          <PlayerChangeName :player="me" />
         </FormLabel>
         <FormControl>
           <Input v-bind="componentField" readonly disabled />
           <FormMessage />
         </FormControl>
+        <FormDescription>
+          <PlayerChangeName :player="me" />
+        </FormDescription>
       </FormItem>
     </FormField>
 

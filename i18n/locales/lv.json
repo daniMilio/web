@@ -38,14 +38,17 @@
             "profile": {
                 "title": "Profila iestatījumi",
                 "description": "Konta iestatījumu pārvaldība",
-                "steam_id": "Steam ID",
                 "name": "Nosaukums",
                 "avatar_url": "Avatara URL",
                 "country": "Valsts",
                 "select_country": "Izvēlieties valsti",
                 "search_country": "Meklēt valsti...",
                 "no_country_found": "Nav atrastas valstis",
-                "update": "Atjaunināt profilu"
+                "update": "Atjaunināt profilu",
+                "language": "Valoda",
+                "my_account": "Mans konts",
+                "appearance": "Izskats",
+                "matchmaking": "Spēļu meklēšana"
             },
             "language": {
                 "title": "",
@@ -113,6 +116,21 @@
                     "update": "Atjaunināti telemetrijas iestatījumi"
                 },
                 "matchmaking_min_role": "Minimālā loma, kas ļauj pievienoties kontaktbiržai"
+            },
+            "language": {
+                "select": "Izvēlieties valodu",
+                "search": "Meklēt valodu...",
+                "title": "Valoda",
+                "description": "Izvēlieties vēlamo valodu programmas saskarnei."
+            },
+            "matchmaking": {
+                "region": "Reģions",
+                "title": "Kontaktu veidošanas iestatījumi",
+                "description": "Konfigurēt jūsu meklēšanas iestatījumus un skata reģionu latences.",
+                "average_latency": "Vidējais latentums",
+                "preferred": "Vēlamais",
+                "max_acceptable_ping": "Maksimāli pieņemams Ping",
+                "max_ping_description": "Ja reģionus neizvēlas, kontaktbirža izmantos tikai tos reģionus, kuru pingi ir zemāki par šo vērtību."
             }
         },
         "regions": {
@@ -150,15 +168,9 @@
             }
         },
         "play": {
-            "title": "Spēlēt",
-            "description": "Sākt spēli",
-            "create_match": "Izveidot",
             "open_matches": {
                 "title": "Atvērtās spēles",
                 "description": "Pieejamās spēles"
-            },
-            "matchmaking": {
-                "title": "Spēļu meklēšana"
             }
         },
         "matches": {
@@ -323,17 +335,16 @@
             "offline": "Bezsaistē",
             "view_profile": "Skata profils"
         },
-        "leave": "Iziet",
-        "position": "Pozīcija",
-        "join": "Pievienoties",
         "confirm": {
-            "title": "Apstiprināt",
             "ready": "Gatavs",
             "players": "Spēlētāji"
         },
         "banned": "Aizliegts",
         "go_to_match": "Doties uz spēli",
-        "temp_banned": "Pagaidām aizliegts"
+        "temp_banned": "Pagaidām aizliegts",
+        "settings_section": {
+            "toggle": "Pielāgot iestatījumus"
+        }
     },
     "match": {
         "lobby": {
@@ -839,7 +850,8 @@
             "delete": "Dzēst"
         },
         "close": "Aizvērt",
-        "confirm": "Apstiprināt"
+        "confirm": "Apstiprināt",
+        "refresh": "Atsvaidzināt"
     },
     "tournament": {
         "overview": "Pārskats",

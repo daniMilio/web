@@ -38,14 +38,17 @@
             "profile": {
                 "title": "Ustawienia profilu",
                 "description": "Zarządzaj ustawieniami konta",
-                "steam_id": "Steam ID",
                 "name": "Nazwa",
                 "avatar_url": "URL avatara",
                 "country": "Kraj",
                 "select_country": "Wybierz kraj",
                 "search_country": "Szukaj kraju...",
                 "no_country_found": "Nie znaleziono krajów",
-                "update": "Aktualizuj profil"
+                "update": "Aktualizuj profil",
+                "language": "Język",
+                "my_account": "Moje konto",
+                "appearance": "Wygląd",
+                "matchmaking": "Matchmaking"
             },
             "language": {
                 "title": "",
@@ -113,6 +116,21 @@
                     "update": "Aktualizacja ustawień telemetrii"
                 },
                 "matchmaking_min_role": "Minimalna rola umożliwiająca dołączenie do Matchmaking"
+            },
+            "language": {
+                "title": "Język",
+                "description": "Wybierz preferowany język interfejsu aplikacji.",
+                "select": "Wybierz język",
+                "search": "Język wyszukiwania..."
+            },
+            "matchmaking": {
+                "title": "Ustawienia tworzenia dopasowań",
+                "description": "Skonfiguruj swoje preferencje swatania i zobacz opóźnienia w regionie.",
+                "average_latency": "Średnie opóźnienie",
+                "preferred": "Preferowane",
+                "max_acceptable_ping": "Maksymalna dopuszczalna Ping",
+                "max_ping_description": "Jeżeli żadne regiony nie są preferowane, tworzenie zapałek będzie miało zastosowanie tylko w regionach o wartości poniżej tej wartości.",
+                "region": "Region"
             }
         },
         "regions": {
@@ -150,15 +168,9 @@
             }
         },
         "play": {
-            "title": "Graj",
-            "description": "Rozpocznij mecz",
-            "create_match": "Utwórz",
             "open_matches": {
                 "title": "Otwarte mecze",
                 "description": "Dostępne mecze"
-            },
-            "matchmaking": {
-                "title": "Matchmaking"
             }
         },
         "matches": {
@@ -323,17 +335,16 @@
             "join_lobby": "Dołącz do Lobby",
             "view_profile": "Widok profilu"
         },
-        "leave": "Wyjdź",
-        "position": "Pozycja",
-        "join": "Dołącz",
         "confirm": {
-            "title": "Potwierdź",
             "ready": "Gotowy",
             "players": "Gracze"
         },
         "banned": "Zbanowany",
         "go_to_match": "Przejdź do meczu",
-        "temp_banned": "Tymczasowo zbanowany"
+        "temp_banned": "Tymczasowo zbanowany",
+        "settings_section": {
+            "toggle": "Dostosuj ustawienia"
+        }
     },
     "match": {
         "lobby": {
@@ -839,7 +850,8 @@
             "delete": "Usuń"
         },
         "close": "Zamknij",
-        "confirm": "Potwierdź"
+        "confirm": "Potwierdź",
+        "refresh": "Odśwież"
     },
     "tournament": {
         "overview": "Przegląd",

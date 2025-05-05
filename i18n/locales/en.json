@@ -38,14 +38,17 @@
       "profile": {
         "title": "Profile",
         "description": "Your Profile Details",
-        "steam_id": "Steam ID",
+        "my_account": "My Account",
+        "appearance": "Appearance",
         "name": "Name",
         "avatar_url": "Avatar URL",
+        "language": "Language",
         "country": "Country",
         "select_country": "Select country...",
         "search_country": "Search country...",
         "no_country_found": "No country found.",
-        "update": "Update Profile"
+        "update": "Update Profile",
+        "matchmaking": "Matchmaking"
       },
       "language": {
         "title": "Language",
@@ -113,6 +116,21 @@
           "cloudflare_worker_url_description": "The URL of the Cloudflare worker that will be used to store and retrieve the demo files.",
           "min_retention_description": "The minimum retention days for the demo files."
         }
+      },
+      "language": {
+        "title": "Language",
+        "description": "Choose your preferred language for the application interface.",
+        "select": "Select Language",
+        "search": "Search language..."
+      },
+      "matchmaking": {
+        "title": "Matchmaking Settings",
+        "description": "Configure your matchmaking preferences and view region latencies.",
+        "region": "Region",
+        "average_latency": "Average Latency",
+        "preferred": "Preferred",
+        "max_acceptable_ping": "Maximum Acceptable Ping",
+        "max_ping_description": "If no regions are preferred, matchmaking will only use regions with ping below this value."
       }
     },
     "regions": {
@@ -150,15 +168,9 @@
       }
     },
     "play": {
-      "title": "Upcoming Matches",
-      "description": "Your upcoming matches that either you manage or are in the lineup.",
-      "create_match": "Create Match",
       "open_matches": {
         "title": "Open Matches",
         "description": "Matches that are open lobbies for anyone to join."
-      },
-      "matchmaking": {
-        "title": "Matchmaking"
       }
     },
     "matches": {
@@ -370,7 +382,7 @@
         "map_pools": "Map Pools"
       },
       "profile": {
-        "my_account": "My Account",
+        "my_account": "My Settings",
         "logout": "Logout"
       },
       "footer": {
@@ -424,7 +436,8 @@
       "delete": "Delete"
     },
     "close": "Close",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "refresh": "Refresh"
   },
   "tournament": {
     "overview": "Overview",
@@ -963,17 +976,16 @@
       "offline": "Offline",
       "view_profile": "View Profile"
     },
-    "leave": "Leave",
-    "position": "Current Position",
-    "join": "Join",
-    "confirm": {
-      "title": "Confirm Matchmaking",
-      "ready": "Ready",
-      "players": "Players in Queue"
-    },
     "banned": "You are banned from matchmaking",
     "go_to_match": "Go to Match",
-    "temp_banned": "You are temporarily banned from matchmaking"
+    "temp_banned": "You are temporarily banned from matchmaking",
+    "confirm": {
+      "players": "Players Ready",
+      "ready": "Ready"
+    },
+    "settings_section": {
+      "toggle": "Adjust Settings"
+    }
   },
   "game_server": {
     "update_cs": "Update CS",

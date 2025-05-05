@@ -11,11 +11,11 @@ import {
   Server,
   Calendar,
   BookUser,
-  Languages,
   Play,
   ShieldHalf,
   Globe,
   Map,
+  Settings,
 } from "lucide-vue-next";
 import TournamentBracket from "~/components/icons/tournament-bracket.vue";
 import SystemUpdate from "./SystemUpdate.vue";
@@ -32,7 +32,6 @@ import InstallPWA from "~/components/InstallPWA.vue";
 import MatchmakingLobby from "~/components/matchmaking-lobby/MatchmakingLobby.vue";
 import FriendsList from "~/components/matchmaking-lobby/FriendsList.vue";
 import ChatLobby from "~/components/chat/ChatLobby.vue";
-
 </script>
 
 <template>
