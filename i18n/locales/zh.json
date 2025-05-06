@@ -48,6 +48,12 @@
                 "appearance": "外观",
                 "matchmaking": "匹配"
             },
+            "language": {
+                "title": "",
+                "description": "",
+                "select": "",
+                "help": ""
+            },
             "appearance": {
                 "title": "外观",
                 "description": "应用程序外观设置",
@@ -703,6 +709,9 @@
                     "confirm": "解除"
                 },
                 "unlinked": "Discord已解除链接"
+            },
+            "language": {
+                "title": ""
             }
         },
         "application_settings": {
@@ -729,7 +738,7 @@
             "dismiss_all": ""
         },
         "app_nav": {
-            "brand": "5stack",
+            "brand": "CS2",
             "navigation": {
                 "play": "游戏",
                 "matches": "比赛",
