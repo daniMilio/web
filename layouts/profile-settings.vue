@@ -75,12 +75,6 @@ import Default from "~/layouts/default.vue";
               {{ $t("layouts.profile_settings.discord.link") }}
             </Button>
           </nuxt-link>
-
-          <nuxt-link to="/settings/language">
-            <Button variant="ghost" class="w-full text-left justify-start">
-              {{ $t("pages.settings.language.title") }}
-            </Button>
-          </nuxt-link>
         </nav>
       </aside>
       <div class="flex-1 lg:max-w-2xl">
