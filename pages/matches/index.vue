@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import PageHeading from "~/components/PageHeading.vue";
 import MyRecentMatches from "~/components/match/MyRecentMatches.vue";
-import MyUpcomingMatches from "~/components/MyUpcomingMatches.vue";
 import Separator from "~/components/ui/separator/Separator.vue";
 import OtherMatches from "~/components/match/OtherMatches.vue";
 import MyMatches from "~/components/match/MyMatches.vue";
@@ -13,35 +12,24 @@ import { PlusCircle } from "lucide-vue-next";
 
 <template>
   <PageHeading>
-        <template #title>{{ $t("pages.play.title") }}</template>
-
-        <template #description>
-          {{ $t("pages.play.description") }}
-        </template>
-
-        <template #actions>
-          <div class="flex gap-4 items-center">
-            <Button
-              size="lg"
-              v-if="canCreateMatch"
-              @click="canCreateMatch && navigateTo('/matches/create')"
-            >
-              <PlusCircle class="w-4 h-4" />
-              <span class="hidden md:inline ml-2">{{
-                $t("pages.play.create_match")
-              }}</span>
-            </Button>
-          </div>
-        </template>
-      </PageHeading>
-
-      <MyUpcomingMatches></MyUpcomingMatches>
-
-      <Separator class="my-4" />
-  <PageHeading>
     <template #title>{{ $t("pages.matches.title") }}</template>
     <template #description>{{ $t("pages.matches.description") }}</template>
+    <template #actions>
+      <div class="flex gap-4 items-center">
+        <Button
+          size="lg"
+          v-if="canCreateMatch"
+          @click="canCreateMatch && navigateTo('/matches/create')"
+        >
+          <PlusCircle class="w-4 h-4" />
+          <span class="hidden md:inline ml-2">{{
+            $t("pages.matches.create")
+          }}</span>
+        </Button>
+      </div>
+    </template>
   </PageHeading>
+
   <div class="hidden md:grid grid-cols-2 gap-4 my-4">
     <Card class="flex justify-center items-center p-4">
       <div class="text-center">
