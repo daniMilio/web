@@ -307,7 +307,8 @@
             "active_duty": "Active Duty",
             "available_modes": "Dostępne w trybach",
             "workshop_id": "Warsztaty Link",
-            "add_new_map": "Dodaj nową mapę"
+            "add_new_map": "Dodaj nową mapę",
+            "search": "Mapy wyszukiwania"
         },
         "map_pool": {
             "toggle_pool_type": "Mapa {mapa} została {typ} dla {typ}",
@@ -462,7 +463,8 @@
             "timeout_setting": "Ustawienie timeoutu",
             "tech_timeout_setting": "Ustawienie timeoutu technicznego",
             "map_pool": "Pula map",
-            "ready_setting": "Ustawienia gotowe"
+            "ready_setting": "Ustawienia gotowe",
+            "filter_maps": "Mapy filtrów"
         },
         "schedule": {
             "pick_date": "Wybierz datę",
@@ -1066,5 +1068,9 @@
             },
             "edit": "Edytuj konfigurację"
         }
+    },
+    "custom_match": {
+        "title": "Niestandardowe dopasowanie",
+        "description": "Tworzenie i dostosowywanie własnego meczu. Ustaw zasady, wybierz mapy i zaproś znajomych do spersonalizowanych doświadczeń w grach."
     }
 }

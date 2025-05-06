@@ -307,7 +307,8 @@
             "active_duty": "Servicio activo",
             "available_modes": "Disponible en Modos",
             "workshop_id": "Enlace del taller",
-            "add_new_map": "Añadir nuevo mapa"
+            "add_new_map": "Añadir nuevo mapa",
+            "search": "Mapas de búsqueda"
         },
         "map_pool": {
             "toggle_pool_type": "El mapa {map} ha sido {type} para {type}",
@@ -462,7 +463,8 @@
             "timeout_setting": "Configuración de tiempo muerto",
             "tech_timeout_setting": "Configuración de tiempo muerto técnico",
             "map_pool": "Pool de mapas",
-            "ready_setting": "Configuración"
+            "ready_setting": "Configuración",
+            "filter_maps": "Mapas de filtros"
         },
         "schedule": {
             "pick_date": "Seleccionar fecha",
@@ -1066,5 +1068,9 @@
             },
             "edit": "Editar Config"
         }
+    },
+    "custom_match": {
+        "title": "Partido Personalizado",
+        "description": "Cree y personalice su propio partido. Establecer reglas, elegir mapas e invitar a amigos para una experiencia de juego personalizada."
     }
 }

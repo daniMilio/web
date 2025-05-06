@@ -127,7 +127,7 @@
         "title": "Matchmaking Settings",
         "description": "Configure your matchmaking preferences and view region latencies.",
         "region": "Region",
-        "average_latency": "Average Latency",
+        "average_latency": "Latency",
         "preferred": "Preferred",
         "max_acceptable_ping": "Maximum Acceptable Ping",
         "max_ping_description": "If no regions are preferred, matchmaking will only use regions with ping below this value."
@@ -220,7 +220,9 @@
         "ports": "Ports",
         "ports_tooltip": "Forwarded Ports to Node",
         "enabled": "Enabled",
-        "no_nodes": "No Game Server Nodes"
+        "no_nodes": "No Game Server Nodes",
+        "supports_low_latency": "Supports Low Latency",
+        "supports_cpu_pinning": "Supports CPU Pinning"
       },
       "build_id": "Build ID: {id}",
       "last_updated": "Last Updated: {date}"
@@ -308,7 +310,8 @@
       "maps": "Available Maps",
       "active_duty": "Active Duty",
       "available_modes": "Available In Modes",
-      "workshop_id": "Workshop Link"
+      "workshop_id": "Workshop Link",
+      "search": "Search Maps"
     },
     "map_pool": {
       "toggle_pool_type": "Updated Map Pools",
@@ -318,6 +321,10 @@
     "components": {
       "map_pools": {}
     }
+  },
+  "custom_match": {
+    "title": "Custom Match",
+    "description": "Create and customize your own match. Set rules, choose maps, and invite friends for a personalized gaming experience."
   },
   "layouts": {
     "profile_settings": {
@@ -629,6 +636,7 @@
       "no_matches": "You don't have any recent matches."
     },
     "options": {
+      "filter_maps": "Filter Maps",
       "table": {
         "match": "Match",
         "type": "Type",
@@ -969,7 +977,7 @@
       "sync": "Sync Friends",
       "search": "Add Friend",
       "pending_requests": "Pending Requests",
-      "online": "Online Friends",
+      "online": "Online",
       "invite_to_lobby": "Invite to Lobby",
       "remove": "Remove Friend",
       "join_lobby": "Join Lobby",

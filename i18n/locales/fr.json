@@ -307,7 +307,8 @@
             "active_duty": "Service actif",
             "available_modes": "Disponible en mode",
             "workshop_id": "Lien de l'atelier",
-            "add_new_map": "Ajouter une nouvelle carte"
+            "add_new_map": "Ajouter une nouvelle carte",
+            "search": "Recherche de cartes"
         },
         "map_pool": {
             "toggle_pool_type": "La carte {map} a été {type} pour {type}",
@@ -462,7 +463,8 @@
             "timeout_setting": "Paramètre de temps mort",
             "tech_timeout_setting": "Paramètre de temps mort technique",
             "map_pool": "Pool de maps",
-            "ready_setting": "Réglage prêt"
+            "ready_setting": "Réglage prêt",
+            "filter_maps": "Filtrer les cartes"
         },
         "schedule": {
             "pick_date": "Sélectionner une date",
@@ -1066,5 +1068,9 @@
             },
             "edit": "Modifier la configuration"
         }
+    },
+    "custom_match": {
+        "description": "Créez et personnalisez votre propre match. Définir des règles, choisir des cartes et inviter des amis pour une expérience de jeu personnalisée.",
+        "title": "Match personnalisé"
     }
 }

@@ -307,7 +307,8 @@
             "active_duty": "Aktīvā dienesta",
             "available_modes": "Pieejami režīmā",
             "workshop_id": "Darbnīcas saite",
-            "edit": "Rediģēt"
+            "edit": "Rediģēt",
+            "search": "Meklēšanas kartes"
         },
         "map_pool": {
             "toggle_pool_type": "Karte {map} ir {type} {type} kopai",
@@ -462,7 +463,8 @@
             "timeout_setting": "Pārtraukuma iestatījums",
             "tech_timeout_setting": "Tehniskā pārtraukuma iestatījums",
             "map_pool": "Karšu kopa",
-            "ready_setting": "Gatavs iestatījums"
+            "ready_setting": "Gatavs iestatījums",
+            "filter_maps": "Filtru kartes"
         },
         "schedule": {
             "pick_date": "Izvēlieties datumu",
@@ -1066,5 +1068,9 @@
             },
             "edit": "Rediģēt konfigurāciju"
         }
+    },
+    "custom_match": {
+        "title": "Pielāgota atbilstība",
+        "description": "Izveidot un pielāgot savu spēli. Iestatīt noteikumus, izvēlēties kartes, un uzaicināt draugus personalizētu spēļu pieredzi."
     }
 }

@@ -30,16 +30,31 @@ import Default from "~/layouts/default.vue";
     </div>
     <Separator class="my-6" />
     <div class="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-      <aside>
-        <nav class="flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1">
+      <aside class="w-full lg:w-auto">
+        <nav
+          class="flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1 overflow-y-auto max-h-[300px] lg:max-h-none"
+        >
           <nuxt-link to="/settings">
             <Button variant="ghost" class="w-full text-left justify-start">
-              {{ $t("pages.settings.profile.title") }}
+              {{ $t("pages.settings.profile.my_account") }}
             </Button>
           </nuxt-link>
+
+          <nuxt-link to="/settings/language">
+            <Button variant="ghost" class="w-full text-left justify-start">
+              {{ $t("pages.settings.profile.language") }}
+            </Button>
+          </nuxt-link>
+
           <nuxt-link to="/settings/appearance">
             <Button variant="ghost" class="w-full text-left justify-start">
-              {{ $t("pages.settings.appearance.title") }}
+              {{ $t("pages.settings.profile.appearance") }}
+            </Button>
+          </nuxt-link>
+
+          <nuxt-link to="/settings/matchmaking">
+            <Button variant="ghost" class="w-full text-left justify-start">
+              {{ $t("pages.settings.profile.matchmaking") }}
             </Button>
           </nuxt-link>
 

@@ -5,6 +5,7 @@ import MatchmakingSettings from "~/components/matchmaking/MatchmakingSettings.vu
 import { Collapsible, CollapsibleContent } from "~/components/ui/collapsible";
 import { Button } from "~/components/ui/button";
 import TimeAgo from "../TimeAgo.vue";
+import CustomMatch from "~/components/CustomMatch.vue";
 </script>
 
 <template>
@@ -99,17 +100,18 @@ import TimeAgo from "../TimeAgo.vue";
 
         <div class="flex flex-row gap-4">
           <div
-            v-for="type in matchTypes"
-            :key="type.type"
-            :class="[
-              'flex-1 p-4 border rounded-lg hover:bg-accent cursor-pointer transition-colors',
-            ]"
-            @click="joinMatchmaking(type)"
+            v-for="type in e_match_types"
+            :key="type.value"
+            class="flex-1 p-4 border rounded-lg hover:bg-accent cursor-pointer transition-colors"
+            @click="joinMatchmaking(type.value)"
           >
-            <h3 class="text-lg font-medium">{{ type.title }}</h3>
+            <h3 class="text-lg font-medium">{{ type.value }}</h3>
             <p class="text-sm text-muted-foreground">{{ type.description }}</p>
           </div>
         </div>
+
+        <Separator class="my-4" />
+        <CustomMatch />
       </div>
     </template>
     <template v-else-if="match">
@@ -240,32 +242,12 @@ export default {
       match: undefined as Match | undefined,
       playerSanctions: [] as any[],
       showSettings: false,
-      matchTypes: [
-        {
-          type: e_match_types_enum.Duel,
-          title: "1v1 Match",
-          description:
-            "A competitive duel experience, perfect for practicing individual skill",
-        },
-        {
-          type: e_match_types_enum.Wingman,
-          title: "2v2 Match",
-          description:
-            "Team up with a friend and compete in fast-paced 2v2 matches",
-        },
-        {
-          type: e_match_types_enum.Competitive,
-          title: "5v5 Match",
-          description:
-            "The classic competitive experience with full team coordination",
-        },
-      ],
     };
   },
   methods: {
     joinMatchmaking(matchType: MatchType): void {
       socket.event("matchmaking:join-queue", {
-        type: matchType.type,
+        type: matchType,
         regions: useMatchmakingStore().preferredRegions.map(
           (region: Region) => {
             return region.value;
