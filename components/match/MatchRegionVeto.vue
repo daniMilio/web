@@ -21,7 +21,7 @@ import { Separator } from "~/components/ui/separator";
         <div
           class="flex items-center space-x-2 cursor-pointer"
           @click="override = !override"
-          v-if="match.is_organizer && isUser"
+          v-if="match.is_organizer"
         >
           <Label>{{ $t("match.region_veto.organizer_override") }}</Label>
           <Switch :model-value="override" />
@@ -62,7 +62,7 @@ import { Separator } from "~/components/ui/separator";
                 <span
                   class="text-white text-xl font-bold uppercase text-center font-sans"
                 >
-                  {{ region.description }}
+                  {{ region.description || region.value }}
                 </span>
               </div>
             </div>
@@ -104,7 +104,7 @@ import { Separator } from "~/components/ui/separator";
                           :value="region.value"
                           v-for="region of regions"
                         >
-                          {{ region.description }}
+                          {{ region.description || region.value }}
                         </SelectItem>
                       </SelectGroup>
                     </SelectContent>
