@@ -19,7 +19,6 @@ import {
 } from "lucide-vue-next";
 import TournamentBracket from "~/components/icons/tournament-bracket.vue";
 import SystemUpdate from "./SystemUpdate.vue";
-import BreadCrumbs from "~/components/BreadCrumbs.vue";
 import { Users } from "lucide-vue-next";
 import RegionStatuses from "~/components/RegionStatuses.vue";
 import AppNotifications from "./AppNotifications.vue";
@@ -427,9 +426,7 @@ import ChatLobby from "~/components/chat/ChatLobby.vue";
       >
         <div class="flex items-center justify-between w-full">
           <div class="flex items-center gap-2">
-            <SidebarTrigger />
-            <Separator orientation="vertical" class="h-4" />
-            <bread-crumbs></bread-crumbs>
+            
           </div>
 
           <div class="flex gap-4">
