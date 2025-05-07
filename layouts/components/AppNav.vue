@@ -421,7 +421,7 @@ import ChatLobby from "~/components/chat/ChatLobby.vue";
       <SidebarRail />
     </Sidebar>
 
-    <SidebarInset class="bg-muted/40 overflow-hidden">
+    <SidebarInset class="bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] overflow-hidden">
       <header
         class="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 px-4"
       >
