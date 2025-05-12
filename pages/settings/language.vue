@@ -1,18 +1,10 @@
 <script setup lang="ts">
-import { Check, ChevronsUpDown, Languages } from "lucide-vue-next";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { useI18n } from "vue-i18n";
+import { computed } from "vue";
+
+definePageMeta({
+  layout: "profile-settings",
+});
 
 definePageMeta({
   layout: "profile-settings",
@@ -28,7 +20,7 @@ definePageMeta({
       {{ $t("pages.settings.language.description") }}
     </p>
   </div>
-  <Separator />
+  <Separator class="my-6" />
 
   <div class="grid gap-4"></div>
 </template>

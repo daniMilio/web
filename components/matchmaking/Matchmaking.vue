@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { AlertTriangle, Settings2 } from "lucide-vue-next";
+import { AlertTriangle, Settings2, Play } from "lucide-vue-next";
 import QuickServerConnect from "~/components/match/QuickServerConnect.vue";
 import MatchmakingSettings from "~/components/matchmaking/MatchmakingSettings.vue";
 import { Collapsible, CollapsibleContent } from "~/components/ui/collapsible";
 import { Button } from "~/components/ui/button";
 import TimeAgo from "../TimeAgo.vue";
 import CustomMatch from "~/components/CustomMatch.vue";
+
+const selectedMatchType = ref<string | null>(null);
 </script>
 
 <template>
@@ -104,37 +106,28 @@ import CustomMatch from "~/components/CustomMatch.vue";
           <div
             v-for="type in e_match_types"
             :key="type.value"
-            class="flex-1 p-4 border rounded-lg transition-all duration-300 relative overflow-hidden group h-[100px]"
-            :class="{
-              'hover:bg-accent/50 cursor-pointer':
-                pendingMatchType !== type.value,
-              'bg-primary/20 border-primary cursor-pointer shadow-lg scale-[1.02]':
-                pendingMatchType === type.value,
-            }"
-            @click="handleMatchTypeClick(type.value)"
+            class="flex-1 p-4 border rounded-lg hover:bg-accent cursor-pointer transition-colors relative"
+            :class="{ 'border-primary': selectedMatchType === type.value }"
+            @click="selectedMatchType = type.value"
           >
-            <div class="relative z-10 h-full">
-              <template v-if="pendingMatchType !== type.value">
-                <h3 class="text-lg font-medium">{{ type.value }}</h3>
-                <p class="text-sm text-muted-foreground">
-                  {{ type.description }}
-                </p>
-              </template>
-              <div
-                v-else
-                class="absolute inset-0 flex items-center justify-center"
-              >
-                <span
-                  class="text-xl font-semibold text-primary animate-fade-in"
-                >
-                  {{ $t("matchmaking.confirm_selection") }} {{ type.value }}
-                </span>
-              </div>
-            </div>
+            <h3 class="text-lg font-medium">{{ type.value }}</h3>
+            <p class="text-sm text-muted-foreground">{{ type.description }}</p>
+            
             <div
-              v-if="pendingMatchType === type.value"
-              class="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/10 animate-pulse"
-            ></div>
+              v-if="selectedMatchType === type.value"
+              class="absolute inset-0 flex items-center rounded-lg justify-center bg-accent animate-fade-in"
+            >
+              <Button
+                class="relative group overflow-hidden bg-primary hover:text-black"
+                @click.stop="joinMatchmaking(type.value)"
+              >
+                <span class="relative z-10 flex items-center justify-center gap-2">
+                  <Play class="h-4 w-4" />
+                  <span>Play {{ type.value }}</span>
+                </span>
+                
+              </Button>
+            </div>
           </div>
         </div>
 
