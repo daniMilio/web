@@ -54,8 +54,10 @@ const selectedMatchType = ref<string | null>(null);
         </div>
 
         <div class="relative z-10 flex flex-col items-center text-center">
-          <div class="flex items-center gap-4 mb-4 text-2xl font-medium">
-            Searching for a {{ matchMakingQueueDetails.type }} Match
+          <div
+            class="flex items-center gap-4 mb-4 text-2xl font-medium capitalize"
+          >
+            Searching for a {{ matchMakingQueueDetails.type.value }} Match
           </div>
           <div class="text-xl text-gray-400/90 flex items-center gap-2">
             <TimeAgo
@@ -164,8 +166,7 @@ import { generateQuery } from "~/graphql/graphqlGen";
 import { e_match_types_enum, e_match_status_enum } from "~/generated/zeus";
 
 interface MatchType {
-  type: e_match_types_enum;
-  title: string;
+  value: e_match_types_enum;
   description: string;
 }
 
@@ -261,9 +262,36 @@ export default {
       match: undefined as Match | undefined,
       playerSanctions: [] as any[],
       showSettings: false,
+      showConfirmation: false,
+      pendingMatchType: undefined as MatchType | undefined,
+      e_match_types: [] as MatchType[],
+      confirmationTimeout: undefined as NodeJS.Timeout | undefined,
     };
   },
   methods: {
+    handleMatchTypeClick(matchType: e_match_types_enum): void {
+      if (this.pendingMatchType === matchType) {
+        // Second click - confirm
+        if (this.confirmationTimeout) {
+          clearTimeout(this.confirmationTimeout);
+          this.confirmationTimeout = undefined;
+        }
+        this.joinMatchmaking(this.pendingMatchType);
+        this.pendingMatchType = undefined;
+        return;
+      }
+
+      // First click - show confirmation state
+      if (this.confirmationTimeout) {
+        clearTimeout(this.confirmationTimeout);
+      }
+
+      this.pendingMatchType = matchType;
+      this.confirmationTimeout = setTimeout(() => {
+        this.pendingMatchType = undefined;
+        this.confirmationTimeout = undefined;
+      }, 5000);
+    },
     joinMatchmaking(matchType: MatchType): void {
       socket.event("matchmaking:join-queue", {
         type: matchType,
@@ -333,17 +361,31 @@ export default {
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.5s ease-in;
+  animation: fadeIn 0.3s ease-out;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(5px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
   }
 }
 </style>

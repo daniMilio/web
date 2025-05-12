@@ -14,7 +14,6 @@ definePageMeta({
       <div class="space-y-0.5">
         <h4 class="text-base font-medium">
           {{ $t("pages.settings.application.servers.enable_cpu_pinning") }}
-          <Badge variant="destructive" class="ml-2">expirmental</Badge>
         </h4>
         <p class="text-sm text-muted-foreground">
           {{
@@ -71,7 +70,7 @@ export default {
       form: useForm({
         validationSchema: toTypedSchema(
           z.object({
-            numberOfCpus: z.number().min(1).default(2),
+            number_of_cpus_per_server: z.number().min(1).default(2),
           }),
         ),
       }),
@@ -91,6 +90,7 @@ export default {
   },
   methods: {
     async updateSettings() {
+      console.log(this.form.values);
       await this.$apollo.mutate({
         mutation: generateMutation({
           insert_settings: [

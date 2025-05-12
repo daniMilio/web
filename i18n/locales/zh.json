@@ -35,27 +35,6 @@
             "search": "搜索"
         },
         "settings": {
-            "profile": {
-                "title": "个人资料设置",
-                "description": "账户设置管理",
-                "name": "名称",
-                "avatar_url": "头像URL",
-                "country": "国家",
-                "select_country": "选择国家",
-                "search_country": "搜索国家...",
-                "no_country_found": "未找到国家",
-                "update": "更新个人资料",
-                "appearance": "外观",
-                "matchmaking": "匹配",
-                "my_account": "",
-                "language": ""
-            },
-            "language": {
-                "title": "",
-                "description": "",
-                "select": "",
-                "help": ""
-            },
             "appearance": {
                 "title": "外观",
                 "description": "应用程序外观设置",
@@ -91,16 +70,6 @@
                     "type": "",
                     "base_config": ""
                 },
-                "s3": {
-                    "update": "更新",
-                    "title": "",
-                    "min_retention": "",
-                    "max_storage": "",
-                    "cloudflare_worker_url": "",
-                    "max_storage_description": "",
-                    "cloudflare_worker_url_description": "",
-                    "min_retention_description": ""
-                },
                 "servers": {
                     "update": "更新",
                     "title": "",
@@ -115,7 +84,23 @@
                     "telemetry_description": "",
                     "update": ""
                 },
-                "matchmaking_min_role": ""
+                "matchmaking_min_role": "",
+                "demo_settings": {
+                    "update": "更新",
+                    "title": "",
+                    "min_retention": "",
+                    "max_storage": "",
+                    "cloudflare_worker_url": "",
+                    "max_storage_description": "",
+                    "cloudflare_worker_url_description": "",
+                    "min_retention_description": "",
+                    "current_storage": "",
+                    "used_storage": ""
+                },
+                "update_map_pools": {
+                    "title": "",
+                    "description": ""
+                }
             },
             "matchmaking": {
                 "region": "地区",
@@ -131,6 +116,16 @@
                 "description": "",
                 "select": "",
                 "search": ""
+            },
+            "account": {
+                "appearance": "外观",
+                "matchmaking": "匹配",
+                "name": "名称",
+                "discord": {
+                    "unlink_dialog": {
+                        "cancel": "取消"
+                    }
+                }
             }
         },
         "regions": {
@@ -222,7 +217,7 @@
             "last_updated": "最后更新",
             "status": {
                 "offline": "离线",
-                "online": "仅在线",
+                "online": "在线",
                 "setup": "",
                 "not_accepting": ""
             }
@@ -336,7 +331,8 @@
             "online": "在线",
             "join_lobby": "加入大厅",
             "offline": "离线",
-            "view_profile": ""
+            "view_profile": "",
+            "invite_to_match": ""
         },
         "confirm": {
             "ready": "准备就绪",
@@ -347,7 +343,8 @@
         "temp_banned": "临时封禁",
         "settings_section": {
             "toggle": ""
-        }
+        },
+        "confirm_selection": ""
     },
     "match": {
         "lobby": {
@@ -637,7 +634,7 @@
             "reason_description": "为此制裁提供明确的理由"
         },
         "search": {
-            "online_only": "仅在线",
+            "online_only": "在线",
             "no_players_found": "未找到玩家",
             "found_players": "找到的玩家",
             "placeholder": "搜索玩家..."
@@ -738,24 +735,6 @@
         }
     },
     "layouts": {
-        "profile_settings": {
-            "title": "个人资料设置",
-            "description": "个人资料信息管理",
-            "discord": {
-                "unlink": "解除Discord链接",
-                "link": "链接Discord",
-                "unlink_dialog": {
-                    "title": "解除Discord链接",
-                    "description": "确定要解除Discord链接吗？",
-                    "cancel": "取消",
-                    "confirm": "解除"
-                },
-                "unlinked": "Discord已解除链接"
-            },
-            "language": {
-                "title": ""
-            }
-        },
         "application_settings": {
             "title": "应用程序设置",
             "description": "应用程序设置管理"
@@ -1074,5 +1053,16 @@
     "custom_match": {
         "title": "",
         "description": ""
+    },
+    "notifications": {
+        "match": {
+            "invited_by": "邀请人",
+            "title": "",
+            "description": ""
+        },
+        "invite": {
+            "deny": "拒绝",
+            "accept": "接受"
+        }
     }
 }

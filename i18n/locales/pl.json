@@ -35,27 +35,6 @@
             "search": "Szukaj"
         },
         "settings": {
-            "profile": {
-                "title": "Ustawienia profilu",
-                "description": "Zarządzaj ustawieniami konta",
-                "name": "Nazwa",
-                "avatar_url": "URL avatara",
-                "country": "Kraj",
-                "select_country": "Wybierz kraj",
-                "search_country": "Szukaj kraju...",
-                "no_country_found": "Nie znaleziono krajów",
-                "update": "Aktualizuj profil",
-                "language": "Język",
-                "my_account": "Moje konto",
-                "appearance": "Wygląd",
-                "matchmaking": "Matchmaking"
-            },
-            "language": {
-                "title": "",
-                "description": "",
-                "select": "",
-                "help": ""
-            },
             "appearance": {
                 "title": "Wygląd",
                 "description": "Dostosuj wygląd aplikacji",
@@ -91,20 +70,10 @@
                     "type": "Typ gry",
                     "base_config": "Konfiguracja bazowa (5stack.base.cfg)"
                 },
-                "s3": {
-                    "update": "Aktualizuj",
-                    "title": "Ustawienia demo",
-                    "min_retention": "Minimalne zatrzymanie",
-                    "max_storage": "Maksymalne przechowywanie",
-                    "cloudflare_worker_url": "URL Cloudflare Worker",
-                    "max_storage_description": "Maksymalny rozmiar pamięci dla plików demo w GB.",
-                    "cloudflare_worker_url_description": "URL pracownika Cloudflare, który będzie używany do przechowywania i pobierania plików demo.",
-                    "min_retention_description": "Minimalne dni retencji plików demo."
-                },
                 "servers": {
                     "title": "Ustawienia serwera",
                     "enable_cpu_pinning": "Włącz procesor Pining",
-                    "enable_cpu_pinning_description": "Włącz mocowanie procesora dla lepszej wydajności",
+                    "enable_cpu_pinning_description": "Włącz przypinanie procesora na węzłach serwerów dla lepszej wydajności",
                     "number_of_cpus_per_server": "Liczba CPU na serwer",
                     "number_of_cpus_per_server_description": "Liczba procesorów do przydzielenia na serwer",
                     "update": "Aktualizuj"
@@ -115,7 +84,23 @@
                     "telemetry_description": "Pomoc poprawić 5stosu poprzez udostępnianie anonimowych danych dotyczących użytkowania.",
                     "update": "Aktualizacja ustawień telemetrii"
                 },
-                "matchmaking_min_role": "Minimalna rola umożliwiająca dołączenie do Matchmaking"
+                "matchmaking_min_role": "Minimalna rola umożliwiająca dołączenie do Matchmaking",
+                "demo_settings": {
+                    "update": "Aktualizuj",
+                    "title": "Ustawienia demo",
+                    "min_retention": "Minimalne zatrzymanie",
+                    "max_storage": "Maksymalne przechowywanie",
+                    "cloudflare_worker_url": "URL Cloudflare Worker",
+                    "max_storage_description": "Maksymalny rozmiar pamięci dla plików demo w GB.",
+                    "cloudflare_worker_url_description": "URL pracownika Cloudflare, który będzie używany do przechowywania i pobierania plików demo.",
+                    "min_retention_description": "Minimalne dni retencji plików demo.",
+                    "current_storage": "Aktualne przechowywanie",
+                    "used_storage": "Stosowane przybliżone przechowywanie"
+                },
+                "update_map_pools": {
+                    "title": "Automatyczna aktualizacja puli map",
+                    "description": "Automatycznie dodawać / aktualizować pule map, gdy nowe mapy są dodawane lub usuwane z puli aktywnych obowiązków."
+                }
             },
             "language": {
                 "title": "Język",
@@ -126,11 +111,37 @@
             "matchmaking": {
                 "title": "Ustawienia tworzenia dopasowań",
                 "description": "Skonfiguruj swoje preferencje swatania i zobacz opóźnienia w regionie.",
-                "average_latency": "Średnie opóźnienie",
+                "average_latency": "Opóźnienie",
                 "preferred": "Preferowane",
                 "max_acceptable_ping": "Maksymalna dopuszczalna Ping",
                 "max_ping_description": "Jeżeli żadne regiony nie są preferowane, tworzenie zapałek będzie miało zastosowanie tylko w regionach o wartości poniżej tej wartości.",
                 "region": "Region"
+            },
+            "account": {
+                "title": "Ustawienia konta",
+                "description": "Szczegóły konta",
+                "my_account": "Moje konto",
+                "avatar_url": "Avatar URL",
+                "country": "Kraj",
+                "select_country": "Wybierz kraj...",
+                "search_country": "Kraj poszukiwań...",
+                "no_country_found": "Nie znaleziono żadnego kraju.",
+                "update": "Aktualizacja konta",
+                "update_success": "Aktualizacja profilu",
+                "discord": {
+                    "unlink": "Rozwiąż problem",
+                    "link": "Link Discord",
+                    "unlink_dialog": {
+                        "title": "Odłącz konto Discord",
+                        "description": "Na pewno chcesz odłączyć konto Discord? To usunie połączenie pomiędzy kontami 5Stack i Discord.",
+                        "confirm": "Odłącz",
+                        "cancel": "Anuluj"
+                    },
+                    "unlinked": "Konto Discord niepołączone pomyślnie"
+                },
+                "appearance": "Wygląd",
+                "name": "Nazwa",
+                "matchmaking": "Matchmaking"
             }
         },
         "regions": {
@@ -215,8 +226,8 @@
                 "ports_tooltip": "Dostępny zakres portów",
                 "enabled": "Włączone",
                 "no_nodes": "Brak węzłów",
-                "supports_low_latency": "",
-                "supports_cpu_pinning": ""
+                "supports_low_latency": "Obsługuje niską latencję",
+                "supports_cpu_pinning": "Obsługuje procesor Pining"
             },
             "build_id": "ID kompilacji",
             "last_updated": "Ostatnio zaktualizowano",
@@ -313,8 +324,8 @@
             "search": "Mapy wyszukiwania"
         },
         "map_pool": {
-            "toggle_pool_type": "Mapa {mapa} została {typ} dla {typ}",
-            "toggle_active_pool": "Mapa {mapa} została {typ} do czynnej służby",
+            "toggle_pool_type": "Aktualizacja puli map",
+            "toggle_active_pool": "Aktualizacja statusu aktywności map",
             "save_success": "Mapa pula zapisana pomyślnie"
         }
     },
@@ -329,25 +340,27 @@
         "friends": {
             "title": "Znajomi",
             "sync": "Synchronizuj",
-            "search": "Szukaj",
+            "search": "Dodaj znajomego",
             "pending_requests": "Oczekujące zaproszenia",
             "invite_to_lobby": "Zaproś do lobby",
             "remove": "Usuń",
-            "online": "Online",
+            "online": "Tylko online",
             "offline": "Offline",
             "join_lobby": "Dołącz do Lobby",
-            "view_profile": "Widok profilu"
+            "view_profile": "Widok profilu",
+            "invite_to_match": "Zaproś gracza do meczu"
         },
         "confirm": {
             "ready": "Gotowy",
-            "players": "Gracze"
+            "players": "Gracze gotowi"
         },
         "banned": "Zbanowany",
         "go_to_match": "Przejdź do meczu",
         "temp_banned": "Tymczasowo zbanowany",
         "settings_section": {
             "toggle": "Dostosuj ustawienia"
-        }
+        },
+        "confirm_selection": "Potwierdzenie"
     },
     "match": {
         "lobby": {
@@ -438,7 +451,7 @@
                     "options": {
                         "admins": "Administratorzy",
                         "coaches": "Trenerzy",
-                        "everyone": "Wszyscy",
+                        "everyone": "Ktokolwiek",
                         "captains": "Żurawiny"
                     }
                 },
@@ -738,24 +751,6 @@
         }
     },
     "layouts": {
-        "profile_settings": {
-            "title": "Ustawienia profilu",
-            "description": "Zarządzaj informacjami profilu",
-            "discord": {
-                "unlink": "Odłącz Discord",
-                "link": "Połącz Discord",
-                "unlink_dialog": {
-                    "title": "Odłącz Discord",
-                    "description": "Czy na pewno chcesz odłączyć Discord?",
-                    "cancel": "Anuluj",
-                    "confirm": "Odłącz"
-                },
-                "unlinked": "Discord został odłączony"
-            },
-            "language": {
-                "title": ""
-            }
-        },
         "application_settings": {
             "title": "Ustawienia aplikacji",
             "description": "Zarządzaj ustawieniami aplikacji"
@@ -800,8 +795,9 @@
                 "map_pools": "Pule Map"
             },
             "profile": {
-                "my_account": "Moje Konto",
-                "logout": "Wyloguj"
+                "my_account": "Moje ustawienia",
+                "logout": "Wyloguj",
+                "my_profile": "Mój profil"
             },
             "footer": {
                 "report_issue": "Zgłoś Problem",
@@ -830,6 +826,10 @@
                 "cancel": "Anuluj",
                 "confirm": "Wyloguj"
             }
+        },
+        "account_settings": {
+            "title": "Ustawienia konta",
+            "description": "Zarządzanie ustawieniami i preferencjami konta"
         }
     },
     "pwa": {
@@ -1074,5 +1074,16 @@
     "custom_match": {
         "title": "Niestandardowe dopasowanie",
         "description": "Tworzenie i dostosowywanie własnego meczu. Ustaw zasady, wybierz mapy i zaproś znajomych do spersonalizowanych doświadczeń w grach."
+    },
+    "notifications": {
+        "match": {
+            "invited_by": "Zaproszony przez",
+            "title": "Zaproszenie do meczu",
+            "description": "Zostałeś zaproszony na mecz"
+        },
+        "invite": {
+            "deny": "Odrzuć",
+            "accept": "Akceptuj"
+        }
     }
 }

@@ -39,10 +39,9 @@ import { Pencil } from "lucide-vue-next";
       </div>
     </TableCell>
     <TableCell class="px-4 py-2 text-sm">
-      <ViewOnSteam
-        :workshop_map_id="map.workshop_map_id"
-        v-if="map.workshop_map_id"
-      />
+      <template v-if="map.workshop_map_id">
+        <ViewOnSteam :workshop_map_id="map.workshop_map_id" />
+      </template>
     </TableCell>
     <TableCell>
       <DropdownMenu>

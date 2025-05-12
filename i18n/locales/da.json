@@ -35,27 +35,6 @@
             "search": "Søg"
         },
         "settings": {
-            "profile": {
-                "title": "Profilindstillinger",
-                "description": "Administrer dine kontoindstillinger",
-                "name": "Navn",
-                "avatar_url": "Avatar URL",
-                "country": "Land",
-                "select_country": "Vælg land",
-                "search_country": "Søg efter land...",
-                "no_country_found": "Ingen lande fundet",
-                "update": "Opdater profil",
-                "language": "Sprog",
-                "my_account": "Min konto",
-                "appearance": "Udseende",
-                "matchmaking": "Matchmaking"
-            },
-            "language": {
-                "title": "",
-                "description": "",
-                "select": "",
-                "help": ""
-            },
             "appearance": {
                 "title": "Udseende",
                 "description": "Tilpas applikationens udseende",
@@ -91,20 +70,10 @@
                     "type": "Spiltype",
                     "base_config": "Base Config (5stack.base.cfg)"
                 },
-                "s3": {
-                    "update": "Opdater",
-                    "title": "Demo- indstillinger",
-                    "min_retention": "Minimum tilbageholdelse",
-                    "max_storage": "Maksimal opbevaring",
-                    "cloudflare_worker_url": "Cloudflare Worker URL",
-                    "max_storage_description": "Den maksimale lagerstørrelse for demo-filer i GB.",
-                    "cloudflare_worker_url_description": "URL for Cloudflare arbejdstager, der vil blive brugt til at gemme og hente demo-filer.",
-                    "min_retention_description": "Den mindste opbevaring dage for demo-filer."
-                },
                 "servers": {
                     "title": "Serverindstillinger",
                     "enable_cpu_pinning": "Aktivér CPU Rinning",
-                    "enable_cpu_pinning_description": "Aktivér CPU-pinning for bedre ydeevne",
+                    "enable_cpu_pinning_description": "Aktivér CPU-pinning på spilserver-knuder for bedre ydeevne",
                     "number_of_cpus_per_server": "Antal CPU 'er pr. server",
                     "number_of_cpus_per_server_description": "Antal CPU 'er der skal tildeles pr. server",
                     "update": "Opdater"
@@ -115,7 +84,23 @@
                     "telemetry_description": "Hjælp med at forbedre 5stack ved at dele anonyme brugsdata.",
                     "update": "Indstillinger for telemetri"
                 },
-                "matchmaking_min_role": "Minimum rolle tilladt at deltage i matchmaking"
+                "matchmaking_min_role": "Minimum rolle tilladt at deltage i matchmaking",
+                "demo_settings": {
+                    "update": "Opdater",
+                    "title": "Demo- indstillinger",
+                    "min_retention": "Minimum tilbageholdelse",
+                    "max_storage": "Maksimal opbevaring",
+                    "cloudflare_worker_url": "Cloudflare Worker URL",
+                    "max_storage_description": "Den maksimale lagerstørrelse for demo-filer i GB.",
+                    "cloudflare_worker_url_description": "URL for Cloudflare arbejdstager, der vil blive brugt til at gemme og hente demo-filer.",
+                    "min_retention_description": "Den mindste opbevaring dage for demo-filer.",
+                    "current_storage": "Aktuel opbevaring",
+                    "used_storage": "Omtrentlige opbevaring brugt"
+                },
+                "update_map_pools": {
+                    "title": "Automatisk opdateringskortspil",
+                    "description": "Tilføj / opdater automatisk kortpuljer når nye kort tilføjes eller fjernes fra den aktive duty pool."
+                }
             },
             "language": {
                 "select": "Vælg sprog",
@@ -127,10 +112,36 @@
                 "region": "Region",
                 "title": "Indstillinger for matchning",
                 "description": "Indstil dine matchmaking præferencer og se region latesser.",
-                "average_latency": "Gennemsnitlig latency",
+                "average_latency": "Latency",
                 "preferred": "Foretrukket",
                 "max_acceptable_ping": "Maksimalt acceptabelt Ping",
                 "max_ping_description": "Hvis ingen regioner foretrækkes, vil matchmaking kun anvende regioner med ping under denne værdi."
+            },
+            "account": {
+                "title": "Kontoindstillinger",
+                "description": "Dine kontooplysninger",
+                "my_account": "Min konto",
+                "avatar_url": "Avatar URL",
+                "country": "Land",
+                "select_country": "Vælg land...",
+                "search_country": "Søg land...",
+                "no_country_found": "Intet land fundet.",
+                "update": "Opdatér konto",
+                "update_success": "Opdateret profil",
+                "discord": {
+                    "unlink": "Afslut diskord",
+                    "link": "Link Diskord",
+                    "unlink_dialog": {
+                        "title": "Unlink Discord-konto",
+                        "description": "Er du sikker på, at du vil afkoble din Discord-konto? Dette vil fjerne forbindelsen mellem dine 5Stack og Discord konti.",
+                        "confirm": "Aflink",
+                        "cancel": "Annuller"
+                    },
+                    "unlinked": "Diskord konto uden forbindelse med succes"
+                },
+                "appearance": "Udseende",
+                "matchmaking": "Matchmaking",
+                "name": "Navn"
             }
         },
         "regions": {
@@ -313,8 +324,8 @@
             "search": "Søg i kort"
         },
         "map_pool": {
-            "toggle_pool_type": "Kortet {map} er blevet {type} for {type}",
-            "toggle_active_pool": "Kortet {map} er blevet {type} for aktiv tjeneste",
+            "toggle_pool_type": "Opdateret kort pools",
+            "toggle_active_pool": "Kort Aktivitetsstatus opdateret",
             "save_success": "Kort-pool gemt med succes"
         }
     },
@@ -329,25 +340,27 @@
         "friends": {
             "title": "Venner",
             "sync": "Synkroniser",
-            "search": "Søg",
+            "search": "Tilføj ven",
             "pending_requests": "Afventende anmodninger",
             "invite_to_lobby": "Inviter til lobby",
             "remove": "Fjern",
-            "online": "Online",
+            "online": "Kun online",
             "join_lobby": "Tilmeld Lobby",
             "offline": "Offline",
-            "view_profile": "Vis profil"
+            "view_profile": "Vis profil",
+            "invite_to_match": "Inviter spiller til Match"
         },
         "confirm": {
             "ready": "Klar",
-            "players": "Spillere"
+            "players": "Spillere klar"
         },
         "banned": "Bannet",
         "go_to_match": "Gå til kamp",
         "temp_banned": "Midlertidigt bannet",
         "settings_section": {
             "toggle": "Justér indstillinger"
-        }
+        },
+        "confirm_selection": "Bekræftelse"
     },
     "match": {
         "lobby": {
@@ -738,24 +751,6 @@
         }
     },
     "layouts": {
-        "profile_settings": {
-            "title": "Profilindstillinger",
-            "description": "Administrer din profilinformation",
-            "discord": {
-                "unlink": "Fravælg Discord",
-                "link": "Link Discord",
-                "unlink_dialog": {
-                    "title": "Fravælg Discord",
-                    "description": "Er du sikker på, at du vil fravælge Discord?",
-                    "cancel": "Annuller",
-                    "confirm": "Fravælg"
-                },
-                "unlinked": "Discord er blevet fravalgt"
-            },
-            "language": {
-                "title": ""
-            }
-        },
         "application_settings": {
             "title": "Applikationsindstillinger",
             "description": "Administrer applikationsindstillinger"
@@ -800,8 +795,9 @@
                 "map_pools": "Kortpuljer"
             },
             "profile": {
-                "my_account": "Min Konto",
-                "logout": "Log ud"
+                "my_account": "Mine indstillinger",
+                "logout": "Log ud",
+                "my_profile": "Min profil"
             },
             "footer": {
                 "report_issue": "Rapportér Problem",
@@ -830,6 +826,10 @@
                 "cancel": "Annuller",
                 "confirm": "Log ud"
             }
+        },
+        "account_settings": {
+            "title": "Kontoindstillinger",
+            "description": "Administrer dine kontoindstillinger og indstillinger"
         }
     },
     "pwa": {
@@ -1074,5 +1074,16 @@
     "custom_match": {
         "description": "Opret og tilpasse din egen kamp. Sæt regler, vælge kort, og invitere venner til en personlig gaming oplevelse.",
         "title": "Brugerdefineret match"
+    },
+    "notifications": {
+        "match": {
+            "invited_by": "Inviteret af",
+            "title": "Match Invitér",
+            "description": "Du er blevet inviteret til en kamp"
+        },
+        "invite": {
+            "deny": "Afvis",
+            "accept": "Acceptér"
+        }
     }
 }

@@ -3,7 +3,10 @@ import SimpleMatchDisplay from "./SimpleMatchDisplay.vue";
 </script>
 
 <template>
-  <div class="flex gap-4 overflow-x-auto" v-if="matches.length > 0">
+  <div
+    class="flex gap-4 overflow-x-auto"
+    v-if="matches.length > 0 && !isCurrentMatch"
+  >
     <template v-if="matches?.length > 0">
       <SimpleMatchDisplay
         :key="match.id"
@@ -19,14 +22,20 @@ import SimpleMatchDisplay from "./SimpleMatchDisplay.vue";
       </div>
     </template>
   </div>
-  <slot v-if="matches.length > 0"></slot>
+  <slot v-if="matches.length > 0 && !isCurrentMatch"></slot>
 </template>
 
 <script lang="ts">
 export default {
   computed: {
     matches() {
-      return useMatchLobbyStore().upcomingMatches;
+      return useMatchLobbyStore().managingMatches;
+    },
+    isCurrentMatch() {
+      return (
+        this.matches.length === 1 &&
+        this.matches.at(0).id === useMatchLobbyStore().currentMatch?.id
+      );
     },
   },
 };

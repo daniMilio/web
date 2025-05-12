@@ -16,6 +16,7 @@ import {
   Globe,
   Map,
   Settings,
+  User,
 } from "lucide-vue-next";
 import TournamentBracket from "~/components/icons/tournament-bracket.vue";
 import SystemUpdate from "./SystemUpdate.vue";
@@ -693,8 +694,10 @@ export default {
   watch: {
     isMedium: {
       immediate: true,
-      handler() {
-        this.rightSidebarOpen = !this.isMedium;
+      handler(oldValue, newValue) {
+        if (this.rightSidebarOpen && oldValue && newValue == false) {
+          this.rightSidebarOpen = false;
+        }
       },
     },
     detectedCountry: {

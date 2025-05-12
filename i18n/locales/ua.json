@@ -35,27 +35,6 @@
             "search": "Пошук..."
         },
         "settings": {
-            "profile": {
-                "title": "Налаштування профілю",
-                "description": "Керування налаштуваннями облікового запису",
-                "name": "Назва",
-                "avatar_url": "URL аватара",
-                "country": "Країна",
-                "select_country": "Вибрати країну",
-                "search_country": "Пошук країни...",
-                "no_country_found": "Країну не знайдено",
-                "update": "Оновити профіль",
-                "language": "Українська",
-                "my_account": "Мій обліковий запис",
-                "appearance": "Зовнішній вигляд",
-                "matchmaking": "Матчмейкінг"
-            },
-            "language": {
-                "title": "",
-                "description": "",
-                "select": "",
-                "help": ""
-            },
             "appearance": {
                 "title": "Зовнішній вигляд",
                 "description": "Налаштування зовнішнього вигляду додатку",
@@ -91,20 +70,10 @@
                     "type": "Тип гри",
                     "base_config": "База Конфіг (5stack.base.cfg)"
                 },
-                "s3": {
-                    "update": "Оновити",
-                    "title": "Демо налаштування",
-                    "min_retention_description": "Мінімальні дні затримки для демо файлів.",
-                    "min_retention": "Мінімальне затримання",
-                    "max_storage": "Максимальне зберігання",
-                    "cloudflare_worker_url": "Статус на сервери",
-                    "max_storage_description": "Максимальний розмір пам'яті для демо-файлів у GB.",
-                    "cloudflare_worker_url_description": "URL конструктора Cloudflare, який буде використовуватися для зберігання та отримання демо файлів."
-                },
                 "servers": {
                     "title": "Налаштування серверів",
                     "enable_cpu_pinning": "Увімкнути процесор Штани",
-                    "enable_cpu_pinning_description": "Увімкнути пінінг процесора для кращої продуктивності",
+                    "enable_cpu_pinning_description": "Увімкнути налаштування процесора на ігрових серверах для кращої продуктивності",
                     "number_of_cpus_per_server": "Кількість процесорів на сервер",
                     "number_of_cpus_per_server_description": "Кількість ЦП для виділення на сервер",
                     "update": "Оновити"
@@ -115,7 +84,23 @@
                     "telemetry_description": "Допомогти покращити 5 місце, використовуючи анонімні дані про використання.",
                     "update": "Оновлення параметрів телеметрії"
                 },
-                "matchmaking_min_role": "Мінімальна оцінка ролі, щоб приєднатися"
+                "matchmaking_min_role": "Мінімальна оцінка ролі, щоб приєднатися",
+                "demo_settings": {
+                    "update": "Оновити",
+                    "title": "Демо налаштування",
+                    "min_retention": "Мінімальне затримання",
+                    "max_storage": "Максимальне зберігання",
+                    "cloudflare_worker_url": "Статус на сервери",
+                    "max_storage_description": "Максимальний розмір пам'яті для демо-файлів у GB.",
+                    "cloudflare_worker_url_description": "URL конструктора Cloudflare, який буде використовуватися для зберігання та отримання демо файлів.",
+                    "min_retention_description": "Мінімальні дні затримки для демо файлів.",
+                    "current_storage": "Поточне зберігання",
+                    "used_storage": "Приблизний зберігання"
+                },
+                "update_map_pools": {
+                    "title": "Автоматичні оновлення карти басейни",
+                    "description": "Автоматично додавати / оновити басейни карт при додаванні нових карт або видаленні з активного мита басейну."
+                }
             },
             "language": {
                 "title": "Українська",
@@ -127,10 +112,36 @@
                 "region": "Регіон",
                 "title": "Налаштування матчів",
                 "description": "Налаштуйте налаштування та переглядайте межі регіону.",
-                "average_latency": "Середня Latency",
+                "average_latency": "Проживання",
                 "preferred": "Поповнення",
                 "max_acceptable_ping": "Максимальний придатковий Пінг",
                 "max_ping_description": "Якщо не потрібні регіони, то відповідне значення буде використовувати тільки регіони з пінгом нижче."
+            },
+            "account": {
+                "title": "Налаштування облікового запису",
+                "description": "Ваш обліковий запис",
+                "my_account": "Мій обліковий запис",
+                "avatar_url": "Аватар URL",
+                "country": "Країна",
+                "select_country": "Виберіть країну...",
+                "search_country": "Пошук країни ...",
+                "no_country_found": "Не знайдено країну.",
+                "update": "Оновлення облікового запису",
+                "update_success": "Оновлений профіль",
+                "discord": {
+                    "unlink": "Розсилка",
+                    "link": "Посилання",
+                    "unlink_dialog": {
+                        "title": "Unlink Discord акаунт",
+                        "description": "Ви впевнені, що ви хочете скасувати свій обліковий запис? Це дозволить видалити підключення між обліковими записами 5Stack та Discord.",
+                        "confirm": "Незв'язок",
+                        "cancel": "Скасувати"
+                    },
+                    "unlinked": "Відстеження облікового запису з посиланням"
+                },
+                "appearance": "Зовнішній вигляд",
+                "name": "Назва",
+                "matchmaking": "Матчмейкінг"
             }
         },
         "regions": {
@@ -215,8 +226,8 @@
                 "ports_tooltip": "Діапазон доступних портів",
                 "enabled": "Увімкнено",
                 "no_nodes": "Немає вузлів",
-                "supports_low_latency": "",
-                "supports_cpu_pinning": ""
+                "supports_low_latency": "Підтримує низьку Latency",
+                "supports_cpu_pinning": "Підтримка ЦП Штани"
             },
             "build_id": "ID збірки",
             "last_updated": "Останнє оновлення",
@@ -313,8 +324,8 @@
             "search": "Карта сайту"
         },
         "map_pool": {
-            "toggle_pool_type": "Карта {map} {type} для {type}",
-            "toggle_active_pool": "Карта {map} {type} для активних обов'язків",
+            "toggle_pool_type": "Оновлені карти басейни",
+            "toggle_active_pool": "Статус на сервери",
             "save_success": "Карта басейну успішно збережено"
         }
     },
@@ -329,25 +340,27 @@
         "friends": {
             "title": "Друзі",
             "sync": "Синхронізувати",
-            "search": "Пошук",
+            "search": "Додати друг",
             "pending_requests": "Очікуючі запити",
             "invite_to_lobby": "Запросити в лобі",
             "remove": "Видалити",
-            "online": "В мережі",
+            "online": "Тільки онлайн",
             "offline": "Не в мережі",
             "join_lobby": "Приєднатися до Лобі",
-            "view_profile": "Переглянути профіль"
+            "view_profile": "Переглянути профіль",
+            "invite_to_match": "Запрошення гравця до матчу"
         },
         "confirm": {
             "ready": "Готово",
-            "players": "Гравці"
+            "players": "Гравці Готові"
         },
         "banned": "Заблоковано",
         "go_to_match": "Перейти до матчу",
         "temp_banned": "Тимчасово заблоковано",
         "settings_section": {
             "toggle": "Налаштування налаштування"
-        }
+        },
+        "confirm_selection": "Підтвердження"
     },
     "match": {
         "lobby": {
@@ -438,7 +451,7 @@
                     "options": {
                         "admins": "Адміністратори",
                         "coaches": "Тренери",
-                        "everyone": "Всі",
+                        "everyone": "Будь",
                         "captains": "Тренери / Капітани"
                     }
                 },
@@ -738,24 +751,6 @@
         }
     },
     "layouts": {
-        "profile_settings": {
-            "title": "Налаштування профілю",
-            "description": "Керування інформацією профілю",
-            "discord": {
-                "unlink": "Відв'язати Discord",
-                "link": "Прив'язати Discord",
-                "unlink_dialog": {
-                    "title": "Відв'язати Discord",
-                    "description": "Ви впевнені, що хочете відв'язати Discord?",
-                    "cancel": "Скасувати",
-                    "confirm": "Відв'язати"
-                },
-                "unlinked": "Discord відв'язано"
-            },
-            "language": {
-                "title": ""
-            }
-        },
         "application_settings": {
             "title": "Налаштування додатку",
             "description": "Керування налаштуваннями додатку"
@@ -804,8 +799,9 @@
                 "join_discord": "Приєднатися до Discord"
             },
             "profile": {
-                "my_account": "Мій Обліковий Запис",
-                "logout": "Вийти"
+                "my_account": "Моє налаштування",
+                "logout": "Вийти",
+                "my_profile": "Мій профіль"
             },
             "logout_dialog": {
                 "title": "Вийти",
@@ -830,6 +826,10 @@
                 "join_discord": "Приєднатися до Discord",
                 "map_pools": "Пул Карт"
             }
+        },
+        "account_settings": {
+            "title": "Налаштування облікового запису",
+            "description": "Управління налаштуваннями та налаштуваннями облікового запису"
         }
     },
     "pwa": {
@@ -1074,5 +1074,16 @@
     "custom_match": {
         "title": "Спеціальний матч",
         "description": "Створіть і налаштуйте свій власний матч. Налаштуйте правила, оберіть карти та запрошуйте друзів для персоналізованого ігрового досвіду."
+    },
+    "notifications": {
+        "match": {
+            "invited_by": "Запрошено",
+            "title": "Матч запрошення",
+            "description": "Ви запрошували приєднатися до матчу"
+        },
+        "invite": {
+            "deny": "Відхилити",
+            "accept": "Прийняти"
+        }
     }
 }

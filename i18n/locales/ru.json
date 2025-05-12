@@ -35,27 +35,6 @@
             "search": "Поиск"
         },
         "settings": {
-            "profile": {
-                "title": "Настройки профиля",
-                "description": "Управление настройками аккаунта",
-                "name": "Название",
-                "avatar_url": "URL аватара",
-                "country": "Страна",
-                "select_country": "Выберите страну",
-                "search_country": "Поиск страны...",
-                "no_country_found": "Страны не найдены",
-                "update": "Обновить профиль",
-                "language": "Язык языка",
-                "appearance": "Внешний вид",
-                "my_account": "Мой счет",
-                "matchmaking": "Матчмейкинг"
-            },
-            "language": {
-                "title": "",
-                "description": "",
-                "select": "",
-                "help": ""
-            },
             "appearance": {
                 "title": "Внешний вид",
                 "description": "Настройка внешнего вида приложения",
@@ -91,20 +70,10 @@
                     "type": "Тип игры",
                     "base_config": "Базовый конфигуратор (5stack.base.cfg)"
                 },
-                "s3": {
-                    "update": "Обновить",
-                    "min_retention": "Минимальное удержание",
-                    "max_storage": "Максимальное хранение",
-                    "cloudflare_worker_url": "Cloudflare Worker URL",
-                    "max_storage_description": "Максимальный размер хранилища для демонстрационных файлов в GB.",
-                    "cloudflare_worker_url_description": "URL сотрудника Cloudflare, который будет использоваться для хранения и извлечения демонстрационных файлов.",
-                    "title": "Демо-настройки",
-                    "min_retention_description": "Минимальные дни хранения демо-файлов."
-                },
                 "servers": {
                     "title": "Настройки сервера",
                     "enable_cpu_pinning": "Включить CPU Пиннинг",
-                    "enable_cpu_pinning_description": "Включить CPU pinning для лучшей производительности",
+                    "enable_cpu_pinning_description": "Включите CPU на узлах игрового сервера для лучшей производительности",
                     "number_of_cpus_per_server": "Количество процессоров на сервер",
                     "number_of_cpus_per_server_description": "Количество процессоров для выделения на сервер",
                     "update": "Обновить"
@@ -115,7 +84,23 @@
                     "telemetry_description": "Помогите улучшить 5stack путем обмена анонимными данными об использовании.",
                     "update": "Обновленные настройки Telemetry"
                 },
-                "matchmaking_min_role": "Минимальная роль, разрешенная для участия в игре"
+                "matchmaking_min_role": "Минимальная роль, разрешенная для участия в игре",
+                "demo_settings": {
+                    "update": "Обновить",
+                    "title": "Демо-настройки",
+                    "min_retention": "Минимальное удержание",
+                    "max_storage": "Максимальное хранение",
+                    "cloudflare_worker_url": "Cloudflare Worker URL",
+                    "max_storage_description": "Максимальный размер хранилища для демонстрационных файлов в GB.",
+                    "cloudflare_worker_url_description": "URL сотрудника Cloudflare, который будет использоваться для хранения и извлечения демонстрационных файлов.",
+                    "min_retention_description": "Минимальные дни хранения демо-файлов.",
+                    "current_storage": "Текущее хранение",
+                    "used_storage": "Приблизительное хранение используется"
+                },
+                "update_map_pools": {
+                    "title": "Автоматическое обновление Map Pools",
+                    "description": "Автоматическое добавление/обновление пулов карт при добавлении или удалении новых карт из пула активных операций."
+                }
             },
             "language": {
                 "title": "Язык языка",
@@ -127,10 +112,36 @@
                 "region": "Регион",
                 "title": "Настройки для игр",
                 "description": "Настройте свои предпочтения и просмотрите задержки в регионе.",
-                "average_latency": "Средняя задержка",
+                "average_latency": "Задержка",
                 "preferred": "Предпочтительный",
                 "max_acceptable_ping": "Максимально приемлемый Пинг",
                 "max_ping_description": "Если регионы не являются предпочтительными, сватовство будет использовать только регионы с пингом ниже этого значения."
+            },
+            "account": {
+                "title": "Настройки аккаунта",
+                "description": "Подробности вашего аккаунта",
+                "my_account": "Мой счет",
+                "avatar_url": "URL аватара",
+                "country": "Страна",
+                "select_country": "Выберите страну...",
+                "search_country": "Поиск по стране...",
+                "no_country_found": "Ни одна страна не найдена.",
+                "update": "Обновление аккаунта",
+                "update_success": "Обновленный профиль",
+                "discord": {
+                    "unlink": "Разногласия Unlink",
+                    "link": "Диссонация Link",
+                    "unlink_dialog": {
+                        "title": "Учетная запись Unlink Discord",
+                        "description": "Вы уверены, что хотите удалить свою учетную запись Discord? Это удалит связь между вашими учетными записями 5Stack и Discord.",
+                        "confirm": "Ссылка",
+                        "cancel": "Отмена"
+                    },
+                    "unlinked": "Удачно несвязанный аккаунт"
+                },
+                "appearance": "Внешний вид",
+                "name": "Название",
+                "matchmaking": "Матчмейкинг"
             }
         },
         "regions": {
@@ -215,8 +226,8 @@
                 "ports_tooltip": "Доступный диапазон портов",
                 "enabled": "Включено",
                 "no_nodes": "Нет узлов",
-                "supports_low_latency": "",
-                "supports_cpu_pinning": ""
+                "supports_low_latency": "Поддерживает низкую задержку",
+                "supports_cpu_pinning": "Поддержка CPU Пиннинг"
             },
             "build_id": "ID сборки",
             "last_updated": "Последнее обновление",
@@ -313,8 +324,8 @@
             "search": "Карты поиска"
         },
         "map_pool": {
-            "toggle_pool_type": "Карта {map} была для {type}",
-            "toggle_active_pool": "Карта {map} была {type} для активной службы",
+            "toggle_pool_type": "Обновленные пулы карт",
+            "toggle_active_pool": "Обновлен статус активности карт",
             "save_success": "Картографический пул успешно сохранен"
         }
     },
@@ -329,25 +340,27 @@
         "friends": {
             "title": "Друзья",
             "sync": "Синхронизировать",
-            "search": "Поиск",
+            "search": "Добавить друзей",
             "pending_requests": "Ожидающие запросы",
             "invite_to_lobby": "Пригласить в лобби",
             "remove": "Удалить",
             "online": "В сети",
             "offline": "Не в сети",
             "join_lobby": "Присоединиться к Лобби",
-            "view_profile": "Просмотр профиля"
+            "view_profile": "Просмотр профиля",
+            "invite_to_match": "Пригласить игрока на матч"
         },
         "confirm": {
             "ready": "Готов",
-            "players": "Игроки"
+            "players": "Игроки готовы"
         },
         "banned": "Забанен",
         "go_to_match": "Перейти к матчу",
         "temp_banned": "Временно забанен",
         "settings_section": {
             "toggle": "Адаптация настроек"
-        }
+        },
+        "confirm_selection": "Подтверждающий"
     },
     "match": {
         "lobby": {
@@ -438,7 +451,7 @@
                     "options": {
                         "admins": "Администраторы",
                         "coaches": "Тренеры",
-                        "everyone": "Все",
+                        "everyone": "Любой",
                         "captains": "Тренеры / Капитаны"
                     }
                 },
@@ -738,24 +751,6 @@
         }
     },
     "layouts": {
-        "profile_settings": {
-            "title": "Настройки профиля",
-            "description": "Управление информацией профиля",
-            "discord": {
-                "unlink": "Отвязать Discord",
-                "link": "Привязать Discord",
-                "unlink_dialog": {
-                    "title": "Отвязать Discord",
-                    "description": "Вы уверены, что хотите отвязать Discord?",
-                    "cancel": "Отмена",
-                    "confirm": "Отвязать"
-                },
-                "unlinked": "Discord отвязан"
-            },
-            "language": {
-                "title": ""
-            }
-        },
         "application_settings": {
             "title": "Настройки приложения",
             "description": "Управление настройками приложения"
@@ -804,8 +799,9 @@
                 "join_discord": "Присоединиться к Discord"
             },
             "profile": {
-                "my_account": "Мой Аккаунт",
-                "logout": "Выйти"
+                "my_account": "Мои настройки",
+                "logout": "Выйти",
+                "my_profile": "Мой профиль"
             },
             "tooltips": {
                 "play": "Играть",
@@ -830,6 +826,10 @@
                 "cancel": "Отмена",
                 "confirm": "Выйти"
             }
+        },
+        "account_settings": {
+            "title": "Настройки аккаунта",
+            "description": "Управляйте настройками и предпочтениями вашей учетной записи"
         }
     },
     "pwa": {
@@ -1074,5 +1074,16 @@
     "custom_match": {
         "description": "Создайте и настройте свой собственный матч. Установите правила, выберите карты и пригласите друзей для персонализированного игрового опыта.",
         "title": "Пользовательский матч"
+    },
+    "notifications": {
+        "match": {
+            "invited_by": "Приглашен",
+            "title": "Пригласить на матч",
+            "description": "Вас пригласили присоединиться к матчу"
+        },
+        "invite": {
+            "deny": "Отклонить",
+            "accept": "Принять"
+        }
     }
 }

@@ -35,27 +35,6 @@
             "search": "Rechercher"
         },
         "settings": {
-            "profile": {
-                "title": "Paramètres du profil",
-                "description": "Gérer les paramètres du compte",
-                "name": "Nom",
-                "avatar_url": "URL de l'avatar",
-                "country": "Pays",
-                "select_country": "Sélectionner un pays",
-                "search_country": "Rechercher un pays...",
-                "no_country_found": "Aucun pays trouvé",
-                "update": "Mettre à jour le profil",
-                "language": "Langue",
-                "my_account": "Mon dossier",
-                "appearance": "Apparence",
-                "matchmaking": "Matchmaking"
-            },
-            "language": {
-                "title": "",
-                "description": "",
-                "select": "",
-                "help": ""
-            },
             "appearance": {
                 "title": "Apparence",
                 "description": "Personnaliser l'apparence de l'application",
@@ -91,20 +70,10 @@
                     "type": "Type de jeu",
                     "base_config": "Base Config (5stack.base.cfg)"
                 },
-                "s3": {
-                    "update": "Mettre à jour",
-                    "title": "Paramètres de la démo",
-                    "min_retention": "Conservation minimale",
-                    "max_storage": "Stockage maximal",
-                    "cloudflare_worker_url": "URL du worker Cloudflare",
-                    "max_storage_description": "La taille maximale de stockage pour les fichiers de démonstration en GB.",
-                    "cloudflare_worker_url_description": "L'URL du travailleur Cloudflare qui sera utilisé pour stocker et récupérer les fichiers de démonstration.",
-                    "min_retention_description": "Les jours de conservation minimum pour les fichiers de démonstration."
-                },
                 "servers": {
                     "title": "Paramètres du serveur",
                     "enable_cpu_pinning": "Activer le processeur Pinnage",
-                    "enable_cpu_pinning_description": "Activer le pinnage CPU pour une meilleure performance",
+                    "enable_cpu_pinning_description": "Activer le pinning CPU sur les nœuds du serveur de jeu pour une meilleure performance",
                     "number_of_cpus_per_server": "Nombre de processeurs par serveur",
                     "number_of_cpus_per_server_description": "Nombre de processeurs à attribuer par serveur",
                     "update": "Mettre à jour"
@@ -115,7 +84,23 @@
                     "telemetry_description": "Aidez à améliorer 5stack en partageant des données d'utilisation anonymes.",
                     "update": "Paramètres de télémétrie mis à jour"
                 },
-                "matchmaking_min_role": "Rôle minimum autorisé à s'associer à la prise de correspondance"
+                "matchmaking_min_role": "Rôle minimum autorisé à s'associer à la prise de correspondance",
+                "demo_settings": {
+                    "update": "Mettre à jour",
+                    "title": "Paramètres de la démo",
+                    "min_retention": "Conservation minimale",
+                    "max_storage": "Stockage maximal",
+                    "cloudflare_worker_url": "URL du worker Cloudflare",
+                    "max_storage_description": "La taille maximale de stockage pour les fichiers de démonstration en GB.",
+                    "cloudflare_worker_url_description": "L'URL du travailleur Cloudflare qui sera utilisé pour stocker et récupérer les fichiers de démonstration.",
+                    "min_retention_description": "Les jours de conservation minimum pour les fichiers de démonstration.",
+                    "current_storage": "Stockage actuel",
+                    "used_storage": "Stockage approximatif utilisé"
+                },
+                "update_map_pools": {
+                    "title": "Pools de cartes de mise à jour automatique",
+                    "description": "Ajouter automatiquement / mettre à jour les pools de cartes lorsque de nouvelles cartes sont ajoutées ou retirées du pool actif."
+                }
             },
             "language": {
                 "title": "Langue",
@@ -126,11 +111,37 @@
             "matchmaking": {
                 "title": "Paramètres de correspondance",
                 "description": "Configurez vos préférences de matchmaking et visualisez les latences régionales.",
-                "average_latency": "Latence moyenne",
+                "average_latency": "Latence",
                 "preferred": "Préféré",
                 "max_acceptable_ping": "Maximum acceptable Ping",
                 "max_ping_description": "Si aucune région n'est préférée, l'appariement n'utilisera que des régions dont le ping est inférieur à cette valeur.",
                 "region": "Région"
+            },
+            "account": {
+                "title": "Paramètres du compte",
+                "description": "Détails de votre compte",
+                "my_account": "Mon dossier",
+                "avatar_url": "URL Avatar",
+                "country": "Pays",
+                "select_country": "Sélectionner un pays...",
+                "search_country": "Pays de recherche...",
+                "no_country_found": "Aucun pays trouvé.",
+                "update": "Mettre à jour le compte",
+                "update_success": "Profil mis à jour",
+                "discord": {
+                    "unlink": "Déconnecter la discorde",
+                    "link": "Lien Discorde",
+                    "unlink_dialog": {
+                        "title": "Déconnecter le compte Discord",
+                        "description": "Voulez-vous vraiment déconnecter votre compte Discord ? Cela supprimera la connexion entre vos comptes 5Stack et Discord.",
+                        "confirm": "Déconnecter",
+                        "cancel": "Annuler"
+                    },
+                    "unlinked": "Discord compte déconnecté avec succès"
+                },
+                "appearance": "Apparence",
+                "matchmaking": "Matchmaking",
+                "name": "Nom"
             }
         },
         "regions": {
@@ -313,8 +324,8 @@
             "search": "Recherche de cartes"
         },
         "map_pool": {
-            "toggle_pool_type": "La carte {map} a été {type} pour {type}",
-            "toggle_active_pool": "La carte {map} a été {type} pour le service actif",
+            "toggle_pool_type": "Pools de cartes mis à jour",
+            "toggle_active_pool": "État de l'activité des cartes Mise à jour",
             "save_success": "Modifications enregistrées avec succès"
         }
     },
@@ -329,25 +340,27 @@
         "friends": {
             "title": "Amis",
             "sync": "Synchroniser",
-            "search": "Rechercher",
+            "search": "Ajouter un ami",
             "pending_requests": "Demandes en attente",
-            "online": "En ligne",
+            "online": "En ligne uniquement",
             "invite_to_lobby": "Inviter au Lobby",
             "remove": "Supprimer",
             "join_lobby": "Rejoindre le Lobby",
             "offline": "Hors ligne",
-            "view_profile": "Affichage du profil"
+            "view_profile": "Affichage du profil",
+            "invite_to_match": "Inviter le joueur à correspondre"
         },
         "confirm": {
             "ready": "Prêt",
-            "players": "Joueurs"
+            "players": "Les joueurs sont prêts"
         },
         "banned": "Banni",
         "go_to_match": "Aller au match",
         "temp_banned": "Banni temporairement",
         "settings_section": {
             "toggle": "Régler les paramètres"
-        }
+        },
+        "confirm_selection": "Confirmation"
     },
     "match": {
         "lobby": {
@@ -438,7 +451,7 @@
                     "options": {
                         "admins": "Administrateurs",
                         "coaches": "Coachs",
-                        "everyone": "Tout le monde",
+                        "everyone": "N'importe qui",
                         "captains": "Entraîneurs / Capitaines"
                     }
                 },
@@ -738,24 +751,6 @@
         }
     },
     "layouts": {
-        "profile_settings": {
-            "title": "Paramètres du profil",
-            "description": "Gérer les informations du profil",
-            "discord": {
-                "unlink": "Délier Discord",
-                "link": "Lier Discord",
-                "unlink_dialog": {
-                    "title": "Délier Discord",
-                    "description": "Voulez-vous vraiment délier Discord ?",
-                    "cancel": "Annuler",
-                    "confirm": "Délier"
-                },
-                "unlinked": "Discord a été délié"
-            },
-            "language": {
-                "title": ""
-            }
-        },
         "application_settings": {
             "title": "Paramètres de l'application",
             "description": "Gérer les paramètres de l'application"
@@ -800,8 +795,9 @@
                 "map_pools": "Groupes de Cartes"
             },
             "profile": {
-                "my_account": "Mon Compte",
-                "logout": "Déconnexion"
+                "my_account": "Mes paramètres",
+                "logout": "Déconnexion",
+                "my_profile": "Mon profil"
             },
             "footer": {
                 "report_issue": "Signaler un Problème",
@@ -830,6 +826,10 @@
                 "cancel": "Annuler",
                 "confirm": "Déconnexion"
             }
+        },
+        "account_settings": {
+            "title": "Paramètres du compte",
+            "description": "Gérer les paramètres et préférences de votre compte"
         }
     },
     "pwa": {
@@ -1074,5 +1074,16 @@
     "custom_match": {
         "description": "Créez et personnalisez votre propre match. Définir des règles, choisir des cartes et inviter des amis pour une expérience de jeu personnalisée.",
         "title": "Match personnalisé"
+    },
+    "notifications": {
+        "invite": {
+            "deny": "Refuser",
+            "accept": "Accepter"
+        },
+        "match": {
+            "invited_by": "Invité par",
+            "title": "Appel de correspondance",
+            "description": "Vous avez été invité à participer à un match"
+        }
     }
 }
