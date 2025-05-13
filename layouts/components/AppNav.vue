@@ -20,7 +20,6 @@ import {
 } from "lucide-vue-next";
 import TournamentBracket from "~/components/icons/tournament-bracket.vue";
 import SystemUpdate from "./SystemUpdate.vue";
-import BreadCrumbs from "~/components/BreadCrumbs.vue";
 import { Users } from "lucide-vue-next";
 import RegionStatuses from "~/components/RegionStatuses.vue";
 import AppNotifications from "./AppNotifications.vue";
@@ -101,7 +100,7 @@ import ChatLobby from "~/components/chat/ChatLobby.vue";
                 >
                   <TournamentBracket />
                   {{ $t("layouts.app_nav.navigation.tournaments") }}
-                  <Badge variant="destructive" class="ml-2">alpha</Badge>
+                  <!-- <Badge variant="destructive" class="ml-2">alpha</Badge> -->
                 </NuxtLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -118,7 +117,7 @@ import ChatLobby from "~/components/chat/ChatLobby.vue";
                   }"
                 >
                   <Users />
-                  {{ $t("layouts.app_nav.navigation.players") }}
+                  {{ $t("layouts.app_nav.navigation.players") }}<span class="text-green-500">({{ playersOnline.length }} {{ $t("player.search.online_only") }})</span>
                 </NuxtLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -380,7 +379,7 @@ import ChatLobby from "~/components/chat/ChatLobby.vue";
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
-          <SidebarMenuItem
+          <!-- <SidebarMenuItem
             v-if="me?.role === e_player_roles_enum.administrator"
           >
             <SidebarMenuButton
@@ -414,96 +413,21 @@ import ChatLobby from "~/components/chat/ChatLobby.vue";
                 {{ $t("layouts.app_nav.footer.join_discord") }}
               </a>
             </SidebarMenuButton>
-          </SidebarMenuItem>
+          </SidebarMenuItem> -->
 
           <InstallPWA />
-
-          <SidebarMenuItem>
-            <DropdownMenu v-model:open="profileOpened">
-              <DropdownMenuTrigger as-child>
-                <SidebarMenuButton
-                  size="lg"
-                  :class="{
-                    'bg-sidebar-accent text-sidebar-accent-foreground':
-                      profileOpened,
-                  }"
-                >
-                  <PlayerDisplay
-                    :player="me"
-                    :show-online="false"
-                    :show-role="isMobile || open"
-                    size="xs"
-                  />
-
-                  <ChevronsUpDownIcon class="ml-auto size-4" />
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                class="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-                :side="isMobile ? 'top' : 'right'"
-                align="end"
-                :side-offset="4"
-              >
-                <DropdownMenuGroup v-if="!isMobile && !open">
-                  <DropdownMenuLabel class="font-normal">
-                    <PlayerDisplay :player="me" :show-online="false" />
-                  </DropdownMenuLabel>
-                </DropdownMenuGroup>
-
-                <DropdownMenuGroup>
-                  <DropdownMenuItem class="flex gap-2 cursor-pointer" as-child>
-                    <NuxtLink
-                      :to="{ name: 'players-id', params: { id: me.steam_id } }"
-                      :class="{
-                        'router-link-active': isRouteActive('players'),
-                      }"
-                    >
-                      <User class="size-4" />
-                      {{ $t("layouts.app_nav.profile.my_profile") }}
-                    </NuxtLink>
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-
-                <DropdownMenuGroup>
-                  <DropdownMenuItem class="flex gap-2 cursor-pointer" as-child>
-                    <NuxtLink
-                      :to="{ name: 'settings' }"
-                      :class="{
-                        'router-link-active': isRouteActive('settings'),
-                      }"
-                    >
-                      <Settings class="size-4" />
-                      {{ $t("layouts.app_nav.profile.my_account") }}
-                    </NuxtLink>
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-
-                <DropdownMenuSeparator />
-
-                <DropdownMenuItem
-                  class="flex gap-2"
-                  @click="showLogoutModal = true"
-                >
-                  <LogOut class="size-4" />
-                  {{ $t("layouts.app_nav.profile.logout") }}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
 
-    <SidebarInset class="bg-muted/40 pt-4 overflow-hidden">
+    <SidebarInset class="bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] overflow-hidden">
       <header
         class="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 px-4"
       >
         <div class="flex items-center justify-between w-full">
           <div class="flex items-center gap-2">
-            <SidebarTrigger />
-            <Separator orientation="vertical" class="h-4" />
-            <bread-crumbs></bread-crumbs>
+            
           </div>
 
           <div class="flex gap-4">
@@ -511,7 +435,7 @@ import ChatLobby from "~/components/chat/ChatLobby.vue";
 
             <SystemUpdate v-if="isAdmin"></SystemUpdate>
 
-            <Popover>
+            <Popover v-if="me?.role === e_player_roles_enum.administrator">
               <PopoverTrigger>
                 <div
                   class="flex items-center gap-2 text-sm text-muted-foreground"
@@ -542,7 +466,7 @@ import ChatLobby from "~/components/chat/ChatLobby.vue";
               </PopoverContent>
             </Popover>
 
-            <Popover v-model:open="showPlayersOnline">
+            <!-- <Popover v-model:open="showPlayersOnline">
               <PopoverTrigger>
                 <div
                   class="flex items-center gap-4 text-sm text-muted-foreground"
@@ -566,9 +490,58 @@ import ChatLobby from "~/components/chat/ChatLobby.vue";
                   </template>
                 </ScrollArea>
               </PopoverContent>
-            </Popover>
+            </Popover> -->
 
             <AppNotifications></AppNotifications>
+
+            <DropdownMenu v-model:open="profileOpened">
+              <DropdownMenuTrigger as-child>
+                  <PlayerDisplay
+                    :player="me"
+                    :show-online="false"
+                    :show-role="false"
+                    :show-flag="false"
+                    :show-name="false"
+                    size="xs"
+                  />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                class="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+                :side-offset="4"
+              >
+                <DropdownMenuGroup>
+                  <DropdownMenuLabel class="font-normal">
+                    <PlayerDisplay :player="me" :show-online="false" />
+                  </DropdownMenuLabel>
+                </DropdownMenuGroup>
+
+                <DropdownMenuSeparator />
+
+                <DropdownMenuGroup>
+                  <DropdownMenuItem class="flex gap-2 cursor-pointer" as-child>
+                    <NuxtLink
+                      :to="{ name: 'settings' }"
+                      :class="{
+                        'router-link-active': isRouteActive('settings'),
+                      }"
+                    >
+                      <BadgeCheck class="size-4" />
+                      {{ $t("layouts.app_nav.profile.my_account") }}
+                    </NuxtLink>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+
+                <DropdownMenuSeparator />
+
+                <DropdownMenuItem
+                  class="flex gap-2"
+                  @click="showLogoutModal = true"
+                >
+                  <LogOut class="size-4" />
+                  {{ $t("layouts.app_nav.profile.logout") }}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <div
               id="right-sidebar-trigger"
@@ -694,6 +667,7 @@ export default {
     return {
       serversOpened: false,
       profileOpened: false,
+      languageOpened: false,
       showLogoutModal: false,
       showPlayersOnline: false,
       rightSidebarOpen: false,

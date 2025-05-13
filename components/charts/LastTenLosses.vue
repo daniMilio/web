@@ -66,7 +66,7 @@ export default {
         maps: [
           {
             where: {
-              active_pool: {
+              enabled: {
                 _eq: true,
               },
               type: {
