@@ -8,7 +8,7 @@ import { typedGql } from "~/generated/zeus/typedDocumentNode";
 import { webrtc } from "~/web-sockets/Webrtc";
 
 const REGION_LATENCY_PREFIX = "5stack_region_latency_";
-const MAX_PING_KEY = "5stack_max_acceptable_ping";
+const MAX_LATENCY_KEY = "5stack_max_acceptable_latency";
 const PREFERRED_REGIONS_KEY = "5stack_preferred_regions";
 
 export const useMatchmakingStore = defineStore("matchmaking", () => {
@@ -193,9 +193,14 @@ export const useMatchmakingStore = defineStore("matchmaking", () => {
     });
   };
 
-  const savedRegions = localStorage.getItem(PREFERRED_REGIONS_KEY);
-  const preferredRegions = ref<string[]>(
-    savedRegions ? JSON.parse(savedRegions) : [],
+  const localStoragePreferredRegions = localStorage.getItem(
+    PREFERRED_REGIONS_KEY,
+  );
+
+  const storedRegions = ref<string[]>(
+    localStoragePreferredRegions
+      ? JSON.parse(localStoragePreferredRegions)
+      : [],
   );
 
   const latencies = ref(new Map<string, number[]>());
@@ -210,8 +215,10 @@ export const useMatchmakingStore = defineStore("matchmaking", () => {
     }
   });
 
-  const savedMaxPing = localStorage.getItem(MAX_PING_KEY);
-  const maxAcceptablePing = ref(savedMaxPing ? parseInt(savedMaxPing) : 75);
+  const savedMaxLatency = localStorage.getItem(MAX_LATENCY_KEY);
+  const playerMaxAcceptableLatency = ref(
+    savedMaxLatency ? parseInt(savedMaxLatency) : 75,
+  );
 
   const isRefreshing = ref(false);
   async function refreshLatencies() {
@@ -233,55 +240,47 @@ export const useMatchmakingStore = defineStore("matchmaking", () => {
 
   async function getLatency(region: string) {
     try {
-      const latencyArray: number[] = [];
-      let pingCount = 0;
-      const totalPings = 4;
-      let startTime: number;
+      const buffer = new Uint8Array([0x01]).buffer;
 
-      const datachannel = await webrtc.connect(region, () => {
-        const endTime = performance.now();
-        const latency = endTime - startTime;
-        latencyArray.push(latency);
-
-        if (latencyArray.length === totalPings) {
-          latencies.value.set(region, latencyArray);
-          localStorage.setItem(
-            REGION_LATENCY_PREFIX + region,
-            JSON.stringify(latencyArray),
-          );
-          datachannel.close();
+      const datachannel = await webrtc.connect(region, (data) => {
+        if (data === "") {
+          datachannel.send(buffer);
           return;
         }
 
-        startTime = performance.now();
-        datachannel.send("");
-        pingCount++;
+        const event = JSON.parse(data) as {
+          type: string;
+          data: Record<string, unknown>;
+        };
+
+        if (event.type === "latency-results") {
+          datachannel.close();
+          latencies.value.set(region, event.data);
+        }
       });
 
-      startTime = performance.now();
-      datachannel.send("");
-      pingCount++;
+      datachannel.send("latency-test");
     } catch (error) {
       console.error(`Failed to get latency for ${region}`, error);
     }
   }
 
   function togglePreferredRegion(region: string) {
-    const index = preferredRegions.value.indexOf(region);
+    const index = storedRegions.value.indexOf(region);
     if (index !== -1) {
-      preferredRegions.value.splice(index, 1);
+      storedRegions.value.splice(index, 1);
     } else {
-      preferredRegions.value.push(region);
+      storedRegions.value.push(region);
     }
     localStorage.setItem(
       PREFERRED_REGIONS_KEY,
-      JSON.stringify(preferredRegions.value.filter(Boolean)),
+      JSON.stringify(storedRegions.value.filter(Boolean)),
     );
   }
 
-  function updateMaxAcceptablePing(ping: number) {
-    maxAcceptablePing.value = ping;
-    localStorage.setItem(MAX_PING_KEY, ping.toString());
+  function updateMaxAcceptableLatency(latency: number) {
+    playerMaxAcceptableLatency.value = latency;
+    localStorage.setItem(MAX_LATENCY_KEY, latency.toString());
   }
 
   function resetLatencies() {
@@ -291,40 +290,79 @@ export const useMatchmakingStore = defineStore("matchmaking", () => {
     });
   }
 
-  function getAverageLatency(region: string): string {
+  function getRegionlatencyResult(region: string):
+    | {
+        isLan: boolean;
+        latency: string;
+      }
+    | undefined {
     const regionLatencies = latencies.value.get(region);
-    if (!regionLatencies || regionLatencies.length === 0) {
-      return "Measuring...";
+    if (!regionLatencies) {
+      return;
     }
-    const avg =
-      regionLatencies.reduce((a: number, b: number) => a + b, 0) /
-      regionLatencies.length;
-    return avg.toFixed(0);
+    return {
+      isLan: regionLatencies.isLan,
+      latency: Number(regionLatencies.latency).toFixed(2),
+    };
   }
 
-  const preferredRegionsComputed = computed(() => {
-    const availableRegions = useApplicationSettingsStore().availableRegions;
+  const preferredRegions = computed(() => {
+    const availableRegions =
+      useApplicationSettingsStore().availableRegions.filter((region) => {
+        const regionLatency = getRegionlatencyResult(region.value);
+
+        if (regionLatency && region.is_lan && regionLatency.isLan) {
+          return true;
+        }
+
+        if (
+          regionLatency &&
+          regionLatency.latency >
+            (useApplicationSettingsStore().maxAcceptableLatency || 100)
+        ) {
+          return false;
+        }
+
+        return true;
+      });
 
     if (isRefreshing.value) {
       return availableRegions;
     }
 
-    if (preferredRegions.value.length > 0) {
-      return availableRegions.filter((region) =>
-        preferredRegions.value.includes(region.value),
-      );
+    if (storedRegions.value.length > 0) {
+      return availableRegions.filter((region) => {
+        return storedRegions.value.includes(region.value);
+      });
     }
 
-    const filteredRegions = availableRegions.filter((region) => {
-      const avgLatency = Number(getAverageLatency(region.value));
-      return !isNaN(avgLatency) && avgLatency <= maxAcceptablePing.value;
-    });
+    return availableRegions
+      .filter((region) => {
+        const regionResult = getRegionlatencyResult(region.value);
 
-    if (filteredRegions.length === 0) {
-      return availableRegions;
-    }
+        if (!regionResult) {
+          return true;
+        }
 
-    return filteredRegions;
+        return (
+          !isNaN(Number(regionResult.latency)) &&
+          Number(regionResult.latency) <= playerMaxAcceptableLatency.value
+        );
+      })
+      .sort((a, b) => {
+        if (a.is_lan && !b.is_lan) {
+          return -1;
+        }
+        if (!a.is_lan && b.is_lan) {
+          return 1;
+        }
+
+        // For non-LAN regions, sort by latency
+        return (
+          Number(getRegionlatencyResult(a.value)?.latency) -
+          Number(getRegionlatencyResult(b.value)?.latency)
+        );
+      });
   });
 
   return {
@@ -336,13 +374,14 @@ export const useMatchmakingStore = defineStore("matchmaking", () => {
 
     checkLatenies,
     refreshLatencies,
-    getAverageLatency,
+    getRegionlatencyResult,
     togglePreferredRegion,
-    updateMaxAcceptablePing,
+    updateMaxAcceptableLatency,
 
     latencies,
-    preferredRegions: preferredRegionsComputed,
-    maxAcceptablePing,
+    storedRegions,
+    preferredRegions,
+    playerMaxAcceptableLatency,
 
     inviteToLobby,
   };

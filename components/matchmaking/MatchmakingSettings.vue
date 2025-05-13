@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { webrtc } from "~/web-sockets/Webrtc";
 import { useApplicationSettingsStore } from "~/stores/ApplicationSettings";
 import { Button } from "~/components/ui/button";
 import { RefreshCw } from "lucide-vue-next";
@@ -12,22 +11,24 @@ import { Loader2 } from "lucide-vue-next";
       <div class="flex-1">
         <div class="flex justify-between mb-4">
           <Label class="text-lg font-semibold">
-            {{ $t("pages.settings.matchmaking.max_acceptable_ping") }}
+            {{ $t("pages.settings.matchmaking.max_acceptable_latency") }}
           </Label>
 
-          <span class="text-xl font-medium">{{ maxAcceptablePing }}ms</span>
+          <span class="text-xl font-medium"
+            >{{ playerMaxAcceptablelatnecy }}ms</span
+          >
         </div>
         <input
           type="range"
-          v-model="maxAcceptablePing"
-          min="50"
-          max="200"
+          v-model="playerMaxAcceptablelatnecy"
+          min="5"
+          :max="maxAcceptableLatency"
           step="5"
           class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
-          @change="updateMaxAcceptablePing"
+          @change="updateMaxAcceptableLatency"
         />
         <p class="text-sm text-muted-foreground mt-2">
-          {{ $t("pages.settings.matchmaking.max_ping_description") }}
+          {{ $t("pages.settings.matchmaking.max_latency_description") }}
         </p>
       </div>
     </div>
@@ -78,44 +79,43 @@ import { Loader2 } from "lucide-vue-next";
                 !isPreferredRegion(region.value),
             }"
           >
-            <td class="px-6 py-4 whitespace-nowrap">
-              {{ region.description || region.value }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span
-                :class="{
-                  'px-3 py-1 rounded-full text-xs font-medium': true,
-                  'bg-green-500/20 text-green-400':
-                    Number(getAverageLatency(region.value)) < 50,
-                  'bg-blue-500/20 text-blue-400':
-                    Number(getAverageLatency(region.value)) < 100 &&
-                    Number(getAverageLatency(region.value)) >= 50,
-                  'bg-yellow-500/20 text-yellow-400':
-                    Number(getAverageLatency(region.value)) <
-                      maxAcceptablePing &&
-                    Number(getAverageLatency(region.value)) >= 100,
-                  'bg-red-500/20 text-red-400':
-                    Number(getAverageLatency(region.value)) >=
-                    maxAcceptablePing,
-                  'bg-gray-500/20 text-gray-400': isNaN(
-                    Number(getAverageLatency(region.value)),
-                  ),
-                }"
-              >
-                {{
-                  isNaN(Number(getAverageLatency(region.value)))
-                    ? "Measuring..."
-                    : `${getAverageLatency(region.value)} ms`
-                }}
-              </span>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <Switch
-                class="text-sm text-muted-foreground cursor-pointer flex items-center gap-2"
-                :model-value="isPreferredRegion(region.value)"
-                @click="togglePreferredRegion(region.value)"
-              />
-            </td>
+            <template
+              v-if="
+                !region.is_lan || getRegionlatencyResult(region.value)?.isLan
+              "
+            >
+              <td class="px-6 py-4 whitespace-nowrap">
+                {{ region.description || region.value }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center gap-2">
+                  <div
+                    class="px-3 py-1 rounded-full text-xs font-medium"
+                    :class="{
+                      'bg-green-500/20 text-green-400':
+                        getLatencyStatus(region.value) === 'Excellent',
+                      'bg-blue-500/20 text-blue-400':
+                        getLatencyStatus(region.value) === 'Good',
+                      'bg-yellow-500/20 text-yellow-400':
+                        getLatencyStatus(region.value) === 'Fair',
+                      'bg-red-500/20 text-red-400':
+                        getLatencyStatus(region.value) === 'Poor',
+                      'bg-gray-500/20 text-gray-400':
+                        getLatencyStatus(region.value) === 'Measuring',
+                    }"
+                  >
+                    {{ getRegionLatency(region.value) }} ms
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <Switch
+                  class="text-sm text-muted-foreground cursor-pointer flex items-center gap-2"
+                  :model-value="isPreferredRegion(region.value)"
+                  @click="togglePreferredRegion(region.value)"
+                />
+              </td>
+            </template>
           </tr>
         </tbody>
       </table>
@@ -127,12 +127,13 @@ import { Loader2 } from "lucide-vue-next";
 export default {
   data() {
     return {
-      maxAcceptablePing: 75,
       isRefreshing: false,
+      playerMaxAcceptablelatnecy: 75,
     };
   },
   mounted() {
-    this.maxAcceptablePing = useMatchmakingStore().maxAcceptablePing || 75;
+    this.playerMaxAcceptablelatnecy =
+      useMatchmakingStore().playerMaxAcceptableLatency || 75;
   },
   methods: {
     async refreshLatencies() {
@@ -146,27 +147,41 @@ export default {
     togglePreferredRegion(region: string) {
       useMatchmakingStore().togglePreferredRegion(region);
     },
-    updateMaxAcceptablePing() {
-      useMatchmakingStore().updateMaxAcceptablePing(this.maxAcceptablePing);
+    updateMaxAcceptableLatency() {
+      useMatchmakingStore().updateMaxAcceptableLatency(
+        this.playerMaxAcceptablelatnecy,
+      );
     },
-    getAverageLatency(region: string): string {
-      return useMatchmakingStore().getAverageLatency(region);
+    getRegionlatencyResult(region: string):
+      | {
+          isLan: boolean;
+          latency: string;
+        }
+      | undefined {
+      return useMatchmakingStore().getRegionlatencyResult(region);
+    },
+    getRegionLatency(region: string): number | undefined {
+      const regionLatency = this.getRegionlatencyResult(region);
+      if (!regionLatency) {
+        return;
+      }
+      return Number(regionLatency.latency);
     },
     getLatencyStatus(region: string): string {
-      const avg = Number(this.getAverageLatency(region));
-      if (isNaN(avg)) {
+      const regionLatency = this.getRegionLatency(region);
+      if (!regionLatency) {
         return "Measuring...";
       }
 
-      if (avg < 50) {
+      if (regionLatency < 30) {
         return "Excellent";
       }
 
-      if (avg < 100) {
+      if (regionLatency < 50) {
         return "Good";
       }
 
-      if (avg < this.maxAcceptablePing) {
+      if (regionLatency < this.maxAcceptableLatency) {
         return "Fair";
       }
 
@@ -174,15 +189,21 @@ export default {
     },
     isPreferredRegion(region: string): boolean {
       return (
-        useMatchmakingStore().preferredRegions.find((r) => {
-          return r.value === region;
+        this.storedRegions.find((storedRegion) => {
+          return storedRegion === region;
         }) !== undefined
       );
     },
   },
   computed: {
+    storedRegions() {
+      return useMatchmakingStore().storedRegions;
+    },
     availableRegions() {
       return useApplicationSettingsStore()?.availableRegions || [];
+    },
+    maxAcceptableLatency() {
+      return useApplicationSettingsStore().maxAcceptableLatency || 100;
     },
   },
 };

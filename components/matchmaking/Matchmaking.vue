@@ -6,6 +6,7 @@ import { Collapsible, CollapsibleContent } from "~/components/ui/collapsible";
 import { Button } from "~/components/ui/button";
 import TimeAgo from "../TimeAgo.vue";
 import CustomMatch from "~/components/CustomMatch.vue";
+import FiveStackToolTip from "../FiveStackToolTip.vue";
 
 const selectedMatchType = ref<string | null>(null);
 </script>
@@ -32,7 +33,6 @@ const selectedMatchType = ref<string | null>(null);
         </AlertDescription>
       </Alert>
     </template>
-
     <template v-else-if="!confirmationDetails">
       <div
         v-if="isInQueue && matchMakingQueueDetails"
@@ -57,7 +57,11 @@ const selectedMatchType = ref<string | null>(null);
           <div
             class="flex items-center gap-4 mb-4 text-2xl font-medium capitalize"
           >
-            Searching for a {{ matchMakingQueueDetails.type.value }} Match
+            {{
+              $t("matchmaking.searching_for_match", {
+                type: matchMakingQueueDetails.type,
+              })
+            }}
           </div>
           <div class="text-xl text-gray-400/90 flex items-center gap-2">
             <TimeAgo
@@ -83,15 +87,41 @@ const selectedMatchType = ref<string | null>(null);
 
       <div class="flex flex-col gap-4 bg-card p-8 rounded-lg" v-else>
         <div>
-          <div class="flex justify-end mb-2">
+          <div
+            class="flex mb-4"
+            :class="{
+              'justify-end': preferredRegions.length,
+              'justify-between': !preferredRegions.length,
+            }"
+          >
+            <template v-if="!preferredRegions.length">
+              <Alert class="w-fit p-2" variant="destructive">
+                <AlertDescription class="flex items-center gap-2">
+                  <AlertTriangle class="h-4 w-4" />
+                  {{ $t("matchmaking.high_ping_warning") }}
+                </AlertDescription>
+              </Alert>
+            </template>
+
             <Button
               variant="outline"
-              size="sm"
               @click="showSettings = !showSettings"
               class="flex items-center gap-2"
             >
               <Settings2 class="h-4 w-4" />
               {{ $t("matchmaking.settings_section.toggle") }}
+              <FiveStackToolTip>
+                <div class="flex gap-1">
+                  {{ $t("matchmaking.settings_section.queue_order") }}
+                  <span
+                    v-for="(region, index) in preferredRegions"
+                    :key="region.value"
+                  >
+                    {{ region.value
+                    }}{{ index < preferredRegions.length - 1 ? ", " : "" }}
+                  </span>
+                </div>
+              </FiveStackToolTip>
             </Button>
           </div>
 
@@ -123,7 +153,7 @@ const selectedMatchType = ref<string | null>(null);
               >
                 <span class="relative z-10 flex items-center justify-center gap-2">
                   <Play class="h-4 w-4" />
-                  <span>Play {{ type.value }}</span>
+                  <span>{{ $t("matchmaking.confirm_selection") }} for {{ type.value }}</span>
                 </span>
                 
               </Button>
@@ -164,11 +194,7 @@ import socket from "~/web-sockets/Socket";
 import { typedGql } from "~/generated/zeus/typedDocumentNode";
 import { generateQuery } from "~/graphql/graphqlGen";
 import { e_match_types_enum, e_match_status_enum } from "~/generated/zeus";
-
-interface MatchType {
-  value: e_match_types_enum;
-  description: string;
-}
+import FiveStackToolTip from "../FiveStackToolTip.vue";
 
 interface Region {
   value: string;
@@ -263,13 +289,27 @@ export default {
       playerSanctions: [] as any[],
       showSettings: false,
       showConfirmation: false,
-      pendingMatchType: undefined as MatchType | undefined,
-      e_match_types: [] as MatchType[],
+      pendingMatchType: undefined as e_match_types_enum | undefined,
+      e_match_types: [] as {
+        value: e_match_types_enum;
+        description: string;
+      }[],
       confirmationTimeout: undefined as NodeJS.Timeout | undefined,
     };
   },
   methods: {
+    getRegionlatencyResult(region: string):
+      | {
+          isLan: boolean;
+          latency: string;
+        }
+      | undefined {
+      return useMatchmakingStore().getRegionlatencyResult(region);
+    },
     handleMatchTypeClick(matchType: e_match_types_enum): void {
+      if (this.preferredRegions.length === 0) {
+        return;
+      }
       if (this.pendingMatchType === matchType) {
         // Second click - confirm
         if (this.confirmationTimeout) {
@@ -295,11 +335,9 @@ export default {
     joinMatchmaking(matchType: MatchType): void {
       socket.event("matchmaking:join-queue", {
         type: matchType,
-        regions: useMatchmakingStore().preferredRegions.map(
-          (region: Region) => {
-            return region.value;
-          },
-        ),
+        regions: this.preferredRegions.map((region: Region) => {
+          return region.value;
+        }),
       });
     },
     leaveMatchmaking(): void {
@@ -310,8 +348,11 @@ export default {
     isInQueue(): boolean {
       return !!this.matchMakingQueueDetails;
     },
-    regions(): Region[] {
-      return useApplicationSettingsStore().availableRegions;
+    preferredRegions(): Region[] {
+      return useMatchmakingStore().preferredRegions;
+    },
+    regionStats() {
+      return useMatchmakingStore().regionStats;
     },
     matchMakingQueueDetails(): QueueDetails | undefined {
       return useMatchmakingStore().joinedMatchmakingQueues.details;
