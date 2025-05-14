@@ -20,7 +20,7 @@ definePageMeta({
         <template #left>
           <FormField v-slot="{ value, handleChange }" name="pug">
             <FormItem
-              class="flex flex-col space-y-3 rounded-lg border p-4 cursor-pointer hover:bg-accent"
+              class="flex flex-col space-y-3 rounded-lg border p-4 cursor-pointer bg-card hover:bg-accent/50 transition-colors"
               @click="handleChange(!value)"
             >
               <div class="flex justify-between items-center">
@@ -42,7 +42,7 @@ definePageMeta({
           </FormField>
 
           <div
-            class="flex flex-col gap-4 rounded-lg border p-4"
+            class="flex flex-col gap-4 rounded-lg border p-4 bg-background"
             v-if="!form.values.pug"
           >
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
