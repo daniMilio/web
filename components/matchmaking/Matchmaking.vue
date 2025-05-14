@@ -98,7 +98,7 @@ const selectedMatchType = ref<string | null>(null);
               <Alert class="w-fit p-2" variant="destructive">
                 <AlertDescription class="flex items-center gap-2">
                   <AlertTriangle class="h-4 w-4" />
-                  {{ $t("matchmaking.high_ping_warning") }}
+                  {{ $t("matchmaking.high_latency_warning") }}
                 </AlertDescription>
               </Alert>
             </template>
