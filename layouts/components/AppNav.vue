@@ -1,461 +1,521 @@
 <script setup lang="ts">
 import {
   BadgeCheck,
-  ChevronsRight,
-  ChevronRight,
-  ChevronsUpDownIcon,
-  Cog,
   LogOut,
-  Logs,
-  LineChart,
-  Server,
-  Calendar,
   BookUser,
-  Play,
-  ShieldHalf,
-  Globe,
-  Map,
-  Settings,
-  User,
+  Menu,
 } from "lucide-vue-next";
-import TournamentBracket from "~/components/icons/tournament-bracket.vue";
 import SystemUpdate from "./SystemUpdate.vue";
-import { Users } from "lucide-vue-next";
 import RegionStatuses from "~/components/RegionStatuses.vue";
 import AppNotifications from "./AppNotifications.vue";
-import ScrollArea from "~/components/ui/scroll-area/ScrollArea.vue";
 import PlayerDisplay from "~/components/PlayerDisplay.vue";
 import MatchLobbies from "./MatchLobbies.vue";
 import { e_player_roles_enum } from "~/generated/zeus";
-import { DiscordLogoIcon, GithubLogoIcon } from "@radix-icons/vue";
-import InstallPWA from "~/components/InstallPWA.vue";
 import MatchmakingLobby from "~/components/matchmaking-lobby/MatchmakingLobby.vue";
 import FriendsList from "~/components/matchmaking-lobby/FriendsList.vue";
 import ChatLobby from "~/components/chat/ChatLobby.vue";
 </script>
 
 <template>
-  <SidebarProvider class="bg-muted/40" v-slot="{ open, isMobile }">
-    <Sidebar collapsible="icon">
-      <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton size="lg" as-child>
-              <nuxt-link to="/">
-                <NuxtImg class="rounded max-w-8" src="/favicon/64.png" />
-                <span> {{ $t("layouts.app_nav.brand") }} </span>
-              </nuxt-link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarHeader>
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarMenu>
-            <SidebarMenuItem :tooltip="$t('layouts.app_nav.tooltips.play')">
-              <SidebarMenuButton
-                as-child
-                :tooltip="$t('layouts.app_nav.tooltips.play')"
-              >
-                <NuxtLink
-                  :to="{ name: 'play' }"
-                  :class="{
-                    'router-link-active':
-                      isRouteActive('matches') || isRouteActive('play'),
+  <div class="min-h-screen flex flex-col">
+    <!-- Navigation - always at the top -->
+    <nav class="border-b" style="background-color: #11131a">
+      <div class="mx-auto px-4 py-3">
+        <div class="flex items-center justify-between">
+          <!-- leftside nav bar -->
+          <div
+            class="flex items-center space-x-4 font-semibold text-lg uppercase font-teko"
+          >
+            <!-- Regular logo for larger screens -->
+            <nuxt-link v-if="!isMedium" to="/">
+              <NuxtImg class="rounded max-w-8" src="/favicon/64.png" />
+            </nuxt-link>
+
+            <!-- Hamburger menu for medium screens -->
+            <DropdownMenu v-if="isMedium" v-model:open="navMenuOpened">
+              <DropdownMenuTrigger class="p-2 hover:bg-gray-800 rounded-md">
+                <Menu class="h-6 w-6 text-gray-200" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent class="w-56">
+                <DropdownMenuGroup>
+                  <DropdownMenuItem as-child>
+                    <NuxtLink
+                      to="/"
+                      class="flex items-center gap-2 px-2 py-1.5"
+                    >
+                      <NuxtImg class="rounded max-w-6" src="/favicon/64.png" />
+                    </NuxtLink>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem as-child>
+                    <NuxtLink
+                      :to="{ name: 'play' }"
+                      :class="{
+                          'text-green-400/90': isRouteActive('play'),
+                          'text-gray-200': true,
+                          'w-full': true,
+                          'flex': true,
+                          'items-center': true,
+                          'px-2': true,
+                          'py-1.5': true
+                        }"
+                    >
+                      {{ $t("layouts.app_nav.navigation.play") }}
+                    </NuxtLink>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem as-child>
+                    <NuxtLink
+                      :to="{ name: 'matches' }"
+                      :class="{
+                          'text-green-400/90': isRouteActive('matches'),
+                          'text-gray-200': true,
+                          'w-full': true,
+                          'flex': true,
+                          'items-center': true,
+                          'px-2': true,
+                          'py-1.5': true
+                        }"
+                    >
+                      {{ $t("layouts.app_nav.navigation.matches") }}
+                    </NuxtLink>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem as-child>
+                    <NuxtLink
+                      :to="{ name: 'tournaments' }"
+                      :class="{
+                          'text-green-400/90': isRouteActive('tournaments'),
+                          'text-gray-200': true,
+                          'w-full': true,
+                          'flex': true,
+                          'items-center': true,
+                          'px-2': true,
+                          'py-1.5': true
+                        }"
+                    >
+                      {{ $t("layouts.app_nav.navigation.tournaments") }}
+                    </NuxtLink>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem as-child>
+                    <NuxtLink
+                      :to="{ name: 'players' }"
+                      :class="{
+                          'text-green-400/90': isRouteActive('players'),
+                          'text-gray-200': true,
+                          'w-full': true,
+                          'flex': true,
+                          'items-center': true,
+                          'px-2': true,
+                          'py-1.5': true
+                        }"
+                    >
+                      {{ $t("layouts.app_nav.navigation.players") }}
+                    </NuxtLink>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem as-child>
+                    <NuxtLink
+                      :to="{ name: 'teams' }"
+                      :class="{
+                          'text-green-400/90': isRouteActive('teams'),
+                          'text-gray-200': true,
+                          'w-full': true,
+                          'flex': true,
+                          'items-center': true,
+                          'px-2': true,
+                          'py-1.5': true
+                        }"
+                    >
+                      {{ $t("layouts.app_nav.navigation.teams") }}
+                    </NuxtLink>
+                  </DropdownMenuItem>
+
+                  <!-- Admin menu items -->
+                  <template
+                    v-if="me?.role === e_player_roles_enum.administrator"
+                  >
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem as-child>
+                      <NuxtLink
+                        :to="{ name: 'map-pools' }"
+                        :class="{
+                            'text-green-400/90': isRouteActive('map-pools'),
+                            'text-gray-200': true,
+                            'w-full': true,
+                            'flex': true,
+                            'items-center': true,
+                            'px-2': true,
+                            'py-1.5': true
+                          }"
+                      >
+                        {{ $t("layouts.app_nav.administration.map_pools") }}
+                      </NuxtLink>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem as-child>
+                      <NuxtLink
+                        :to="{ name: 'regions' }"
+                        :class="{
+                            'text-green-400/90': isRouteActive('regions'),
+                            'text-gray-200': true,
+                            'w-full': true,
+                            'flex': true,
+                            'items-center': true,
+                            'px-2': true,
+                            'py-1.5': true
+                          }"
+                      >
+                        {{ $t("layouts.app_nav.administration.regions") }}
+                      </NuxtLink>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem as-child>
+                      <NuxtLink
+                        :to="{ name: 'dedicated-servers' }"
+                        :class="{
+                            'text-green-400/90': isRouteActive('dedicated-servers'),
+                            'text-gray-200': true,
+                            'w-full': true,
+                            'flex': true,
+                            'items-center': true,
+                            'px-2': true,
+                            'py-1.5': true
+                          }"
+                      >
+                        {{ $t("layouts.app_nav.administration.dedicated_servers") }}
+                      </NuxtLink>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem as-child>
+                      <NuxtLink
+                        :to="{ name: 'game-server-nodes' }"
+                        :class="{
+                            'text-green-400/90': isRouteActive('game-server-nodes'),
+                            'text-gray-200': true,
+                            'w-full': true,
+                            'flex': true,
+                            'items-center': true,
+                            'px-2': true,
+                            'py-1.5': true
+                          }"
+                      >
+                        {{ $t("layouts.app_nav.administration.game_server_nodes") }}
+                      </NuxtLink>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem as-child>
+                      <NuxtLink
+                        :to="{ name: 'system-logs' }"
+                        :class="{
+                            'text-green-400/90': isRouteActive('system-logs'),
+                            'text-gray-200': true,
+                            'w-full': true,
+                            'flex': true,
+                            'items-center': true,
+                            'px-2': true,
+                            'py-1.5': true
+                          }"
+                      >
+                        {{ $t("layouts.app_nav.administration.logs") }}
+                      </NuxtLink>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem as-child>
+                      <NuxtLink
+                        :to="{ name: 'system-metrics' }"
+                        :class="{
+                            'text-green-400/90': isRouteActive('system-metrics'),
+                            'text-gray-200': true,
+                            'w-full': true,
+                            'flex': true,
+                            'items-center': true,
+                            'px-2': true,
+                            'py-1.5': true
+                          }"
+                      >
+                        {{ $t("layouts.app_nav.administration.metrics") }}
+                      </NuxtLink>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem as-child>
+                      <NuxtLink
+                        :to="{ name: 'settings-application' }"
+                        :class="{
+                            'text-green-400/90': isRouteActive('settings-application'),
+                            'text-gray-200': true,
+                            'w-full': true,
+                            'flex': true,
+                            'items-center': true,
+                            'px-2': true,
+                            'py-1.5': true
+                          }"
+                      >
+                        {{ $t("layouts.app_nav.administration.app_settings") }}
+                      </NuxtLink>
+                    </DropdownMenuItem>
+                  </template>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <!-- Regular navigation for larger screens -->
+            <template v-else>
+              <NuxtLink
+                :to="{ name: 'play' }"
+                :class="{
+                    'text-green-400/90': isRouteActive('play'),
+                    'px-2': true,    
+                    'text-gray-200': true, 
+                    'transition-colors': true,
+                    'hover:text-gray-300': !isRouteActive('play'),
+                    'flex': true,
+                    'items-center': true,
+                    'h-full': true,
+                    'pt-1': true
                   }"
-                >
-                  <Play />
-                  {{ $t("layouts.app_nav.navigation.play") }}
-                </NuxtLink>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-
-            <SidebarMenuItem :tooltip="$t('layouts.app_nav.tooltips.matches')">
-              <SidebarMenuButton
-                as-child
-                :tooltip="$t('layouts.app_nav.tooltips.matches')"
               >
-                <NuxtLink
-                  :to="{ name: 'matches' }"
-                  :class="{
-                    'router-link-active': isRouteActive('matches'),
+                {{ $t("layouts.app_nav.navigation.play") }}
+              </NuxtLink>
+              <NuxtLink
+                :to="{ name: 'matches' }"
+                :class="{
+                    'text-green-400/90': isRouteActive('matches'),
+                    'px-2': true,
+                    'text-gray-200': true, 
+                    'transition-colors': true,
+                    'hover:text-gray-300': !isRouteActive('matches'),
+                    'flex': true,
+                    'items-center': true,
+                    'h-full': true,
+                    'pt-1': true
                   }"
-                >
-                  <Calendar />
-                  {{ $t("layouts.app_nav.navigation.matches") }}
-                </NuxtLink>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                as-child
-                :tooltip="$t('layouts.app_nav.tooltips.tournaments')"
               >
-                <NuxtLink
-                  :to="{ name: 'tournaments' }"
-                  :class="{
-                    'router-link-active': isRouteActive('tournaments'),
+                {{ $t("layouts.app_nav.navigation.matches") }}
+              </NuxtLink>
+              <NuxtLink
+                :to="{ name: 'tournaments' }"
+                :class="{
+                    'text-green-400/90': isRouteActive('tournaments'),
+                    'px-2': true,
+                    'text-gray-200': true, 
+                    'transition-colors': true,
+                    'hover:text-gray-300': !isRouteActive('tournaments'),
+                    'flex': true,
+                    'items-center': true,
+                    'h-full': true,
+                    'pt-1': true
                   }"
-                >
-                  <TournamentBracket />
-                  {{ $t("layouts.app_nav.navigation.tournaments") }}
-                  <!-- <Badge variant="destructive" class="ml-2">alpha</Badge> -->
-                </NuxtLink>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                as-child
-                :tooltip="$t('layouts.app_nav.tooltips.players')"
               >
-                <NuxtLink
-                  :to="{ name: 'players' }"
-                  :class="{
-                    'router-link-active': isRouteActive('players'),
+                {{ $t("layouts.app_nav.navigation.tournaments") }}
+              </NuxtLink>
+              <NuxtLink
+                :to="{ name: 'players' }"
+                :class="{
+                    'text-green-400/90': isRouteActive('players'),
+                    'px-2': true,
+                    'text-gray-200': true, 
+                    'transition-colors': true,
+                    'hover:text-gray-300': !isRouteActive('players'),
+                    'flex': true,
+                    'items-center': true,
+                    'h-full': true,
+                    'pt-1': true
                   }"
-                >
-                  <Users />
-                  {{ $t("layouts.app_nav.navigation.players") }}<span class="text-green-500">({{ playersOnline.length }} {{ $t("player.search.online_only") }})</span>
-                </NuxtLink>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                as-child
-                :tooltip="$t('layouts.app_nav.tooltips.teams')"
               >
-                <NuxtLink
-                  :to="{ name: 'teams' }"
-                  :class="{
-                    'router-link-active': isRouteActive('teams'),
+                {{ $t("layouts.app_nav.navigation.players") }}
+              </NuxtLink>
+              <NuxtLink
+                :to="{ name: 'teams' }"
+                :class="{
+                    'text-green-400/90': isRouteActive('teams'),
+                    'px-2': true,
+                    'text-gray-200': true, 
+                    'transition-colors': true,
+                    'hover:text-gray-300': !isRouteActive('teams'),
+                    'flex': true,
+                    'items-center': true,
+                    'h-full': true,
+                    'pt-1': true
                   }"
-                >
-                  <ShieldHalf />
-                  {{ $t("layouts.app_nav.navigation.teams") }}
-                </NuxtLink>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarGroup>
-
-        <Separator
-          class="mx-4 w-auto"
-          v-if="me?.role === e_player_roles_enum.administrator"
-        />
-
-        <SidebarGroup v-if="me?.role === e_player_roles_enum.administrator">
-          <SidebarGroupLabel>{{
-            $t("layouts.app_nav.administration.title")
-          }}</SidebarGroupLabel>
-
-          <SidebarMenu>
-            <SidebarMenuItem
-              :tooltip="$t('layouts.app_nav.tooltips.map_pools')"
-            >
-              <SidebarMenuButton
-                as-child
-                :tooltip="$t('layouts.app_nav.tooltips.map_pools')"
+              >
+                {{ $t("layouts.app_nav.navigation.teams") }}
+              </NuxtLink>
+              <div v-if="me?.role === e_player_roles_enum.administrator">
+                <Separator orientation="vertical" class="h-4" />
+              </div>
+              <div
+                v-if="me?.role === e_player_roles_enum.administrator"
+                class="flex items-center space-x-4"
               >
                 <NuxtLink
                   :to="{ name: 'map-pools' }"
                   :class="{
-                    'router-link-active': isRouteActive('map-pools'),
-                  }"
+                      'text-green-400/90': isRouteActive('map-pools'),
+                      'px-2': true,
+                      'text-gray-200': true, 
+                      'transition-colors': true,
+                      'hover:text-gray-300': !isRouteActive('map-pools'),
+                      'flex': true,
+                      'items-center': true,
+                      'h-full': true,
+                      'pt-1': true
+                    }"
                 >
-                  <Map />
                   {{ $t("layouts.app_nav.administration.map_pools") }}
                 </NuxtLink>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-
-            <SidebarMenuItem :tooltip="$t('layouts.app_nav.tooltips.regions')">
-              <SidebarMenuButton
-                as-child
-                :tooltip="$t('layouts.app_nav.tooltips.regions')"
-              >
                 <NuxtLink
                   :to="{ name: 'regions' }"
                   :class="{
-                    'router-link-active': isRouteActive('regions'),
-                  }"
+                      'text-green-400/90': isRouteActive('regions'),
+                      'px-2': true,
+                      'text-gray-200': true, 
+                      'transition-colors': true,
+                      'hover:text-gray-300': !isRouteActive('regions'),
+                      'flex': true,
+                      'items-center': true,
+                      'h-full': true,
+                      'pt-1': true
+                    }"
                 >
-                  <Globe />
                   {{ $t("layouts.app_nav.administration.regions") }}
                 </NuxtLink>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-
-            <Collapsible
-              as-child
-              :default-open="true"
-              v-slot="{ open }"
-              v-if="open || isMobile"
-            >
-              <SidebarMenuItem>
-                <CollapsibleTrigger as-child>
-                  <SidebarMenuButton
-                    :tooltip="$t('layouts.app_nav.tooltips.servers')"
-                  >
-                    <Server />
-                    <span>{{
-                      $t("layouts.app_nav.administration.servers")
-                    }}</span>
-                    <ChevronRight
-                      class="ml-auto transition-transform duration-200"
+                <DropdownMenu
+                  v-model:open="serversOpened"
+                  class="cursor-pointer"
+                >
+                  <DropdownMenuTrigger as-child>
+                    <NuxtLink
+                      class="flex items-center gap-2 cursor-pointer"
                       :class="{
-                        'rotate-90': open,
-                      }"
-                    />
-                  </SidebarMenuButton>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <SidebarMenuSub>
-                    <SidebarMenuSubItem>
-                      <SidebarMenuSubButton
-                        as-child
-                        :tooltip="
-                          $t('layouts.app_nav.tooltips.dedicated_servers')
-                        "
-                      >
+                          'text-green-400/90': isRouteActive('dedicated-servers') || isRouteActive('game-server-nodes'),
+                          'px-2': true,
+                          'text-gray-200': true, 
+                          'transition-colors': true,
+                          'hover:text-gray-300': true,
+                          'flex': true,
+                          'items-center': true,
+                          'h-full': false,
+                          'pt-1': true
+                        }"
+                    >
+                      {{ $t("layouts.app_nav.administration.servers") }}
+                    </NuxtLink>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    class="min-w-48 rounded-lg"
+                    align="start"
+                    :side-offset="4"
+                  >
+                    <DropdownMenuGroup>
+                      <DropdownMenuItem class="cursor-pointer" as-child>
                         <NuxtLink
                           :to="{ name: 'dedicated-servers' }"
                           :class="{
-                            'router-link-active':
-                              isRouteActive('dedicated-servers'),
-                          }"
+                              'text-green-400/90': isRouteActive('dedicated-servers'),
+                              'px-2': true,
+                              'text-gray-200': true, 
+                              'transition-colors': true,
+                              'hover:text-gray-300': !isRouteActive('dedicated-servers'),
+                              'flex': true,
+                              'items-center': true,
+                              'h-full': true,
+                              'pt-1': true
+                            }"
                         >
-                          {{
-                            $t(
-                              "layouts.app_nav.administration.dedicated_servers",
-                            )
-                          }}
+                          {{ $t("layouts.app_nav.administration.dedicated_servers") }}
                         </NuxtLink>
-                      </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
+                      </DropdownMenuItem>
 
-                    <SidebarMenuSubItem>
-                      <SidebarMenuSubButton
-                        as-child
-                        :tooltip="
-                          $t('layouts.app_nav.tooltips.game_server_nodes')
-                        "
-                      >
+                      <DropdownMenuItem class="cursor-pointer" as-child>
                         <NuxtLink
                           :to="{ name: 'game-server-nodes' }"
                           :class="{
-                            'router-link-active':
-                              isRouteActive('game-server-nodes'),
-                          }"
+                              'text-green-400/90': isRouteActive('game-server-nodes'),
+                              'px-2': true,
+                              'text-gray-200': true, 
+                              'transition-colors': true,
+                              'hover:text-gray-300': !isRouteActive('game-server-nodes'),
+                              'flex': true,
+                              'items-center': true,
+                              'h-full': true,
+                              'pt-1': true
+                            }"
                         >
-                          {{
-                            $t(
-                              "layouts.app_nav.administration.game_server_nodes",
-                            )
-                          }}
+                          {{ $t("layouts.app_nav.administration.game_server_nodes") }}
                         </NuxtLink>
-                      </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
-                  </SidebarMenuSub>
-                </CollapsibleContent>
-              </SidebarMenuItem>
-            </Collapsible>
-
-            <SidebarMenuItem v-else>
-              <DropdownMenu v-model:open="serversOpened">
-                <DropdownMenuTrigger as-child>
-                  <SidebarMenuButton
-                    :class="{
-                      'bg-sidebar-accent text-sidebar-accent-foreground':
-                        serversOpened,
-                    }"
-                  >
-                    <Server />
-                  </SidebarMenuButton>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  class="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-                  :side="isMobile ? 'top' : 'right'"
-                  align="end"
-                  :side-offset="4"
-                >
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem
-                      class="flex gap-2 cursor-pointer"
-                      as-child
-                    >
-                      <NuxtLink :to="{ name: 'dedicated-servers' }">
-                        {{
-                          $t("layouts.app_nav.administration.dedicated_servers")
-                        }}
-                      </NuxtLink>
-                    </DropdownMenuItem>
-
-                    <DropdownMenuItem
-                      class="flex gap-2 cursor-pointer"
-                      as-child
-                    >
-                      <NuxtLink :to="{ name: 'game-server-nodes' }">
-                        {{
-                          $t("layouts.app_nav.administration.game_server_nodes")
-                        }}
-                      </NuxtLink>
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </SidebarMenuItem>
-
-            <SidebarMenuItem
-              :tooltip="$t('layouts.app_nav.tooltips.system_logs')"
-            >
-              <SidebarMenuButton
-                as-child
-                :tooltip="$t('layouts.app_nav.tooltips.system_logs')"
-              >
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
                 <NuxtLink
                   :to="{ name: 'system-logs' }"
                   :class="{
-                    'router-link-active': isRouteActive('system-logs'),
-                  }"
+                      'text-green-400/90': isRouteActive('system-logs'),
+                      'px-2': true,
+                      'text-gray-200': true, 
+                      'transition-colors': true,
+                      'hover:text-gray-300': !isRouteActive('system-logs'),
+                      'flex': true,
+                      'items-center': true,
+                      'h-full': true,
+                      'pt-1': true
+                    }"
                 >
-                  <Logs />
                   {{ $t("layouts.app_nav.administration.logs") }}
                 </NuxtLink>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-
-            <SidebarMenuItem
-              :tooltip="$t('layouts.app_nav.tooltips.system_metrics')"
-            >
-              <SidebarMenuButton
-                as-child
-                :tooltip="$t('layouts.app_nav.tooltips.system_metrics')"
-              >
                 <NuxtLink
                   :to="{ name: 'system-metrics' }"
                   :class="{
-                    'router-link-active': isRouteActive('system-metrics'),
-                  }"
+                      'text-green-400/90': isRouteActive('system-metrics'),
+                      'px-2': true,
+                      'text-gray-200': true, 
+                      'transition-colors': true,
+                      'hover:text-gray-300': !isRouteActive('system-metrics'),
+                      'flex': true,
+                      'items-center': true,
+                      'h-full': true,
+                      'pt-1': true
+                    }"
                 >
-                  <LineChart />
                   {{ $t("layouts.app_nav.administration.metrics") }}
                 </NuxtLink>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-
-            <SidebarMenuItem
-              :tooltip="$t('layouts.app_nav.tooltips.app_settings')"
-            >
-              <SidebarMenuButton
-                as-child
-                :tooltip="$t('layouts.app_nav.tooltips.app_settings')"
-              >
                 <NuxtLink
                   :to="{ name: 'settings-application' }"
                   :class="{
-                    'router-link-active': isRouteActive('settings-application'),
-                  }"
+                      'text-green-400/90': isRouteActive('settings-application'),
+                      'px-2': true,
+                      'text-gray-200': true, 
+                      'transition-colors': true,
+                      'hover:text-gray-300': !isRouteActive('settings-application'),
+                      'flex': true,
+                      'items-center': true,
+                      'h-full': true,
+                      'pt-1': true
+                    }"
                 >
-                  <Cog />
                   {{ $t("layouts.app_nav.administration.app_settings") }}
                 </NuxtLink>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarGroup>
-
-        <SidebarGroup v-if="telemetryStats?.online > 0 && open">
-          <Badge variant="outline" class="p-2 flex items-center gap-2">
-            <Server class="w-3 h-3" />
-            {{ telemetryStats.online }} System{{
-              telemetryStats.online > 1 ? "s" : ""
-            }}
-            Online
-          </Badge>
-        </SidebarGroup>
-      </SidebarContent>
-      <SidebarFooter>
-        <SidebarMenu>
-          <!-- <SidebarMenuItem
-            v-if="me?.role === e_player_roles_enum.administrator"
-          >
-            <SidebarMenuButton
-              as-child
-              :tooltip="$t('layouts.app_nav.tooltips.report_issue')"
-            >
-              <a
-                href="https://github.com/5stackgg/5stack-panel/issues"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-muted-foreground transition-colors hover:text-foreground"
-              >
-                <GithubLogoIcon class="w-5 h-5" />
-                {{ $t("layouts.app_nav.footer.report_issue") }}
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              as-child
-              :tooltip="$t('layouts.app_nav.tooltips.join_discord')"
-            >
-              <a
-                :href="inviteLink"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-muted-foreground transition-colors hover:text-foreground"
-              >
-                <DiscordLogoIcon class="w-5 h-5" />
-                {{ $t("layouts.app_nav.footer.join_discord") }}
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem> -->
-
-          <InstallPWA />
-        </SidebarMenu>
-      </SidebarFooter>
-      <SidebarRail />
-    </Sidebar>
-
-    <SidebarInset class="bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] overflow-hidden">
-      <header
-        class="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 px-4"
-      >
-        <div class="flex items-center justify-between w-full">
-          <div class="flex items-center gap-2">
-            
+              </div>
+            </template>
           </div>
 
-          <div class="flex gap-4">
+          <!-- rightside nav bar -->
+          <div class="flex items-center space-x-4">
             <MatchLobbies></MatchLobbies>
-
             <SystemUpdate v-if="isAdmin"></SystemUpdate>
-
             <Popover v-if="me?.role === e_player_roles_enum.administrator">
               <PopoverTrigger>
                 <div
-                  class="flex items-center gap-2 text-sm text-muted-foreground"
+                  class="flex items-center gap-2 text-sm text-muted-foreground pt-1"
                 >
                   <div class="relative inline-flex">
                     <span
                       class="absolute inline-flex h-2 w-2 rounded-full animate-ping"
                       :class="{
-                        'bg-red-500': overalRegionStatus === 'Offline',
-                        'bg-yellow-500': overalRegionStatus === 'Degraded',
-                      }"
+                'bg-red-500': overalRegionStatus === 'Offline',
+                'bg-yellow-500': overalRegionStatus === 'Degraded',
+              }"
                       v-if="overalRegionStatus !== 'Online'"
                     ></span>
                     <span
                       class="relative inline-flex h-2 w-2 rounded-full"
                       :class="{
-                        'bg-green-500': overalRegionStatus === 'Online',
-                        'bg-red-500': overalRegionStatus === 'Offline',
-                        'bg-yellow-500': overalRegionStatus === 'Degraded',
-                      }"
+                'bg-green-500': overalRegionStatus === 'Online',
+                'bg-red-500': overalRegionStatus === 'Offline',
+                'bg-yellow-500': overalRegionStatus === 'Degraded',
+              }"
                       :title="overalRegionStatus"
                     ></span>
                   </div>
@@ -466,44 +526,17 @@ import ChatLobby from "~/components/chat/ChatLobby.vue";
               </PopoverContent>
             </Popover>
 
-            <!-- <Popover v-model:open="showPlayersOnline">
-              <PopoverTrigger>
-                <div
-                  class="flex items-center gap-4 text-sm text-muted-foreground"
-                >
-                  <Users class="h-4 w-4" />
-                  <span>{{ playersOnline.length }}</span>
-                </div>
-              </PopoverTrigger>
-              <PopoverContent>
-                <ScrollArea class="max-h-[20vh] overflow-auto">
-                  <template
-                    :key="player.steam_id"
-                    v-for="player of playersOnline"
-                  >
-                    <PlayerDisplay
-                      @click="showPlayersOnline = false"
-                      :player="player"
-                      class="my-2"
-                      :linkable="true"
-                    ></PlayerDisplay>
-                  </template>
-                </ScrollArea>
-              </PopoverContent>
-            </Popover> -->
-
             <AppNotifications></AppNotifications>
-
             <DropdownMenu v-model:open="profileOpened">
               <DropdownMenuTrigger as-child>
-                  <PlayerDisplay
-                    :player="me"
-                    :show-online="false"
-                    :show-role="false"
-                    :show-flag="false"
-                    :show-name="false"
-                    size="xs"
-                  />
+                <PlayerDisplay
+                  :player="me"
+                  :show-online="false"
+                  :show-role="false"
+                  :show-flag="false"
+                  :show-name="false"
+                  size="xs"
+                />
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 class="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
@@ -522,8 +555,8 @@ import ChatLobby from "~/components/chat/ChatLobby.vue";
                     <NuxtLink
                       :to="{ name: 'settings' }"
                       :class="{
-                        'router-link-active': isRouteActive('settings'),
-                      }"
+                'router-link-active': isRouteActive('settings'),
+              }"
                     >
                       <BadgeCheck class="size-4" />
                       {{ $t("layouts.app_nav.profile.my_account") }}
@@ -542,92 +575,86 @@ import ChatLobby from "~/components/chat/ChatLobby.vue";
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-
-            <div
-              id="right-sidebar-trigger"
-              class="flex items-center justify-center"
-              v-show="isMobile"
-            ></div>
           </div>
         </div>
-      </header>
-      <slot></slot>
-    </SidebarInset>
+      </div>
+    </nav>
 
-    <div id="right-sidebar"></div>
-  </SidebarProvider>
-
-  <Teleport defer to="#right-sidebar">
-    <SidebarProvider
-      class="bg-muted/40"
-      :open="rightSidebarOpen"
-      :style="{
-        '--sidebar-width': '24rem',
-        '--sidebar-width-icon': '4.25rem',
-      }"
-      v-slot="{ isMobile }"
+    <div
+      class="flex flex-col md:flex-row flex-1 max-h-[calc(100vh-57px)] overflow-hidden"
     >
-      <Teleport defer to="#right-sidebar-trigger">
-        <SidebarTrigger @click="rightSidebarOpen = true" v-show="isMobile">
-          <BookUser
-            style="width: 1.5rem; height: 1.5rem"
-            :class="{ 'rotate-180': !rightSidebarOpen }"
-          />
-        </SidebarTrigger>
-      </Teleport>
+      <!-- Main content - takes remaining space -->
+      <div class="flex-1">
+        <SidebarProvider class="bg-muted/40" v-slot="{ open, isMobile }">
+          <SidebarInset
+            id="main"
+            class="bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] overflow-hidden"
+          >
+            <slot></slot>
+          </SidebarInset>
+        </SidebarProvider>
+      </div>
 
-      <Sidebar
-        variant="inset"
-        collapsible="icon"
-        side="right"
-        @click="rightSidebarOpen = true"
-        :class="{ 'cursor-pointer': !rightSidebarOpen }"
+      <!-- Right sidebar - full width on mobile, fixed width on desktop -->
+      <div
+        id="right-sidebar"
+        class="duration-200 w-[--sidebar-width] transition-[width] ease-linear group-data-[collapsible=offcanvas]:w-0 group-data-[side=right]:rotate-180 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4))] border-l h-[calc(100vh-3.5rem)] bg-sidebar"
+        style="--sidebar-width: 24rem; --sidebar-width-icon: 4.25rem"
+        v-show="!isMedium"
       >
-        <SidebarHeader>
-          <SidebarMenu>
-            <SidebarMenuItem
-              class="flex items-center justify-center"
-              v-if="!isMobile"
-            >
-              <SidebarMenuButton as-child>
-                <Button
-                  size="icon"
-                  variant="outline"
-                  @click.stop="rightSidebarOpen = !rightSidebarOpen"
+        <div
+          id="right-sidebar-trigger"
+          class="flex items-center justify-center"
+          v-show="isMobile"
+        ></div>
+        <SidebarProvider :open="rightSidebarOpen" v-slot="{ isMobile }">
+          <Teleport defer to="#right-sidebar-trigger">
+            <SidebarTrigger @click="rightSidebarOpen = true" v-show="isMobile">
+              <BookUser
+                style="width: 1.5rem; height: 1.5rem"
+                :class="{ 'rotate-180': !rightSidebarOpen }"
+              />
+            </SidebarTrigger>
+          </Teleport>
+
+          <Sidebar
+            class="w-full"
+            variant="sidebar"
+            collapsible="none"
+            side="right"
+            @click="rightSidebarOpen = true"
+            :class="{ 'cursor-pointer': !rightSidebarOpen }"
+          >
+            <SidebarContent>
+              <SidebarGroup
+                :class="{ 'overflow-hidden': !me.current_lobby_id }"
+              >
+                <SidebarMenu
+                  :class="{ 'overflow-hidden': !me.current_lobby_id }"
                 >
-                  <ChevronsRight
-                    style="width: 1.5rem; height: 1.5rem"
-                    :class="{ 'rotate-180': !rightSidebarOpen }"
-                  />
-                </Button>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarHeader>
-        <SidebarContent>
-          <SidebarGroup :class="{ 'overflow-hidden': !me.current_lobby_id }">
-            <SidebarMenu :class="{ 'overflow-hidden': !me.current_lobby_id }">
-              <MatchmakingLobby :mini="!rightSidebarOpen" />
-            </SidebarMenu>
-          </SidebarGroup>
+                  <MatchmakingLobby :mini="!rightSidebarOpen" />
+                </SidebarMenu>
+              </SidebarGroup>
 
-          <SidebarGroup v-if="me.current_lobby_id">
-            <ChatLobby
-              instance="matchmaking"
-              :lobby-id="me.current_lobby_id"
-              type="matchmaking"
-              v-show="rightSidebarOpen"
-            />
-          </SidebarGroup>
+              <SidebarGroup v-if="me.current_lobby_id">
+                <ChatLobby
+                  instance="matchmaking"
+                  :lobby-id="me.current_lobby_id"
+                  type="matchmaking"
+                  v-show="rightSidebarOpen"
+                />
+              </SidebarGroup>
 
-          <SidebarGroup v-if="me.current_lobby_id" class="overflow-hidden">
-            <SidebarSeparator class="my-4" />
-            <FriendsList :mini="!rightSidebarOpen" />
-          </SidebarGroup>
-        </SidebarContent>
-      </Sidebar>
-    </SidebarProvider>
-  </Teleport>
+              <SidebarGroup v-if="me.current_lobby_id" class="overflow-hidden">
+                <SidebarSeparator class="my-4" />
+                <FriendsList :mini="!rightSidebarOpen" />
+              </SidebarGroup>
+            </SidebarContent>
+          </Sidebar>
+        </SidebarProvider>
+      </div>
+    </div>
+  </div>
 
   <AlertDialog
     v-if="showLogoutModal"
@@ -668,9 +695,11 @@ export default {
       serversOpened: false,
       profileOpened: false,
       languageOpened: false,
+      navMenuOpened: false,
       showLogoutModal: false,
       showPlayersOnline: false,
       rightSidebarOpen: false,
+      isMobile: false,
     };
   },
   apollo: {
@@ -694,9 +723,11 @@ export default {
   watch: {
     isMedium: {
       immediate: true,
-      handler(oldValue, newValue) {
-        if (this.rightSidebarOpen && oldValue && newValue == false) {
+      handler(newValue) {
+        if (newValue) {
           this.rightSidebarOpen = false;
+        } else {
+          this.rightSidebarOpen = true;
         }
       },
     },
@@ -746,7 +777,7 @@ export default {
       window.location.reload();
     },
     isRouteActive(route: string) {
-      return this.$route.path.startsWith(`/${route}`);
+      return this.$route.name === route;
     },
   },
   computed: {
@@ -755,6 +786,9 @@ export default {
     },
     isMedium() {
       return useMediaQuery("(max-width: 1400px)").value;
+    },
+    isMobile() {
+      return useMediaQuery("(max-width: 768px)").value;
     },
     me() {
       return useAuthStore().me;

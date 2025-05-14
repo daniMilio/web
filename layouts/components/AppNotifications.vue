@@ -11,10 +11,10 @@ import MatchInviteNotification from "~/components/MatchInviteNotification.vue";
   <Sheet :open="isOpen" @update:open="(open) => (isOpen = open)">
     <SheetTrigger>
       <div class="relative">
-        <Bell :class="{ 'animate-bell': hasNotifications }" />
+        <Bell :class="{ 'animate-bell': hasNotifications, 'pt-1': true }" size="20" />
         <span
           v-if="hasNotifications"
-          class="absolute -top-1 -right-1 inline-flex"
+          class="absolute -top-0 -right-1 inline-flex"
         >
           <span
             class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"

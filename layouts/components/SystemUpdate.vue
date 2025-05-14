@@ -3,7 +3,7 @@ import { AlertCircle } from "lucide-vue-next";
 </script>
 
 <template>
-  <div v-if="updates.length > 0" class="relative flex items-center">
+  <div v-if="updates.length > 0" class="relative flex items-center pt-1">
     <AlertDialog>
       <AlertDialogTrigger>
         <Button variant="ghost" size="icon" class="h-6 flex items-center">

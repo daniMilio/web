@@ -32,6 +32,11 @@ export default defineNuxtConfig({
         { property: "og:url", content: url },
         { property: "og:image", content: `${url}/_ipx/_/favicon/512.png` },
       ],
+      link: [
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&display=swap' }
+      ],
       bodyAttrs: {
         class: "pre-loader",
       },
