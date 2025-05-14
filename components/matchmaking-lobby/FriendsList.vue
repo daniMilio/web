@@ -37,10 +37,10 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
           ({{ onlineFriends.length }} {{ $t("matchmaking.friends.online") }})
         </span>
       </h3>
-      <Button variant="ghost" size="sm" class="h-8" @click="syncSteamFriends">
+      <!-- <Button variant="ghost" size="sm" class="h-8" @click="syncSteamFriends">
         <RefreshCw class="mr-2 h-4 w-4" />
         {{ $t("matchmaking.friends.sync") }}
-      </Button>
+      </Button> -->
     </div>
 
     <player-search

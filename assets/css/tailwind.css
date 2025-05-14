@@ -223,7 +223,12 @@ div[role="menuitem"] {
   }
 }
 
-
+[data-nav="top"] {
+  .router-link-active,
+  .router-link-exact-active {
+    @apply bg-accent/70 text-green-400/90 rounded-[calc(var(--radius)-2px)];
+  }
+}
 
 @layer base {
   * {
