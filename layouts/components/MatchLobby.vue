@@ -16,6 +16,7 @@ import PlayerStatusDisplay from "~/components/match/PlayerStatusDisplay.vue";
             :match="match"
             :show-details="false"
             :linkable="false"
+            size="xs"
             v-if="member.player"
           />
           <template v-else>
@@ -32,7 +33,7 @@ import PlayerStatusDisplay from "~/components/match/PlayerStatusDisplay.vue";
       </Tooltip>
     </TooltipProvider>
 
-    <span class="text-xl font-bold text-gray-600 dark:text-gray-400">{{
+    <span class="text-xs font-bold text-red-400/90 dark:text-red-400/90">{{
       $t("layouts.match_lobby.versus")
     }}</span>
 
@@ -43,6 +44,7 @@ import PlayerStatusDisplay from "~/components/match/PlayerStatusDisplay.vue";
             :member="member"
             :match="match"
             :show-details="false"
+            size="xs"
             v-if="member.player"
           />
           <template v-else>

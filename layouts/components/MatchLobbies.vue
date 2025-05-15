@@ -5,31 +5,28 @@ import { ArrowRight, ChevronDown } from "lucide-vue-next";
 
 <template>
   <div class="flex gap-4 items-center">
-    <template v-if="match">
-      <NuxtLink
-        :to="{ name: 'matches-id', params: { id: match.id } }"
-        class="p-2 rounded flex gap-2 text-lg font-bold bg-gradient-to-r from-blue-500 to-purple-600 text-white animate-pulse"
-        v-show="!onMatchPage"
-      >
-        <span class="md:inline hidden">{{
-          match.e_match_status.description
-        }}</span>
-        <ArrowRight />
-      </NuxtLink>
-
+    <template v-if="lobbies.length > 1">
       <Popover v-model:open="choosingLobby">
         <PopoverTrigger>
-          <div
-            class="hidden md:flex gap-4 p-2 border-2 border-gray-200 dark:border-gray-700 rounded-lg shadow-md"
-          >
-            <MatchLobby
-              :match="match"
-              :can-switch="lobbies.length > 1"
-            ></MatchLobby>
-
-            <Button variant="outline" v-if="lobbies.length > 1">
-              <ChevronDown class="h-4 w-4" />
-            </Button>
+          <div class="hidden md:flex gap-0.5 px-0.5 py-0.5 border border-gray-200/50 dark:border-gray-700/50 rounded-sm shadow-sm hover:border-gray-300 dark:hover:border-gray-600 transition-colors bg-white dark:bg-gray-950" :style="`background: ${$colorMode?.value === 'dark' ? '#10131a' : '#fff'}; z-index: 10; box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);`">
+            <NuxtLink
+              :to="{ name: 'matches-id', params: { id: match.id } }"
+              class="flex items-center gap-0.5 bg-accent/70 px-1 py-0.5 rounded-l-sm flex-shrink-0 text-green-400/90 hover:bg-green-400/10 focus:bg-green-400/20 transition-colors text-xs font-medium border-r border-gray-200/50 dark:border-gray-700/50"
+              v-show="!onMatchPage"
+            >
+              <span class="text-green-400/90">{{ match.e_match_status.description }}</span>
+              <ArrowRight class="h-3 w-3 text-green-400/90 ml-1" />
+              <Button variant="outline" size="icon" class="h-6 w-6" v-if="lobbies.length > 1">
+                <ChevronDown class="h-3 w-3" />
+              </Button>
+            </NuxtLink>
+            <div class="flex items-center gap-0.5 pl-1">
+              <MatchLobby
+                :match="match"
+                :can-switch="lobbies.length > 1"
+                class="pr-1"
+              ></MatchLobby>
+            </div>
           </div>
         </PopoverTrigger>
         <PopoverContent class="w-auto p-0">
@@ -50,6 +47,25 @@ import { ArrowRight, ChevronDown } from "lucide-vue-next";
           </Command>
         </PopoverContent>
       </Popover>
+    </template>
+    <template v-else>
+      <div class="hidden md:flex gap-0.5 px-0.5 py-0.5 border border-gray-200/50 dark:border-gray-700/50 rounded-sm shadow-sm hover:border-gray-300 dark:hover:border-gray-600 transition-colors bg-white dark:bg-gray-950" :style="`background: ${$colorMode?.value === 'dark' ? '#10131a' : '#fff'}; z-index: 10; box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);`">
+        <NuxtLink
+          :to="{ name: 'matches-id', params: { id: match.id } }"
+          class="flex items-center gap-0.5 bg-accent/70 px-1 py-0.5 rounded-l-sm flex-shrink-0 text-green-400/90 hover:bg-green-400/10 focus:bg-green-400/20 transition-colors text-xs font-medium border-r border-gray-200/50 dark:border-gray-700/50"
+          v-show="!onMatchPage"
+        >
+          <span class="text-green-400/90">{{ match.e_match_status.description }}</span>
+          <ArrowRight class="h-3 w-3 text-green-400/90 ml-1" />
+        </NuxtLink>
+        <div class="flex items-center gap-0.5 pl-1">
+          <MatchLobby
+            :match="match"
+            :can-switch="false"
+            class="pr-1"
+          ></MatchLobby>
+        </div>
+      </div>
     </template>
   </div>
 </template>
