@@ -12,7 +12,7 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
           variant="outline"
           size="icon"
           class="relative"
-          v-if="pendingFriends?.length"
+          v-if="showPendingFriendsNotification"
         >
           <Mail class="h-4 w-4" />
           <div
@@ -342,12 +342,17 @@ export default {
         );
       });
     },
-    pendingFriends() {
-      return this.friends?.filter((friend) => {
+    showPendingFriendsNotification() {
+      return this.friends?.some((friend) => 
         return (
           friend.status === "Pending" &&
           friend.invited_by_steam_id !== this.me?.steam_id
         );
+      });
+    },
+    pendingFriends() {
+      return this.friends?.filter((friend) => {
+        return friend.status === "Pending";
       });
     },
   },
