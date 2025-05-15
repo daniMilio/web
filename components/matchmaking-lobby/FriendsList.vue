@@ -58,7 +58,7 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
           </div>
           <template v-for="player in pendingFriends">
             <template v-if="player.invited_by_steam_id === me.steam_id">
-              <FriendOptions :player="player">
+              <FriendOptions :player="player" :hideInvite="isLobbyFull">
                 <PlayerDisplay
                   class="w-full cursor-pointer opacity-50 hover:opacity-80 hover:bg-muted/50 transition-all duration-200 p-2 rounded-md"
                   :player="player"
@@ -103,7 +103,7 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
               }}
             </div>
             <div v-for="player in onlineFriends">
-              <FriendOptions :player="player">
+              <FriendOptions :player="player" :hideInvite="isLobbyFull">
                 <PlayerDisplay
                   class="w-full cursor-pointer hover:opacity-80 hover:bg-muted/50 transition-all duration-200 p-2 rounded-md"
                   :player="player"
@@ -158,7 +158,7 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
             }}
           </div>
           <template v-for="player in offlineFriends">
-            <FriendOptions :player="player">
+            <FriendOptions :player="player" :hideInvite="isLobbyFull">
               <PlayerDisplay
                 class="opacity-50 cursor-pointer hover:opacity-80 hover:bg-muted/50 transition-all duration-200 p-2 rounded-md"
                 :player="player"
@@ -179,6 +179,10 @@ import { typedGql } from "~/generated/zeus/typedDocumentNode";
 export default {
   props: {
     mini: {
+      type: Boolean,
+      default: false,
+    },
+    isLobbyFull: {
       type: Boolean,
       default: false,
     },

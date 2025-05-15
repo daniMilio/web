@@ -18,7 +18,7 @@ import { Plus, Trash2, User } from "lucide-vue-next";
         </NuxtLink>
       </DropdownMenuItem>
 
-      <DropdownMenuItem @click="inviteToLobby">
+      <DropdownMenuItem @click="inviteToLobby" v-if="!hideInvite">
         <Plus class="mr-2 h-4 w-4" />
         <span>{{ $t("matchmaking.friends.invite_to_lobby") }}</span>
       </DropdownMenuItem>
@@ -53,6 +53,11 @@ export default {
     player: {
       type: Object,
       required: true,
+    },
+    hideInvite: {
+      type: Boolean,
+      default: false,
+      required: false,
     },
   },
   computed: {

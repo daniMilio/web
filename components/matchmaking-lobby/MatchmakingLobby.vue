@@ -29,7 +29,7 @@ import MatchmakingLobbyAccess from "~/components/matchmaking-lobby/MatchmakingLo
         :label="$t('matchmaking.lobby.invite_player')"
         :self="false"
         @selected="(player) => inviteToLobby(player.steam_id)"
-        v-if="!mini"
+        v-if="!mini && !isLobbyFull"
       ></player-search>
 
       <template v-for="player of currentLobby?.players">
@@ -115,7 +115,7 @@ import MatchmakingLobbyAccess from "~/components/matchmaking-lobby/MatchmakingLo
     <template v-if="!currentLobby">
       <Separator class="my-4" v-if="invitedLobbies?.length > 0" />
 
-      <FriendsList :mini="mini" />
+      <FriendsList :mini="mini" :isLobbyFull="isLobbyFull" />
     </template>
   </div>
 </template>
@@ -132,10 +132,16 @@ export default {
       default: false,
     },
   },
+  emits: ['update:isLobbyFull'],
   data() {
     return {
       lobbies: null,
     };
+  },
+  watch: {
+    isLobbyFull(newValue) {
+      this.$emit('update:isLobbyFull', newValue);
+    }
   },
   apollo: {
     $subscribe: {
@@ -190,6 +196,13 @@ export default {
       return this.lobbies?.find((lobby: any) => {
         return lobby.id === this.me?.current_lobby_id;
       });
+    },
+    isLobbyFull() {
+      if (!this.currentLobby) return false;
+      const activePlayers = this.currentLobby.players.filter(
+        (player: any) => player.status === 'Accepted' || player.status === 'Invited'
+      ).length;
+      return activePlayers >= 2;
     },
     invitedLobbies() {
       return this.lobbies?.filter((lobby: any) => {

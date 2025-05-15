@@ -22,11 +22,12 @@ const rightSidebarOpen = ref(false);
 
 const isMedium = useMediaQuery("(max-width: 1400px)");
 const isMobile = useMediaQuery("(max-width: 768px)");
-const me = useAuthStore().me;
-const isAdmin = useAuthStore().isAdmin;
+const authStore = useAuthStore();
+const me = computed(() => authStore.me);
+const isAdmin = authStore.isAdmin;
 const regions = useApplicationSettingsStore().availableRegions as Region[];
 const playersOnline = useMatchmakingStore().playersOnline;
-const { mutate } = useApolloClient();
+const { client } = useApolloClient();
 
 const overalRegionStatus = computed(() => {
   const statuses = regions?.map((region: Region) => region.status);
@@ -59,16 +60,16 @@ watch(isMedium, (newValue: boolean) => {
 }, { immediate: true });
 
 watch(detectedCountry, async (newValue: string | undefined) => {
-  if (!me || me.country) {
+  if (!me.value || me.value.country) {
     return;
   }
 
-  await mutate({
+  await client.mutate({
     mutation: generateMutation({
       update_players_by_pk: [
         {
           pk_columns: {
-            steam_id: me.steam_id,
+            steam_id: me.value.steam_id,
           },
           _set: {
             country: newValue,
@@ -83,7 +84,7 @@ watch(detectedCountry, async (newValue: string | undefined) => {
 }, { immediate: true });
 
 async function logout() {
-  await mutate({
+  await client.mutate({
     mutation: generateMutation({
       logout: [
         {},

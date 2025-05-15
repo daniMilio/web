@@ -3,14 +3,16 @@ import { BookUser } from "lucide-vue-next";
 import MatchmakingLobby from "~/components/matchmaking-lobby/MatchmakingLobby.vue";
 import ChatLobby from "~/components/chat/ChatLobby.vue";
 import FriendsList from "~/components/matchmaking-lobby/FriendsList.vue";
+import { ref } from "vue";
 
-defineProps<{
+const props = defineProps<{
   isMedium: boolean
   isMobile: boolean
   me: any
 }>();
 
 const rightSidebarOpen = defineModel<boolean>('rightSidebarOpen');
+const isLobbyFull = ref(false);
 </script>
 
 <template>
@@ -50,7 +52,7 @@ const rightSidebarOpen = defineModel<boolean>('rightSidebarOpen');
             <SidebarMenu
               :class="{ 'overflow-hidden': !me.current_lobby_id }"
             >
-              <MatchmakingLobby :mini="!rightSidebarOpen" />
+              <MatchmakingLobby :mini="!rightSidebarOpen" v-model:isLobbyFull="isLobbyFull" />
             </SidebarMenu>
           </SidebarGroup>
 
@@ -65,7 +67,7 @@ const rightSidebarOpen = defineModel<boolean>('rightSidebarOpen');
 
           <SidebarGroup v-if="me.current_lobby_id" class="overflow-hidden">
             <SidebarSeparator class="my-4" />
-            <FriendsList :mini="!rightSidebarOpen" />
+            <FriendsList :mini="!rightSidebarOpen" :isLobbyFull="isLobbyFull" />
           </SidebarGroup>
         </SidebarContent>
       </Sidebar>
