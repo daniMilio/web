@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PlayerDisplay from "~/components/PlayerDisplay.vue";
-import { RefreshCw, Check, Ban, Users, Mail } from "lucide-vue-next";
+import { Ban, Users, Mail, Clock } from "lucide-vue-next";
 import FriendOptions from "~/components/matchmaking-lobby/FriendOptions.vue";
 import PlayerSearch from "~/components/PlayerSearch.vue";
 </script>
@@ -37,10 +37,6 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
           ({{ onlineFriends.length }} {{ $t("matchmaking.friends.online") }})
         </span>
       </h3>
-      <!-- <Button variant="ghost" size="sm" class="h-8" @click="syncSteamFriends">
-        <RefreshCw class="mr-2 h-4 w-4" />
-        {{ $t("matchmaking.friends.sync") }}
-      </Button> -->
     </div>
 
     <player-search
@@ -58,11 +54,34 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
           </div>
           <template v-for="player in pendingFriends">
             <template v-if="player.invited_by_steam_id === me.steam_id">
+              <div class="flex items-stretch w-full">
+                <div class="flex-1">
+                  <NuxtLink :to="{ name: 'players-id', params: { id: player.steam_id } }" custom v-slot="{ navigate }">
+                    <div @click="navigate" class="block">
+                      <PlayerDisplay
+                        class="w-full cursor-pointer opacity-50 hover:opacity-80 hover:bg-muted/50 transition-all duration-200 p-2 rounded-l-md"
+                        :player="player"
+                        :showOnline="false"
+                        :showAddFriend="false"
+                      />
+                    </div>
+                  </NuxtLink>
+                </div>
+                <button
+                  :class="'flex items-center justify-center px-3 hover:bg-gray-100 rounded-r-lg transition-colors border-l border-l-gray-200 group h-full min-h-[64px] focus:outline-none focus:ring-0 active:outline-none active:ring-0 focus:shadow-none active:shadow-none border-transparent focus:border-transparent active:border-transparent button-artifact-fix'"
+                  @click="denyFriend(player.steam_id)"
+                >
+                  <Clock class="h-4 w-4 text-gray-400 transition-colors group-hover:hidden" />
+                  <Ban class="h-4 w-4 text-red-500 transition-colors hidden group-hover:inline" />
+                </button>
+              </div>
+            </template>
+            <template v-else>
               <FriendOptions :player="player" :hideInvite="isLobbyFull">
                 <NuxtLink :to="{ name: 'players-id', params: { id: player.steam_id } }" custom v-slot="{ navigate }">
                   <div @click="navigate" class="block">
                     <PlayerDisplay
-                      class="w-full cursor-pointer opacity-50 hover:opacity-80 hover:bg-muted/50 transition-all duration-200 p-2 rounded-l-md"
+                      class="w-full cursor-pointer hover:opacity-80 hover:bg-muted/50 transition-all duration-200 p-2 rounded-l-md"
                       :player="player"
                       :showOnline="false"
                       :showAddFriend="false"
@@ -71,32 +90,6 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
                 </NuxtLink>
               </FriendOptions>
             </template>
-            <div class="flex items-center justify-between" v-else>
-              <NuxtLink :to="{ name: 'players-id', params: { id: player.steam_id } }" class="block">
-                <PlayerDisplay
-                  :player="player"
-                  :showOnline="false"
-                  :showAddFriend="false"
-                />
-              </NuxtLink>
-
-              <div class="flex flex-col gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  @click="acceptFriend(player.steam_id)"
-                >
-                  <Check class="h-4 w-4" />
-                </Button>
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  @click="denyFriend(player.steam_id)"
-                >
-                  <Ban class="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
           </template>
         </div>
         <div>

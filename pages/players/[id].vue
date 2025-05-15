@@ -82,15 +82,12 @@ import { generateMutation } from "~/graphql/graphqlGen";
               </Popover>
             </template>
 
-            <template v-if="player.steam_id !== me.steam_id && isFriend">
-              <Button variant="destructive" class="ml-auto" @click="removeFriend">
-                {{ $t('matchmaking.friends.remove') }}
-              </Button>
-            </template>
-            <template v-else-if="player.role !== e_player_roles_enum.user">
-              <Badge class="capitalize">{{
-                player.role.replace("_", " ")
-              }}</Badge>
+            <template v-if="player.steam_id !== me.steam_id">
+              <template v-if="isFriend && friendStatus === 'Accepted'">
+                <Button variant="destructive" class="ml-auto" @click="removeFriend">
+                  {{ $t('matchmaking.friends.remove') }}
+                </Button>
+              </template>
             </template>
           </div>
         </div>
@@ -382,6 +379,10 @@ export default {
     },
     isFriend() {
       return useMatchmakingStore().friends.some(friend => friend.steam_id === this.player?.steam_id);
+    },
+    friendStatus() {
+      const friend = useMatchmakingStore().friends.find(friend => friend.steam_id === this.player?.steam_id);
+      return friend?.status;
     },
     kd() {
       if (this.player?.deaths_aggregate.aggregate.count === 0) {
