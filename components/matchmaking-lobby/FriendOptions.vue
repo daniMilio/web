@@ -1,46 +1,38 @@
 <script lang="ts" setup>
 import { Plus, Trash2, User } from "lucide-vue-next";
+
+const buttonClass = "flex items-center justify-center px-3 hover:bg-gray-100 rounded-r-lg transition-colors border-l border-l-gray-200 group h-full min-h-[64px] focus:outline-none focus:ring-0 active:outline-none active:ring-0 focus:shadow-none active:shadow-none border-transparent focus:border-transparent active:border-transparent button-artifact-fix";
 </script>
 
 <template>
-  <DropdownMenu>
-    <DropdownMenuTrigger as-child>
+  <div class="flex items-stretch w-full">
+    <div class="flex-1">
       <slot></slot>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent class="w-56">
-      <DropdownMenuItem>
-        <NuxtLink
-          :to="{ name: 'players-id', params: { id: player.steam_id } }"
-          class="flex items-center"
-        >
-          <User class="mr-2 h-4 w-4" />
-          <span>{{ $t("matchmaking.friends.view_profile") }}</span>
-        </NuxtLink>
-      </DropdownMenuItem>
+    </div>
 
-      <DropdownMenuItem @click="inviteToLobby" v-if="!hideInvite">
-        <Plus class="mr-2 h-4 w-4" />
-        <span>{{ $t("matchmaking.friends.invite_to_lobby") }}</span>
-      </DropdownMenuItem>
-
-      <DropdownMenuSeparator />
-
-      <DropdownMenuItem
-        @click="inviteToMatch"
-        :class="!canInviteToMatch ? 'opacity-50 pointer-events-none' : ''"
+    <template v-if="!hideInvite">
+      <DropdownMenu v-if="!canInviteToMatch" class="h-full">
+        <DropdownMenuTrigger :class="buttonClass">
+          <Plus class="h-4 w-4 text-gray-400 group-hover:text-gray-600 transition-colors" />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent class="w-48">
+          <DropdownMenuItem @click="inviteToLobby">
+            <span>{{ $t("matchmaking.friends.invite_to_lobby") }}</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem @click="inviteToMatch">
+            <span>{{ $t("matchmaking.friends.invite_to_match") }}</span>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <button 
+        v-else
+        @click="inviteToLobby" 
+        :class="buttonClass"
       >
-        <Plus class="mr-2 h-4 w-4" />
-        <span>{{ $t("matchmaking.friends.invite_to_match") }}</span>
-      </DropdownMenuItem>
-
-      <DropdownMenuSeparator />
-
-      <DropdownMenuItem @click="removeFriend" class="text-red-500">
-        <Trash2 class="mr-2 h-4 w-4" />
-        <span>{{ $t("matchmaking.friends.remove") }}</span>
-      </DropdownMenuItem>
-    </DropdownMenuContent>
-  </DropdownMenu>
+        <Plus class="h-4 w-4 text-gray-400 group-hover:text-gray-600 transition-colors" />
+      </button>
+    </template>
+  </div>
 </template>
 
 <script lang="ts">

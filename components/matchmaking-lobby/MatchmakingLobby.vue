@@ -202,7 +202,7 @@ export default {
       const activePlayers = this.currentLobby.players.filter(
         (player: any) => player.status === 'Accepted' || player.status === 'Invited'
       ).length;
-      return activePlayers >= 2;
+      return activePlayers >= 5;
     },
     invitedLobbies() {
       return this.lobbies?.filter((lobby: any) => {
