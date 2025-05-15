@@ -343,7 +343,7 @@ export default {
       });
     },
     showPendingFriendsNotification() {
-      return this.friends?.some((friend) => 
+      return this.friends?.some((friend) => {
         return (
           friend.status === "Pending" &&
           friend.invited_by_steam_id !== this.me?.steam_id
