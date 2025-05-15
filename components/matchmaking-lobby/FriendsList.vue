@@ -163,7 +163,7 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
             }}
           </div>
           <template v-for="player in offlineFriends">
-            <FriendOptions :player="player" :hideInvite="isLobbyFull">
+            <FriendOptions :player="player" :hideInvite="true">
               <NuxtLink :to="{ name: 'players-id', params: { id: player.steam_id } }" custom v-slot="{ navigate }">
                 <div @click="navigate" class="block">
                   <PlayerDisplay
