@@ -10,7 +10,7 @@
     :default-page="current"
     @update:page="paginate"
   >
-    <PaginationList v-slot="{ items }" class="flex items-center gap-1">
+    <PaginationList v-slot="{ items }" class="flex items-center gap-1 justify-center">
       <PaginationFirst />
       <PaginationPrev />
 

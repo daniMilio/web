@@ -17,6 +17,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["Twemoji Country Flags", "Stratum2", "sans-serif"],
+        teko: ["var(--font-teko)"],
       },
       colors: {
         border: "hsl(var(--border))",

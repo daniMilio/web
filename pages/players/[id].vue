@@ -12,6 +12,9 @@ import SanctionPlayer from "~/components/SanctionPlayer.vue";
 import PlayerSanctions from "~/components/PlayerSanctions.vue";
 import PlayerChangeName from "~/components/PlayerChangeName.vue";
 import SteamIcon from "~/components/icons/SteamIcon.vue";
+import { Button } from "~/components/ui/button";
+import { typedGql } from "~/generated/zeus/typedDocumentNode";
+import { generateMutation } from "~/graphql/graphqlGen";
 </script>
 
 <template>
@@ -45,43 +48,51 @@ import SteamIcon from "~/components/icons/SteamIcon.vue";
       </template>
 
       <template #actions>
-        <div class="flex gap-2">
-          <template v-if="player.steam_id !== me.steam_id && !isUser">
-            <SanctionPlayer :player="player" />
-          </template>
+        <div class="flex flex-col gap-2">
+          <div class="flex gap-2 items-center">
+            <template v-if="player.steam_id !== me.steam_id && !isUser">
+              <SanctionPlayer :player="player" />
+            </template>
 
-          <template v-if="isAdmin && player.steam_id !== me.steam_id">
-            <Popover>
-              <PopoverTrigger as-child>
-                <Button variant="outline" class="ml-auto">
-                  <span class="capitalize">{{
-                    player.role.replace("_", " ")
-                  }}</span>
-                  <ChevronDownIcon class="ml-2 h-4 w-4 text-muted-foreground" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent class="p-0" align="end">
-                <Command v-model="memberRole">
-                  <CommandList>
-                    <CommandGroup>
-                      <CommandItem
-                        :value="role.value"
-                        class="flex flex-col items-start px-4 py-2 cursor-pointer"
-                        v-for="role of roles"
-                      >
-                        <span class="capitalize">{{ role.display }}</span>
-                      </CommandItem>
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
-          </template>
-          <template v-else-if="player.role !== e_player_roles_enum.user">
-            <Badge class="capitalize">{{
-              player.role.replace("_", " ")
-            }}</Badge>
-          </template>
+            <template v-if="isAdmin && player.steam_id !== me.steam_id">
+              <Popover>
+                <PopoverTrigger as-child>
+                  <Button variant="outline">
+                    <span class="capitalize">{{
+                      player.role.replace("_", " ")
+                    }}</span>
+                    <ChevronDownIcon class="ml-2 h-4 w-4 text-muted-foreground" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent class="p-0" align="end">
+                  <Command v-model="memberRole">
+                    <CommandList>
+                      <CommandGroup>
+                        <CommandItem
+                          :value="role.value"
+                          class="flex flex-col items-start px-4 py-2 cursor-pointer"
+                          v-for="role of roles"
+                        >
+                          <span class="capitalize">{{ role.display }}</span>
+                        </CommandItem>
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+            </template>
+
+            <template v-if="player.steam_id !== me.steam_id && isFriend">
+              <Button variant="destructive" class="ml-auto" @click="removeFriend">
+                {{ $t('matchmaking.friends.remove') }}
+              </Button>
+            </template>
+            <template v-else-if="player.role !== e_player_roles_enum.user">
+              <Badge class="capitalize">{{
+                player.role.replace("_", " ")
+              }}</Badge>
+            </template>
+          </div>
         </div>
       </template>
     </PageHeading>
@@ -369,6 +380,9 @@ export default {
     isUser() {
       return useAuthStore().isUser;
     },
+    isFriend() {
+      return useMatchmakingStore().friends.some(friend => friend.steam_id === this.player?.steam_id);
+    },
     kd() {
       if (this.player?.deaths_aggregate.aggregate.count === 0) {
         return this.player?.kills_aggregate.aggregate.count;
@@ -390,6 +404,24 @@ export default {
               },
               pk_columns: {
                 steam_id: this.player.steam_id,
+              },
+            },
+            {
+              __typename: true,
+            },
+          ],
+        }),
+      });
+    },
+    async removeFriend() {
+      await this.$apollo.mutate({
+        mutation: typedGql("mutation")({
+          delete_my_friends: [
+            {
+              where: {
+                steam_id: {
+                  _eq: this.player.steam_id,
+                },
               },
             },
             {

@@ -27,7 +27,7 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
       <div class="space-y-4">
         <slot name="left"></slot>
 
-        <div class="grid grid-cols-1 gap-8 rounded-lg border p-4">
+        <div class="grid grid-cols-1 gap-8 rounded-lg border p-4 bg-card">
           <slot></slot>
 
           <FormField v-slot="{ componentField }" name="type">
@@ -97,7 +97,7 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
           v-if="!forceVeto"
         >
           <FormItem
-            class="flex flex-col space-y-3 rounded-lg border p-4 cursor-pointer hover:bg-accent"
+            class="flex flex-col space-y-3 rounded-lg border p-4 cursor-pointer bg-card hover:bg-accent/50 transition-colors"
             @click="handleChange(!value)"
           >
             <div class="flex justify-between items-center">
@@ -288,11 +288,11 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
                 }}
               </span>
               <Button type="button" variant="ghost" size="icon" class="h-8 w-8">
-                <ChevronDown
+                <ChevronUp
                   v-if="showAdvancedSettings"
                   class="h-4 w-4 transition-transform duration-200"
                 />
-                <ChevronUp
+                <ChevronDown
                   v-else
                   class="h-4 w-4 transition-transform duration-200"
                 />
@@ -308,7 +308,7 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
           <div class="flex flex-col gap-4">
             <FormField v-slot="{ value, handleChange }" name="overtime">
               <FormItem
-                class="flex flex-col space-y-3 rounded-lg border p-4 cursor-pointer hover:bg-accent"
+                class="flex flex-col space-y-3 rounded-lg border p-4 cursor-pointer bg-card hover:bg-accent/50 transition-colors"
                 @click="handleChange(!value)"
               >
                 <div class="flex justify-between items-center">
@@ -331,7 +331,7 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
 
             <FormField v-slot="{ value, handleChange }" name="knife_round">
               <FormItem
-                class="flex flex-col space-y-3 rounded-lg border p-4 cursor-pointer hover:bg-accent"
+                class="flex flex-col space-y-3 rounded-lg border p-4 cursor-pointer bg-card hover:bg-accent/50 transition-colors"
                 @click="handleChange(!value)"
               >
                 <div class="flex justify-between items-center">
@@ -352,7 +352,7 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
               </FormItem>
             </FormField>
 
-            <div class="grid grid-cols-1 gap-8 rounded-lg border p-4">
+            <div class="grid grid-cols-1 gap-8 rounded-lg border p-4 bg-card">
               <FormField v-slot="{ componentField }" name="mr">
                 <FormItem>
                   <FormLabel class="text-lg font-semibold">{{
@@ -411,7 +411,7 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
               <CardContent class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <FormField v-slot="{ value, handleChange }" name="region_veto">
                   <FormItem
-                    class="flex flex-col space-y-3 rounded-lg border p-4 cursor-pointer hover:bg-accent"
+                    class="flex flex-col space-y-3 rounded-lg border p-4 cursor-pointer bg-card hover:bg-accent/50 transition-colors"
                     :class="{
                       'cursor-not-allowed': form.values.lan,
                     }"
@@ -586,7 +586,7 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
               </CardContent>
             </Card>
 
-            <div class="flex flex-col space-y-3 rounded-lg border p-4">
+            <div class="flex flex-col space-y-3 rounded-lg border p-4 bg-card">
               <FormField v-slot="{ value }" name="number_of_substitutes">
                 <FormItem>
                   <FormLabel class="text-lg font-semibold">{{
@@ -656,7 +656,7 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
               </FormField>
             </div>
 
-            <div class="flex flex-col space-y-3 rounded-lg border p-4">
+            <div class="flex flex-col space-y-3 rounded-lg border p-4 bg-card">
               <FormField v-slot="{ componentField }" name="ready_setting">
                 <FormItem>
                   <FormLabel class="text-lg font-semibold">{{
@@ -690,7 +690,7 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
               </FormField>
             </div>
 
-            <div class="flex flex-col space-y-3 rounded-lg border p-4">
+            <div class="flex flex-col space-y-3 rounded-lg border p-4 bg-card">
               <FormField v-slot="{ componentField }" name="timeout_setting">
                 <FormItem>
                   <FormLabel class="text-lg font-semibold">{{
