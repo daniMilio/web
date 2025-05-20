@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import PlayerDisplay from "~/components/PlayerDisplay.vue";
 import PlayerSearch from "~/components/PlayerSearch.vue";
-import { CheckIcon, XIcon } from "lucide-vue-next";
+import { CheckIcon, XIcon, LogOut } from "lucide-vue-next";
 import FriendsList from "./FriendsList.vue";
 import { Mail } from "lucide-vue-next";
 import MatchmakingLobbyAccess from "~/components/matchmaking-lobby/MatchmakingLobbyAccess.vue";
@@ -15,14 +15,8 @@ import MatchmakingLobbyAccess from "~/components/matchmaking-lobby/MatchmakingLo
           <h3 class="text-lg font-medium">
             {{ $t("matchmaking.lobby.title") }}
           </h3>
-          <MatchmakingLobbyAccess :lobby="currentLobby" />
+          <!--<MatchmakingLobbyAccess :lobby="currentLobby" />-->
         </div>
-        <Button
-          variant="outline"
-          @click="removeFromLobby(currentLobby.id, me?.steam_id)"
-        >
-          {{ $t("matchmaking.lobby.leave") }}
-        </Button>
       </div>
 
       <player-search
@@ -46,19 +40,29 @@ import MatchmakingLobbyAccess from "~/components/matchmaking-lobby/MatchmakingLo
             :showName="!mini"
             :showFlag="!mini"
           />
-          <Button
-            variant="destructive"
-            size="icon"
-            @click="removeFromLobby(currentLobby.id, player.player.steam_id)"
-            v-if="
-              !mini &&
-              (player.status === 'Invited' || player.status === 'Accepted') &&
-              player.player.steam_id !== me?.steam_id &&
-              isCaptain
-            "
-          >
-            <XIcon class="h-4 w-4" />
-          </Button>
+          <div class="flex gap-2">
+            <Button
+              variant="destructive"
+              size="icon"
+              @click="removeFromLobby(currentLobby.id, player.player.steam_id)"
+              v-if="
+                !mini &&
+                (player.status === 'Invited' || player.status === 'Accepted') &&
+                player.player.steam_id !== me?.steam_id &&
+                isCaptain
+              "
+            >
+              <XIcon class="h-4 w-4" />
+            </Button>
+            <Button
+              variant="destructive"
+              size="icon"
+              @click="removeFromLobby(currentLobby.id, me?.steam_id)"
+              v-if="!mini && player.player.steam_id === me?.steam_id"
+            >
+              <LogOut class="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </template>
     </template>
