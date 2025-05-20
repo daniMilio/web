@@ -57,9 +57,9 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
               <div class="flex items-stretch w-full">
                 <div class="flex-1">
                   <NuxtLink :to="{ name: 'players-id', params: { id: player.steam_id } }" custom v-slot="{ navigate }">
-                    <div @click="navigate" class="block">
+                    <div @click="navigate" class="block h-full">
                       <PlayerDisplay
-                        class="w-full cursor-pointer opacity-50 hover:opacity-80 hover:bg-muted/50 transition-all duration-200 p-2 rounded-l-md"
+                        class="w-full h-full cursor-pointer opacity-50 hover:opacity-80 hover:bg-muted/50 transition-all duration-200 p-2 rounded-l-md"
                         :player="player"
                         :showOnline="false"
                         :showAddFriend="false"
@@ -79,9 +79,9 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
             <template v-else>
               <FriendOptions :player="player" :hideInvite="isLobbyFull">
                 <NuxtLink :to="{ name: 'players-id', params: { id: player.steam_id } }" custom v-slot="{ navigate }">
-                  <div @click="navigate" class="block">
+                  <div @click="navigate" class="block h-full">
                     <PlayerDisplay
-                      class="w-full cursor-pointer hover:opacity-80 hover:bg-muted/50 transition-all duration-200 p-2 rounded-l-md"
+                      class="w-full h-full cursor-pointer hover:opacity-80 hover:bg-muted/50 transition-all duration-200 p-2 rounded-l-md"
                       :player="player"
                       :showOnline="false"
                       :showAddFriend="false"
@@ -104,9 +104,9 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
             <div v-for="player in onlineFriends">
               <FriendOptions :player="player" :hideInvite="isLobbyFull">
                 <NuxtLink :to="{ name: 'players-id', params: { id: player.steam_id } }" custom v-slot="{ navigate }">
-                  <div @click="navigate" class="block">
+                  <div @click="navigate" class="block h-full">
                     <PlayerDisplay
-                      class="w-full cursor-pointer hover:opacity-80 hover:bg-muted/50 transition-all duration-200 p-2 rounded-l-md"
+                      class="w-full h-full cursor-pointer hover:opacity-80 hover:bg-muted/50 transition-all duration-200 p-2 rounded-l-md"
                       :player="player"
                       :showOnline="false"
                       :showAddFriend="false"
@@ -133,7 +133,7 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
                     v-for="{ player } in player.player.lobby_players?.at(0)
                       ?.lobby.players"
                   >
-                    <NuxtLink :to="{ name: 'players-id', params: { id: player.steam_id } }" class="block">
+                    <NuxtLink :to="{ name: 'players-id', params: { id: player.steam_id } }" class="block h-full">
                       <PlayerDisplay
                         class="p-2"
                         :player="player"
@@ -165,9 +165,9 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
           <template v-for="player in offlineFriends">
             <FriendOptions :player="player" :hideInvite="true">
               <NuxtLink :to="{ name: 'players-id', params: { id: player.steam_id } }" custom v-slot="{ navigate }">
-                <div @click="navigate" class="block">
+                <div @click="navigate" class="block h-full">
                   <PlayerDisplay
-                    class="opacity-50 cursor-pointer hover:opacity-80 hover:bg-muted/50 transition-all duration-200 p-2 rounded-l-md"
+                    class="w-full h-full opacity-50 cursor-pointer hover:opacity-80 hover:bg-muted/50 transition-all duration-200 p-2 rounded-l-md"
                     :player="player"
                     :showOnline="false"
                     :showAddFriend="false"
