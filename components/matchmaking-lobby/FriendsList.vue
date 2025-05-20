@@ -47,10 +47,14 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
     ></player-search>
 
     <div class="overflow-auto mt-4">
-      <div class="flex flex-col gap-4">
+      <div class="flex flex-col">
         <div v-if="pendingFriends?.length > 0">
-          <div class="mb-2 font-medium text-sm text-muted-foreground">
-            {{ $t("matchmaking.friends.pending_requests") }}
+          <div class="flex items-center justify-center my-4">
+            <Separator class="flex-1" />
+            <span class="px-4 text-sm text-muted-foreground">
+              {{ $t("matchmaking.friends.pending_requests") }}
+            </span>
+            <Separator class="flex-1" />
           </div>
           <template v-for="player in pendingFriends">
             <template v-if="player.invited_by_steam_id === me.steam_id">
@@ -94,12 +98,12 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
         </div>
         <div>
           <template v-if="onlineFriends?.length > 0">
-            <div class="mb-2 font-medium text-sm">
-              {{
-                $t("matchmaking.friends.online", {
-                  count: onlineFriends.length,
-                })
-              }}
+            <div class="flex items-center justify-center my-4 text-sm">
+              <Separator class="flex-1" />
+              <span class="px-4 text-sm">
+                {{ $t("matchmaking.friends.online", { count: onlineFriends.length }) }}
+              </span>
+              <Separator class="flex-1" />
             </div>
             <div v-for="player in onlineFriends">
               <FriendOptions :player="player" :hideInvite="isLobbyFull">
@@ -110,6 +114,13 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
                       :player="player"
                       :showOnline="false"
                       :showAddFriend="false"
+                      :showRole="true"
+                      :showElo="false"
+                      :friendlistMode="true"
+                      :showTooltip="true"
+                      :tooltipShowWinRate="true"
+                      :tooltipShowHS="true"
+                      :tooltipShowKD="true"
                     />
                   </div>
                 </NuxtLink>
@@ -152,15 +163,14 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
           </template>
         </div>
 
-        <Separator v-if="onlineFriends?.length > 0" />
 
-        <div class="flex flex-col gap-4">
-          <div class="mb-2 font-medium text-sm text-muted-foreground">
-            {{
-              $t("matchmaking.friends.offline", {
-                count: offlineFriends.length,
-              })
-            }}
+        <div class="flex flex-col text-sm text-muted-foreground">
+          <div v-if="offlineFriends?.length > 0" class="flex items-center justify-center my-4">
+            <Separator class="flex-1" />
+            <span class="px-4 text-sm font-medium text-muted-foreground">
+              {{ $t("matchmaking.friends.offline", { count: offlineFriends.length }) }}
+            </span>
+            <Separator class="flex-1" />
           </div>
           <template v-for="player in offlineFriends">
             <FriendOptions :player="player" :hideInvite="true">
@@ -169,8 +179,15 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
                   <PlayerDisplay
                     class="opacity-50 cursor-pointer hover:opacity-80 hover:bg-muted/50 transition-all duration-200 p-2 rounded-l-md"
                     :player="player"
-                    :showOnline="false"
-                    :showAddFriend="false"
+                      :showOnline="false"
+                      :showAddFriend="false"
+                      :showRole="true"
+                      :showElo="false"
+                      :friendlistMode="true"
+                      :showTooltip="true"
+                      :tooltipShowWinRate="true"
+                      :tooltipShowHS="true"
+                      :tooltipShowKD="true"
                   />
                 </div>
               </NuxtLink>

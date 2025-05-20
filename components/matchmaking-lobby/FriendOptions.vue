@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Plus, Check, Ban } from "lucide-vue-next";
 
-const buttonClass = "flex items-center justify-center px-3 hover:bg-gray-100 rounded-r-lg transition-colors border-l border-l-gray-200 group h-full min-h-[64px] focus:outline-none focus:ring-0 active:outline-none active:ring-0 focus:shadow-none active:shadow-none border-transparent focus:border-transparent active:border-transparent button-artifact-fix";
+const buttonClass = "flex items-center justify-center px-3 hover:bg-gray-100 rounded-r-lg transition-colors border-l border-l-gray-200 group focus:outline-none focus:ring-0 active:outline-none active:ring-0 focus:shadow-none active:shadow-none border-transparent focus:border-transparent active:border-transparent button-artifact-fix";
 </script>
 
 <template>
@@ -15,7 +15,7 @@ const buttonClass = "flex items-center justify-center px-3 hover:bg-gray-100 rou
         <div class="flex flex-col">
           <button
             type="button"
-            class="flex items-center justify-center px-3 hover:bg-gray-100 transition-colors border-l border-l-gray-200 group h-8 focus:outline-none focus:ring-0 active:outline-none active:ring-0 focus:shadow-none active:shadow-none border-transparent focus:border-transparent active:border-transparent button-artifact-fix rounded-tr-lg"
+            class="flex items-center justify-center px-3 hover:bg-gray-100 transition-colors border-l border-l-gray-200 group h-7 focus:outline-none focus:ring-0 active:outline-none active:ring-0 focus:shadow-none active:shadow-none border-transparent focus:border-transparent active:border-transparent button-artifact-fix rounded-tr-lg"
             @click="acceptFriend"
           >
             <Check
@@ -25,7 +25,7 @@ const buttonClass = "flex items-center justify-center px-3 hover:bg-gray-100 rou
           <div class="h-px w-full bg-gray-200"></div>
           <button
             type="button"
-            class="flex items-center justify-center px-3 hover:bg-gray-100 transition-colors border-l border-l-gray-200 group h-8 focus:outline-none focus:ring-0 active:outline-none active:ring-0 focus:shadow-none active:shadow-none border-transparent focus:border-transparent active:border-transparent button-artifact-fix rounded-br-lg"
+            class="flex items-center justify-center px-3 hover:bg-gray-100 transition-colors border-l border-l-gray-200 group h-7 focus:outline-none focus:ring-0 active:outline-none active:ring-0 focus:shadow-none active:shadow-none border-transparent focus:border-transparent active:border-transparent button-artifact-fix rounded-br-lg"
             @click="denyFriend"
           >
             <Ban
