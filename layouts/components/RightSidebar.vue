@@ -56,6 +56,11 @@ const isLobbyFull = ref(false);
             </SidebarMenu>
           </SidebarGroup>
 
+          <SidebarGroup v-if="me.current_lobby_id" class="overflow-hidden">
+            <SidebarSeparator class="my-0" />
+            <FriendsList :mini="!rightSidebarOpen" :isLobbyFull="isLobbyFull" />
+          </SidebarGroup>
+          
           <SidebarGroup v-if="me.current_lobby_id">
             <ChatBox
               instance="matchmaking"
@@ -63,11 +68,6 @@ const isLobbyFull = ref(false);
               type="matchmaking"
               v-show="rightSidebarOpen"
             />
-          </SidebarGroup>
-
-          <SidebarGroup v-if="me.current_lobby_id" class="overflow-hidden">
-            <SidebarSeparator class="my-4" />
-            <FriendsList :mini="!rightSidebarOpen" :isLobbyFull="isLobbyFull" />
           </SidebarGroup>
         </SidebarContent>
       </Sidebar>
