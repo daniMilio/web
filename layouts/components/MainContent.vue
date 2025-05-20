@@ -5,7 +5,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="flex-1" :class="{ 'md:pr-[24rem]': !isMedium }">
+  <div class="flex-1" :class="{ 'md:pr-[calc(var(--sidebar-width)+1rem)]': !isMedium }">
     <SidebarProvider class="bg-muted/40 h-full" v-slot="{ open, isMobile }">
       <SidebarInset
         id="main"

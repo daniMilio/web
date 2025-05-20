@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { BookUser } from "lucide-vue-next";
 import MatchmakingLobby from "~/components/matchmaking-lobby/MatchmakingLobby.vue";
-import ChatLobby from "~/components/chat/ChatLobby.vue";
+import ChatBox from "~/components/chat/ChatBox.vue";
 import FriendsList from "~/components/matchmaking-lobby/FriendsList.vue";
 import { ref } from "vue";
 
@@ -19,7 +19,7 @@ const isLobbyFull = ref(false);
   <div
     id="right-sidebar"
     class="duration-200 w-[--sidebar-width] transition-[width] ease-linear group-data-[collapsible=offcanvas]:w-0 group-data-[side=right]:rotate-180 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4))] border-l h-[calc(100vh-57px)] bg-sidebar fixed right-0 top-[57px]"
-    style="--sidebar-width: 24rem; --sidebar-width-icon: 4.25rem"
+    style="--sidebar-width: 16rem; --sidebar-width-icon: 4.25rem"
     v-show="!isMedium"
   >
     <div
@@ -57,7 +57,7 @@ const isLobbyFull = ref(false);
           </SidebarGroup>
 
           <SidebarGroup v-if="me.current_lobby_id">
-            <ChatLobby
+            <ChatBox
               instance="matchmaking"
               :lobby-id="me.current_lobby_id"
               type="matchmaking"
