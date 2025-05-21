@@ -11,13 +11,14 @@ import { FormControl, FormField, FormItem } from "~/components/ui/form";
   <div
     class="relative flex max-h-[500px] min-h-[25vh] flex-col rounded-xl bg-muted/50 p-4"
   >
-    <div class="absolute right-3 top-3">
+    <!--<div class="absolute right-3 top-3">
       <div class="flex">
         <Badge variant="secondary">
           <slot name="chat-label">{{ $t("chat.lobby_chat") }}</slot>
         </Badge>
       </div>
     </div>
+    -->
 
     <div class="flex-1 overflow-y-auto max-h-screen" ref="chatMessages">
       <ChatMessage
