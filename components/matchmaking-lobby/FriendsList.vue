@@ -30,7 +30,7 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
   </template>
 
   <template v-else>
-    <div class="flex items-center justify-between my-4">
+    <div class="flex items-center justify-between my-0">
       <h3 class="text-lg font-medium">
         {{ $t("matchmaking.friends.title") }}
         <span class="text-sm text-muted-foreground">
@@ -42,7 +42,7 @@ import PlayerSearch from "~/components/PlayerSearch.vue";
     <player-search
       :label="$t('matchmaking.friends.search')"
       :self="false"
-      @selected="(player) => addAsFriend(player.steam_id)"
+      @selected="(player) => navigateTo(`/players/${player.steam_id}`)"
       :exclude="friends?.map((friend) => friend.steam_id)"
     ></player-search>
 

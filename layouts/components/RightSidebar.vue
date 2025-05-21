@@ -46,18 +46,7 @@ const isLobbyFull = ref(false);
         :class="{ 'cursor-pointer': !rightSidebarOpen }"
       >
         <SidebarContent class="h-full overflow-y-auto">
-          <SidebarGroup
-            :class="{ 'overflow-hidden': !me.current_lobby_id }"
-          >
-            <SidebarMenu
-              :class="{ 'overflow-hidden': !me.current_lobby_id }"
-            >
-              <MatchmakingLobby :mini="!rightSidebarOpen" v-model:isLobbyFull="isLobbyFull" />
-            </SidebarMenu>
-          </SidebarGroup>
-
-          <SidebarGroup v-if="me.current_lobby_id" class="overflow-hidden">
-            <SidebarSeparator class="my-0" />
+          <SidebarGroup class="overflow-hidden">
             <FriendsList :mini="!rightSidebarOpen" :isLobbyFull="isLobbyFull" />
           </SidebarGroup>
           

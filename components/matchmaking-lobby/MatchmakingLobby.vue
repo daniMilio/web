@@ -1,14 +1,53 @@
 <script setup lang="ts">
 import PlayerDisplay from "~/components/PlayerDisplay.vue";
 import PlayerSearch from "~/components/PlayerSearch.vue";
-import { CheckIcon, XIcon, LogOut } from "lucide-vue-next";
+import { CheckIcon, XIcon, LogOut, Users } from "lucide-vue-next";
 import FriendsList from "./FriendsList.vue";
 import { Mail } from "lucide-vue-next";
 import MatchmakingLobbyAccess from "~/components/matchmaking-lobby/MatchmakingLobbyAccess.vue";
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 overflow-auto">
+  <div v-if="navbar && currentLobby && currentLobby.players.length > 0" class="flex items-center justify-start bg-[#181A20] border border-[#23262F] rounded-full px-3 py-1 w-fit">
+    <Users class="w-5 h-5 text-[#777] mr-2" />
+    <div class="flex items-center">
+      <div
+        v-for="player in currentLobby.players"
+        class="relative group"
+      >
+        <NuxtLink :to="{ name: 'players-id', params: { id: player.player.steam_id } }" custom v-slot="{ navigate }">
+          <div @click="navigate" class="cursor-pointer">
+            <PlayerDisplay
+              :player="player.player"
+              :avatarOnly="true"
+              :showOnline="false"
+              size="xs"
+            />
+          </div>
+        </NuxtLink>
+        <button
+          v-if="(player.status === 'Invited' || player.status === 'Accepted') &&
+                  player.player.steam_id !== me?.steam_id &&
+                  isCaptain"
+          @click="removeFromLobby(currentLobby.id, player.player.steam_id)"
+          class="absolute left-1/2 bottom-0 bg-red-600 rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+          style="transform: translate(-50%,50%);"
+          title="Remove player"
+        >
+          <XIcon class="w-3 h-3 text-white" />
+        </button>
+      </div>
+    </div>
+    <button
+      v-if="currentLobby.players.some(p => p.player.steam_id === me?.steam_id)"
+      @click="removeFromLobby(currentLobby.id, me?.steam_id)"
+      class="ml-2 bg-red-600 rounded-full px-2 py-1 text-xs text-white font-semibold hover:bg-red-700 transition-colors"
+      title="Leave lobby"
+    >
+      {{$t('matchmaking.lobby.leave')}}
+    </button>
+  </div>
+  <div v-else class="flex flex-col gap-4 overflow-auto">
     <template v-if="currentLobby">
       <div class="flex flex-row justify-between items-center" v-if="!mini">
         <div class="flex flex-row items-center gap-2">
@@ -132,6 +171,14 @@ import { $ } from "~/generated/zeus";
 export default {
   props: {
     mini: {
+      type: Boolean,
+      default: false,
+    },
+    navbar: {
+      type: Boolean,
+      default: false,
+    },
+    avatarOnly: {
       type: Boolean,
       default: false,
     },

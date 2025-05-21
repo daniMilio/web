@@ -7,6 +7,7 @@ import SystemUpdate from "./SystemUpdate.vue";
 import RegionStatuses from "~/components/RegionStatuses.vue";
 import AppNotifications from "./AppNotifications.vue";
 import PlayerDisplay from "~/components/PlayerDisplay.vue";
+import MatchmakingLobby from "~/components/matchmaking-lobby/MatchmakingLobby.vue";
 import {
   Popover,
   PopoverContent,
@@ -44,6 +45,11 @@ const isRouteActive = (route: string) => {
 
 <template>
   <div class="flex items-center space-x-4">
+    <MatchmakingLobby 
+      v-if="me?.current_lobby_id"
+      :navbar="true"
+      :avatarOnly="true"
+    />
     <MatchLobbies></MatchLobbies>
     <SystemUpdate v-if="isAdmin"></SystemUpdate>
     <Popover v-if="me?.role === e_player_roles_enum.administrator">
