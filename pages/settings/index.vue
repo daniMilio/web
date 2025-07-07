@@ -28,20 +28,7 @@ const currentLocale = computed(() => {
 const handleLocaleChange = (
   newLocale:
     | "en"
-    | "sv"
-    | "ua"
-    | "ko"
-    | "ja"
-    | "de"
-    | "fr"
-    | "it"
-    | "es"
-    | "da"
-    | "pl"
-    | "ru"
-    | "lv"
-    | "pt-BR"
-    | "zh",
+    | "sv",
 ) => {
   setLocale(newLocale);
 };
